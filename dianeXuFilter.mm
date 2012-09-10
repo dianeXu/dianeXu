@@ -1,5 +1,5 @@
 //
-//  dianeXuFilter.m
+//  dianeXuFilter.mm
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012 Dipl.Ing.(FH) Bj√∂rn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import "dianeXuFilter.h"

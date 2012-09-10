@@ -12,7 +12,7 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		ABA48A650680BB600089EB4F /* dianeXuFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = ABA48A640680BB600089EB4F /* dianeXuFilter.h */; };
-		ABA48A670680BB690089EB4F /* dianeXuFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA48A660680BB690089EB4F /* dianeXuFilter.m */; };
+		ABA48A670680BB690089EB4F /* dianeXuFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABA48A660680BB690089EB4F /* dianeXuFilter.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +24,8 @@
 		8420023112E829A200E1E9CE /* OsiriXAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OsiriXAPI.framework; sourceTree = "<group>"; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB5D36050680E57E00F4007A /* dianeXu.osirixplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dianeXu.osirixplugin; sourceTree = BUILT_PRODUCTS_DIR; };
-		ABA48A640680BB600089EB4F /* dianeXuFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dianeXuFilter.h; sourceTree = "<group>"; };
-		ABA48A660680BB690089EB4F /* dianeXuFilter.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = dianeXuFilter.m; sourceTree = "<group>"; };
+		ABA48A640680BB600089EB4F /* dianeXuFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuFilter.h; sourceTree = "<group>"; };
+		ABA48A660680BB690089EB4F /* dianeXuFilter.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = dianeXuFilter.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				ABA48A640680BB600089EB4F /* dianeXuFilter.h */,
-				ABA48A660680BB690089EB4F /* dianeXuFilter.m */,
+				ABA48A660680BB690089EB4F /* dianeXuFilter.mm */,
 			);
 			name = dianeXuFilter;
 			sourceTree = "<group>";
@@ -210,7 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABA48A670680BB690089EB4F /* dianeXuFilter.m in Sources */,
+				ABA48A670680BB690089EB4F /* dianeXuFilter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

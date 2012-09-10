@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012 Dipl.Ing.(FH) Bj√∂rn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
