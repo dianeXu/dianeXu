@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'dianeXu' target in the 'dianeXu' project.
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <AppKit/AppKit.h>
+#endif
