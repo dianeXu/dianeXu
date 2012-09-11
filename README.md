@@ -1,6 +1,7 @@
 #dianeXu
 ###Open Source Automated Left Atrial Fibrosis Quantization on the OrisiX Platform
 Copyright (C) 2012  Björn Schwarz (beegz@dianeXu.com)
+
 http://dianeXu.com
 
 ##0. License
