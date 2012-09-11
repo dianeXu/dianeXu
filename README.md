@@ -4,7 +4,7 @@ Copyright (C) 2012  Björn Schwarz (beegz@dianeXu.com)
 
 http://dianeXu.com
 
-##0. License
+###0. License
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
