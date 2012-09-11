@@ -1,5 +1,5 @@
 //
-//  dianeXuFilter.mm
+//  dianeXuPreferencesController.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -18,27 +18,11 @@
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
-#import "dianeXuFilter.h"
-#import <OsiriXAPI/PreferencesWindowController.h>
+#import <PreferencePanes/PreferencePanes.h>
 
-@implementation dianeXuFilter
-
-- (void) initPlugin
+@interface dianeXuPreferencesController : NSPreferencePane
 {
-    //Add PreferencePane to OsiriX Preferences
-    [PreferencesWindowController addPluginPaneWithResourceNamed:@"dianeXuPreferences" inBundle:[NSBundle bundleForClass:[self class]] withTitle:@"dianeXu" image:[NSImage imageNamed:@"NSUser"]];
-}
-
-- (long) filterImage:(NSString*) menuName
-{
-	ViewerController	*new2DViewer;
-	
-	// In this plugin, we will simply duplicate the current 2D window!
-	
-	new2DViewer = [self duplicateCurrent2DViewerWindow];
-	
-	if( new2DViewer) return 0; // No Errors
-	else return -1;
+    
 }
 
 @end

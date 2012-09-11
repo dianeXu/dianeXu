@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03E1FA1815FF5A0000C59023 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E1FA1715FF5A0000C59023 /* PreferencePanes.framework */; };
+		03E1FA2F15FF5D6200C59023 /* dianeXuPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */; };
+		03E1FA3215FF658E00C59023 /* dianeXuPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E1F9F915FF56AF00C59023 /* dianeXuPreferences.xib */; };
+		03E1FA3515FF674900C59023 /* dianeXuPreferences.prefPane in Resources */ = {isa = PBXBuildFile; fileRef = 03E1FA1315FF5A0000C59023 /* dianeXuPreferences.prefPane */; };
 		8420023212E829A200E1E9CE /* OsiriXAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8420023112E829A200E1E9CE /* OsiriXAPI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8D5B49AE048680CD000E48DA /* dianeXu_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCF630370AF2F00C91783 /* dianeXu_Prefix.pch */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -15,7 +19,23 @@
 		ABA48A670680BB690089EB4F /* dianeXuFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = ABA48A660680BB690089EB4F /* dianeXuFilter.mm */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		03E1FA3315FF671D00C59023 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03E1FA1215FF5A0000C59023;
+			remoteInfo = dianeXuPreferences;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		03E1F9F515FF55F600C59023 /* dianeXuPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuPreferencesController.h; sourceTree = "<group>"; };
+		03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuPreferencesController.m; sourceTree = "<group>"; };
+		03E1F9F915FF56AF00C59023 /* dianeXuPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = dianeXuPreferences.xib; sourceTree = "<group>"; };
+		03E1FA1315FF5A0000C59023 /* dianeXuPreferences.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dianeXuPreferences.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
+		03E1FA1715FF5A0000C59023 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
+		03E1FA3015FF611E00C59023 /* dianeXuPreferences-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "dianeXuPreferences-Info.plist"; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -29,6 +49,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		03E1FA0E15FF5A0000C59023 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03E1FA1815FF5A0000C59023 /* PreferencePanes.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D5B49B3048680CD000E48DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -41,6 +69,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03E1F9F415FF553E00C59023 /* dianeXuPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				03E1F9F515FF55F600C59023 /* dianeXuPreferencesController.h */,
+				03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */,
+			);
+			name = dianeXuPreferences;
+			sourceTree = "<group>";
+		};
 		089C166AFE841209C02AAC07 /* dianeXu */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,8 +103,10 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				03E1FA3015FF611E00C59023 /* dianeXuPreferences-Info.plist */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
+				03E1F9F915FF56AF00C59023 /* dianeXuPreferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -75,6 +114,7 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				03E1F9F415FF553E00C59023 /* dianeXuPreferences */,
 				AB2C26750677B0C400A08910 /* dianeXuFilter */,
 			);
 			name = Classes;
@@ -91,6 +131,7 @@
 		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03E1FA1715FF5A0000C59023 /* PreferencePanes.framework */,
 				089C1672FE841209C02AAC07 /* Foundation.framework */,
 				089C167FFE841241C02AAC07 /* AppKit.framework */,
 			);
@@ -101,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				AB5D36050680E57E00F4007A /* dianeXu.osirixplugin */,
+				03E1FA1315FF5A0000C59023 /* dianeXuPreferences.prefPane */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,6 +179,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		03E1FA1215FF5A0000C59023 /* dianeXuPreferences */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03E1FA2C15FF5A0000C59023 /* Build configuration list for PBXNativeTarget "dianeXuPreferences" */;
+			buildPhases = (
+				03E1FA1015FF5A0000C59023 /* Resources */,
+				03E1FA0D15FF5A0000C59023 /* Sources */,
+				03E1FA0E15FF5A0000C59023 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dianeXuPreferences;
+			productName = dianeXuPreferences;
+			productReference = 03E1FA1315FF5A0000C59023 /* dianeXuPreferences.prefPane */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D5B49AC048680CD000E48DA /* dianeXu */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE6A9A9008AC841300D0C1EE /* Build configuration list for PBXNativeTarget "dianeXu" */;
@@ -150,6 +209,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				03E1FA3415FF671D00C59023 /* PBXTargetDependency */,
 			);
 			name = dianeXu;
 			productInstallPath = "$(HOME)/Library/Bundles";
@@ -174,21 +234,32 @@
 				Japanese,
 				French,
 				German,
+				en,
 			);
 			mainGroup = 089C166AFE841209C02AAC07 /* dianeXu */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* dianeXu */,
+				03E1FA1215FF5A0000C59023 /* dianeXuPreferences */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		03E1FA1015FF5A0000C59023 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03E1FA3215FF658E00C59023 /* dianeXuPreferences.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D5B49AF048680CD000E48DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03E1FA3515FF674900C59023 /* dianeXuPreferences.prefPane in Resources */,
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +277,14 @@
 /* End PBXRezBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		03E1FA0D15FF5A0000C59023 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03E1FA2F15FF5D6200C59023 /* dianeXuPreferencesController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D5B49B1048680CD000E48DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,6 +294,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03E1FA3415FF671D00C59023 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03E1FA1215FF5A0000C59023 /* dianeXuPreferences */;
+			targetProxy = 03E1FA3315FF671D00C59023 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
@@ -228,6 +315,95 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		03E1FA2D15FF5A0000C59023 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "dianeXuPreferences-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
+				WRAPPER_EXTENSION = prefPane;
+				ZERO_LINK = "";
+			};
+			name = Development;
+		};
+		03E1FA2E15FF5A0000C59023 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "dianeXuPreferences-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
+				WRAPPER_EXTENSION = bundle;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
 		CE6A9A9108AC841300D0C1EE /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -339,6 +515,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		03E1FA2C15FF5A0000C59023 /* Build configuration list for PBXNativeTarget "dianeXuPreferences" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03E1FA2D15FF5A0000C59023 /* Development */,
+				03E1FA2E15FF5A0000C59023 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		CE6A9A9008AC841300D0C1EE /* Build configuration list for PBXNativeTarget "dianeXu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
