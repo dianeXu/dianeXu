@@ -33,10 +33,10 @@
 {
     //Plugin Conditions: Ask for medical usage agreement
     int alertResult;
-    alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. It's purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
+    alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. Its purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
     if (alertResult == NSAlertDefaultReturn)
     {
-        return -1;
+        return 0;
     }
     
         
