@@ -32,7 +32,9 @@
 - (long) filterImage:(NSString*) menuName
 {
     //Plugin Conditions: Ask for medical usage agreement
-    if (NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. It's purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil) ==NSAlertDefaultReturn)
+    int alertResult;
+    alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. It's purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
+    if (alertResult == NSAlertDefaultReturn)
     {
         return -1;
     }
