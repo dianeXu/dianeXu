@@ -31,6 +31,13 @@
 
 - (long) filterImage:(NSString*) menuName
 {
+    //Plugin Conditions: Ask for medical usage agreement
+    if (NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. It's purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil) ==NSAlertDefaultReturn)
+    {
+        return -1;
+    }
+    
+        
 	ViewerController	*new2DViewer;
 	
 	// In this plugin, we will simply duplicate the current 2D window!
