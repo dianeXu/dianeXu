@@ -1,5 +1,5 @@
 //
-//  dianeXuFilter.m
+//  dianeXuPreferencesController.m
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -15,27 +15,11 @@
 //  You should have received a copy of the GNU General Public License
 //  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012 Dipl.Ing.(FH) Bj√∂rn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
-#import "dianeXuFilter.h"
+#import "dianeXuPreferencesController.h"
 
-@implementation dianeXuFilter
-
-- (void) initPlugin
-{
-}
-
-- (long) filterImage:(NSString*) menuName
-{
-	ViewerController	*new2DViewer;
-	
-	// In this plugin, we will simply duplicate the current 2D window!
-	
-	new2DViewer = [self duplicateCurrent2DViewerWindow];
-	
-	if( new2DViewer) return 0; // No Errors
-	else return -1;
-}
+@implementation dianeXuPreferencesController
 
 @end

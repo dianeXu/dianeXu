@@ -1,5 +1,5 @@
 //
-//  dianeXuFilter.h
+//  dianeXuPreferencesController.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -18,13 +18,11 @@
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <OsiriXAPI/PluginFilter.h>
+#import <PreferencePanes/PreferencePanes.h>
 
-@interface dianeXuFilter : PluginFilter {
-
+@interface dianeXuPreferencesController : NSPreferencePane
+{
+    
 }
-
-- (long) filterImage:(NSString*) menuName;
 
 @end
