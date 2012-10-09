@@ -36,7 +36,7 @@
     alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. Its purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
     if (alertResult == NSAlertDefaultReturn)
     {
-        return 0;
+        return 0; //end prematurely with no errors
     }
     
         
