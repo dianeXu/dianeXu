@@ -25,4 +25,8 @@
     
 }
 
+- (IBAction)openProjectURL:(id)sender;
+- (IBAction)openBugtrackerURL:(id)sender;
+
+
 @end
