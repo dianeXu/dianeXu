@@ -23,10 +23,10 @@
 @implementation dianeXuPreferencesController
 
 
+//URL reference opening via click
 - (IBAction)openBugtrackerURL:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://traq.dianeXu.com"]];
 }
-
 - (IBAction)openProjectURL:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.dianeXu.com"]];
 }

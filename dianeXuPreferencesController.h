@@ -25,6 +25,7 @@
     
 }
 
+//URL reference opening via click
 - (IBAction)openProjectURL:(id)sender;
 - (IBAction)openBugtrackerURL:(id)sender;
 
