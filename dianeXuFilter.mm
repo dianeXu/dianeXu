@@ -39,7 +39,8 @@
         return 0; //end prematurely with no errors
     }
     
-        
+    
+    /*
 	ViewerController	*new2DViewer;
 	
 	// In this plugin, we will simply duplicate the current 2D window!
@@ -47,7 +48,11 @@
 	new2DViewer = [self duplicateCurrent2DViewerWindow];
 	
 	if( new2DViewer) return 0; // No Errors
-	else return -1;
+	else return -1;*/
+    
+    return 0;
+    
+    
 }
 
 @end
