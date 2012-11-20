@@ -34,7 +34,7 @@
     self = [super initWithWindow:window];
     if (self) {
         //set properties
-        currentStep = 1;
+        currentStep = 0;
     }
     
     return self;
@@ -71,15 +71,23 @@
 {
     switch (toStep) {
         case 1:
-            [self updateStatus:@"Testing Status"];
             [self showStatus];
+            [self updateStatus:@"Step 1":0];
             break;
             
         case 2:
-            [statusWindow setStatusPercent:20];
+            [self updateStatus:@"Step 2":20];
             break;
             
         case 3:
+            [self updateStatus:@"Step 3":50];
+            break;
+            
+        case 4:
+            [self updateStatus:@"Step 4":75];
+            break;
+            
+        case 5:
             [self hideStatus];
             break;
             
@@ -94,9 +102,13 @@
     [[statusWindow window] setLevel:NSFloatingWindowLevel];
 }
 
-- (void)updateStatus: (NSString*)newStatusText
+- (void)updateStatus: (NSString*)newStatusText: (int)newPercentage
 {
-    [statusWindow setStatusText:newStatusText];
+    if (newStatusText != nil) {
+        [statusWindow setStatusText:newStatusText];
+    }
+    [statusWindow setStatusPercent:newPercentage];
+    
 }
 
 - (void)hideStatus

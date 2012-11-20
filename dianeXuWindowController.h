@@ -39,7 +39,7 @@
 
 - (void) updateStepGUI: (int)toStep;
 - (void) showStatus;
-- (void) updateStatus: (NSString*)newStatusText;
+- (void) updateStatus: (NSString*)newStatusText: (int)newPercentage;
 - (void) hideStatus;
 
 @end
