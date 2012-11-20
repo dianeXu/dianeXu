@@ -26,6 +26,8 @@
 
 @implementation dianeXuWindowController
 @synthesize currentStep;
+@synthesize buttonNext;
+@synthesize buttonPrev;
 @synthesize buttonInfo;
 @synthesize labelStep;
 
@@ -34,7 +36,7 @@
     self = [super initWithWindow:window];
     if (self) {
         //set properties
-        currentStep = 0;
+        currentStep = 1;
     }
     
     return self;
@@ -58,9 +60,12 @@
 }
 
 - (IBAction)pushPrev:(id)sender {
+    currentStep--; //decrement the Step
+    [self updateStepGUI:currentStep];
 }
 
 - (IBAction)pushQuit:(id)sender {
+    [[statusWindow window] orderOut:self];
     [[self window] orderOut:self];
 }
 
@@ -73,22 +78,32 @@
         case 1:
             [self showStatus];
             [self updateStatus:@"Step 1":0];
+            [buttonPrev setEnabled:FALSE];
+            [buttonNext setEnabled:TRUE];
             break;
             
         case 2:
             [self updateStatus:@"Step 2":20];
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
             break;
             
         case 3:
             [self updateStatus:@"Step 3":50];
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
             break;
             
         case 4:
             [self updateStatus:@"Step 4":75];
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
             break;
             
         case 5:
             [self hideStatus];
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:FALSE];
             break;
             
         default:
