@@ -21,12 +21,9 @@
 #import <Cocoa/Cocoa.h>
 
 @interface dianeXuStatusWindowController : NSWindowController {
-    int percentage;
+
 }
 
-@property (readwrite,assign) int percentage;
-
 - (void)setStatusText:(NSString *)myText;
-- (void)setStatusPercentage: (int)current: (int) total;
 
 @end

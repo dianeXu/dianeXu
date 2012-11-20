@@ -25,7 +25,6 @@
 @end
 
 @implementation dianeXuStatusWindowController
-@synthesize percentage;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -48,11 +47,6 @@
 {
     NSString *newText = [[NSString alloc] initWithFormat:@"dianeXu: %@",myText];
     [[self window] setTitle:newText];
-}
-
-- (void)setStatusPercentage: (int)current: (int) total
-{
-    [self setPercentage:(current/total)];
 }
 
 @end
