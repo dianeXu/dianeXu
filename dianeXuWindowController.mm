@@ -61,6 +61,7 @@
 }
 
 - (IBAction)pushQuit:(id)sender {
+    [[self window] orderOut:self];
 }
 
 - (IBAction)pushInfo:(id)sender {
@@ -70,8 +71,8 @@
 {
     switch (toStep) {
         case 1:
-            [self showStatus];
             [self updateStatus:@"Testing Status"];
+            [self showStatus];
             break;
             
         case 2:
