@@ -70,40 +70,40 @@
 }
 
 - (IBAction)pushInfo:(id)sender {
+    NSRunInformationalAlertPanel(@"DEBUG:", @"Infopopup", @"OK", nil, nil,nil);
 }
 
 - (void)updateStepGUI: (int)toStep
 {
     switch (toStep) {
         case 1:
-            [self showStatus];
-            [self updateStatus:@"Step 1":0];
             [buttonPrev setEnabled:FALSE];
             [buttonNext setEnabled:TRUE];
+            [labelStep setStringValue:@"Step 1:"];
             break;
             
         case 2:
-            [self updateStatus:@"Step 2":20];
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [labelStep setStringValue:@"Step 2:"];
             break;
             
         case 3:
-            [self updateStatus:@"Step 3":50];
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [labelStep setStringValue:@"Step 3:"];
             break;
             
         case 4:
-            [self updateStatus:@"Step 4":75];
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [labelStep setStringValue:@"Step 4:"];
             break;
             
         case 5:
-            [self hideStatus];
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:FALSE];
+            [labelStep setStringValue:@"Step 5:"];
             break;
             
         default:
