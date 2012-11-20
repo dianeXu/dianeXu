@@ -21,8 +21,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface dianeXuStatusWindowController : NSWindowController {
-
+    NSTextField *_statusText;
 }
+
+@property (assign) IBOutlet NSTextField *_statusText;
 
 - (void)setStatusText:(NSString *)myText;
 
