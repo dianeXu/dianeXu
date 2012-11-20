@@ -24,10 +24,19 @@
 @interface dianeXuWindowController : NSWindowController {
     int currentStep;
     dianeXuStatusWindowController* statusWindow;
+    NSButton *buttonInfo;
+    NSTextField *labelStep;
 }
 
-- (void) updateStepGUI;
+@property (assign) IBOutlet NSButton *buttonInfo;
+@property (assign) IBOutlet NSTextField *labelStep;
 
+- (IBAction)pushNext:(id)sender;
+- (IBAction)pushPrev:(id)sender;
+- (IBAction)pushQuit:(id)sender;
+- (IBAction)pushInfo:(id)sender;
+
+- (void) updateStepGUI;
 - (void) showStatus;
 - (void) updateStatus: (NSString*)newStatusText;
 - (void) hideStatus;

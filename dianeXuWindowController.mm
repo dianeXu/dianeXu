@@ -25,6 +25,8 @@
 @end
 
 @implementation dianeXuWindowController
+@synthesize buttonInfo;
+@synthesize labelStep;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -45,6 +47,18 @@
     if (statusWindow == nil) {
         statusWindow = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
     }
+}
+
+- (IBAction)pushNext:(id)sender {
+}
+
+- (IBAction)pushPrev:(id)sender {
+}
+
+- (IBAction)pushQuit:(id)sender {
+}
+
+- (IBAction)pushInfo:(id)sender {
 }
 
 - (void)updateStepGUI
