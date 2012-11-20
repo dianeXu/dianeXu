@@ -58,7 +58,7 @@
     [[statusWindow window] setLevel:NSFloatingWindowLevel];
 }
 
-- (void)updateStatus
+- (void)updateStatus: (NSString*)newStatusText
 {
     //TODO: insert code
 }

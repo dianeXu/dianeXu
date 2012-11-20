@@ -25,6 +25,7 @@
 @end
 
 @implementation dianeXuStatusWindowController
+@synthesize _statusText;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -41,6 +42,11 @@
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+}
+
+- (void)setStatusText:(NSString *)myText
+{
+    [_statusText setStringValue:myText];
 }
 
 @end

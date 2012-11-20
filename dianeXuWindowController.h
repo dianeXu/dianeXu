@@ -29,7 +29,7 @@
 - (void) updateStepGUI;
 
 - (void) showStatus;
-- (void) updateStatus;
+- (void) updateStatus: (NSString*)newStatusText;
 - (void) hideStatus;
 
 @end
