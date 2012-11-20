@@ -76,8 +76,13 @@
             break;
             
         case 2:
+            [statusWindow setStatusPercent:20];
+            break;
+            
+        case 3:
             [self hideStatus];
             break;
+            
         default:
             break;
     }

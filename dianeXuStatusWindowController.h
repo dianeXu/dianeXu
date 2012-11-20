@@ -22,10 +22,13 @@
 
 @interface dianeXuStatusWindowController : NSWindowController {
     NSTextField *_statusText;
+    int _statusPercent;
 }
 
 @property (assign) IBOutlet NSTextField *_statusText;
+@property (readwrite, assign) int _statusPercent;
 
 - (void)setStatusText:(NSString *)myText;
+- (void)setStatusPercent: (int)myPercent;
 
 @end

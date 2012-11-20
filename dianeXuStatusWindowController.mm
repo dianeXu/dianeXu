@@ -26,6 +26,7 @@
 
 @implementation dianeXuStatusWindowController
 @synthesize _statusText;
+@synthesize _statusPercent;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -47,6 +48,11 @@
 - (void)setStatusText:(NSString *)myText
 {
     [_statusText setStringValue:myText];
+}
+
+- (void)setStatusPercent:(int)myPercent
+{
+    [self set_statusPercent:myPercent];
 }
 
 @end
