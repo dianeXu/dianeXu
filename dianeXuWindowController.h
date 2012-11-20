@@ -22,10 +22,14 @@
 #import "dianeXuStatusWindowController.h"
 
 @interface dianeXuWindowController : NSWindowController {
+    int currentStep;
     dianeXuStatusWindowController* statusWindow;
 }
 
+- (void) updateStepGUI;
+
 - (void) showStatus;
+- (void) updateStatus;
 - (void) hideStatus;
 
 @end

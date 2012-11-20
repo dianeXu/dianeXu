@@ -30,7 +30,8 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        // Initialization code here.
+        currentStep = 0;
+        [self updateStepGUI];
     }
     
     return self;
@@ -46,10 +47,20 @@
     }
 }
 
+- (void)updateStepGUI
+{
+    //TODO: Insert Code
+}
+
 - (void)showStatus
 {
     [statusWindow showWindow:self];
     [[statusWindow window] setLevel:NSFloatingWindowLevel];
+}
+
+- (void)updateStatus
+{
+    //TODO: insert code
 }
 
 - (void)hideStatus
