@@ -34,11 +34,16 @@
     //Plugin Conditions: Ask for medical usage agreement
     int alertResult;
     alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. Its purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
-    if (alertResult == NSAlertDefaultReturn)
-    {
+    if (alertResult == NSAlertDefaultReturn) {
         return 0; //end prematurely with no errors
     }
     
+    //If already existent, create the main Window
+    if (mainWindow == nil) {
+        mainWindow = [[dianeXuWindowController alloc] initWithWindowNibName:@"dianeXuWindow"];
+    }
+    //show our plugin window
+    [mainWindow showWindow:self];
     
     /*
 	ViewerController	*new2DViewer;

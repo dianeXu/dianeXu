@@ -21,7 +21,10 @@
 #import <Foundation/Foundation.h>
 #import <OsiriXAPI/PluginFilter.h>
 
+#import "dianeXuWindowController.h"
+
 @interface dianeXuFilter : PluginFilter {
+    dianeXuWindowController* mainWindow;
 
 }
 

@@ -19,7 +19,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "dianeXuStatusWindowController.h"
 
-@interface dianeXuWindowController : NSWindowController
+@interface dianeXuWindowController : NSWindowController {
+    dianeXuStatusWindowController* statusWindow;
+}
+
+- (void) showStatus;
+- (void) hideStatus;
 
 @end

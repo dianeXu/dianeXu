@@ -356,13 +356,13 @@
 			path = ../osirix/osirix/Binaries/VTKLibs;
 			sourceTree = "<group>";
 		};
-		03FECFFF165A63160070F92A /* dianeXuWindows */ = {
+		03FECFFF165A63160070F92A /* dianeXuXIBs */ = {
 			isa = PBXGroup;
 			children = (
 				03729C61165B4FDA00096AAA /* dianeXuStatusWindow.xib */,
 				03FED014165A676F0070F92A /* dianeXuWindow.xib */,
 			);
-			name = dianeXuWindows;
+			name = dianeXuXIBs;
 			sourceTree = "<group>";
 		};
 		089C166AFE841209C02AAC07 /* dianeXu */ = {
@@ -391,7 +391,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				03FECFFF165A63160070F92A /* dianeXuWindows */,
+				03FECFFF165A63160070F92A /* dianeXuXIBs */,
 				03EA9F3516248712003F510A /* Preferences */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,

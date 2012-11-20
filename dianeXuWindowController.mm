@@ -40,7 +40,21 @@
 {
     [super windowDidLoad];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    //If already existent, create the status window
+    if (statusWindow == nil) {
+        statusWindow = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
+    }
+}
+
+- (void)showStatus
+{
+    [statusWindow showWindow:self];
+    [[statusWindow window] setLevel:NSFloatingWindowLevel];
+}
+
+- (void)hideStatus
+{
+    [[statusWindow window] orderOut:self];
 }
 
 @end
