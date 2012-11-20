@@ -25,6 +25,7 @@
 @end
 
 @implementation dianeXuWindowController
+@synthesize currentStep;
 @synthesize buttonInfo;
 @synthesize labelStep;
 
@@ -32,8 +33,8 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        currentStep = 0;
-        [self updateStepGUI];
+        //set properties
+        currentStep = 1;
     }
     
     return self;
@@ -43,13 +44,17 @@
 {
     [super windowDidLoad];
     
-    //If already existent, create the status window
+    //If not existent, create the status window
     if (statusWindow == nil) {
         statusWindow = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
     }
+    //update the GUI according to step
+    [self updateStepGUI:currentStep];
 }
 
 - (IBAction)pushNext:(id)sender {
+    currentStep++; //increment the Step
+    [self updateStepGUI:currentStep];
 }
 
 - (IBAction)pushPrev:(id)sender {
@@ -61,9 +66,20 @@
 - (IBAction)pushInfo:(id)sender {
 }
 
-- (void)updateStepGUI
+- (void)updateStepGUI: (int)toStep
 {
-    //TODO: Insert Code
+    switch (toStep) {
+        case 1:
+            [self showStatus];
+            [self updateStatus:@"Testing Status"];
+            break;
+            
+        case 2:
+            [self hideStatus];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)showStatus
@@ -74,7 +90,7 @@
 
 - (void)updateStatus: (NSString*)newStatusText
 {
-    //TODO: insert code
+    [statusWindow setStatusText:newStatusText];
 }
 
 - (void)hideStatus

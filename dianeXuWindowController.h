@@ -30,13 +30,14 @@
 
 @property (assign) IBOutlet NSButton *buttonInfo;
 @property (assign) IBOutlet NSTextField *labelStep;
+@property (assign) int currentStep;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
 
-- (void) updateStepGUI;
+- (void) updateStepGUI: (int)toStep;
 - (void) showStatus;
 - (void) updateStatus: (NSString*)newStatusText;
 - (void) hideStatus;
