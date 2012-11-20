@@ -25,7 +25,6 @@
 @end
 
 @implementation dianeXuStatusWindowController
-@synthesize _statusText;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -46,7 +45,8 @@
 
 - (void)setStatusText:(NSString *)myText
 {
-    [_statusText setStringValue:myText];
+    NSString *newText = [[NSString alloc] initWithFormat:@"dianeXu: %@",myText];
+    [[self window] setTitle:newText];
 }
 
 @end
