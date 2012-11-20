@@ -1,5 +1,5 @@
 //
-//  dianeXuWindowController.h
+//  dianeXuStatusWindowController.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -20,6 +20,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface dianeXuWindowController : NSWindowController
+@interface dianeXuStatusWindowController : NSWindowController
 
 @end

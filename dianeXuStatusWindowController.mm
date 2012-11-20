@@ -1,5 +1,5 @@
 //
-//  dianeXuWindowController.h
+//  dianeXuStatusWindowController.mm
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -18,8 +18,29 @@
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "dianeXuStatusWindowController.h"
 
-@interface dianeXuWindowController : NSWindowController
+@interface dianeXuStatusWindowController ()
+
+@end
+
+@implementation dianeXuStatusWindowController
+
+- (id)initWithWindow:(NSWindow *)window
+{
+    self = [super initWithWindow:window];
+    if (self) {
+        // Initialization code here.
+    }
+    
+    return self;
+}
+
+- (void)windowDidLoad
+{
+    [super windowDidLoad];
+    
+    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+}
 
 @end
