@@ -41,6 +41,8 @@
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
 
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
+
 - (void) updateStepGUI: (int)toStep;
 - (void) showStatus;
 - (void) updateStatus: (NSString*)newStatusText: (int)newPercentage;

@@ -36,7 +36,7 @@
     self = [super initWithWindow:window];
     if (self) {
         //set properties
-        currentStep = 1;
+        currentStep = 0;
     }
     
     return self;
@@ -52,6 +52,12 @@
     }
     //update the GUI according to step
     [self updateStepGUI:currentStep];
+}
+
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
+{
+    [self updateStepGUI:currentStep];
+    // NSRunInformationalAlertPanel(@"DEBUG:", @"Infopopup", @"OK", nil, nil,nil);
 }
 
 - (IBAction)pushNext:(id)sender {
@@ -76,34 +82,34 @@
 - (void)updateStepGUI: (int)toStep
 {
     switch (toStep) {
-        case 1:
+        case 0:
             [buttonPrev setEnabled:FALSE];
             [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep-1];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        case 1:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
         case 2:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep-1];
+            [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
         case 3:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep-1];
+            [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
         case 4:
             [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep-1];
-            break;
-            
-        case 5:
-            [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:FALSE];
-            [tabStep selectTabViewItemAtIndex:toStep-1];
+            [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
         default:
