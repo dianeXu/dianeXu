@@ -29,7 +29,6 @@
 @synthesize buttonNext;
 @synthesize buttonPrev;
 @synthesize buttonInfo;
-@synthesize labelStep;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -79,31 +78,26 @@
         case 1:
             [buttonPrev setEnabled:FALSE];
             [buttonNext setEnabled:TRUE];
-            [labelStep setStringValue:@"Step 1:"];
             break;
             
         case 2:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [labelStep setStringValue:@"Step 2:"];
             break;
             
         case 3:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [labelStep setStringValue:@"Step 3:"];
             break;
             
         case 4:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [labelStep setStringValue:@"Step 4:"];
             break;
             
         case 5:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:FALSE];
-            [labelStep setStringValue:@"Step 5:"];
             break;
             
         default:

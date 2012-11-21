@@ -27,11 +27,9 @@
     NSButton *buttonPrev;
     dianeXuStatusWindowController* statusWindow;
     NSButton *buttonInfo;
-    NSTextField *labelStep;
 }
 
 @property (assign) IBOutlet NSButton *buttonInfo;
-@property (assign) IBOutlet NSTextField *labelStep;
 @property (assign) int currentStep;
 @property (assign) IBOutlet NSButton *buttonNext;
 @property (assign) IBOutlet NSButton *buttonPrev;
