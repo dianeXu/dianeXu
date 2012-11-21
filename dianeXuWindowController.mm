@@ -28,6 +28,7 @@
 @synthesize currentStep;
 @synthesize buttonNext;
 @synthesize buttonPrev;
+@synthesize tabStep;
 @synthesize buttonInfo;
 
 - (id)initWithWindow:(NSWindow *)window
@@ -78,26 +79,31 @@
         case 1:
             [buttonPrev setEnabled:FALSE];
             [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep-1];
             break;
             
         case 2:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep-1];
             break;
             
         case 3:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep-1];
             break;
             
         case 4:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep-1];
             break;
             
         case 5:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:FALSE];
+            [tabStep selectTabViewItemAtIndex:toStep-1];
             break;
             
         default:

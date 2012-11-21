@@ -25,6 +25,7 @@
     int currentStep;
     NSButton *buttonNext;
     NSButton *buttonPrev;
+    NSTabView *tabStep;
     dianeXuStatusWindowController* statusWindow;
     NSButton *buttonInfo;
 }
@@ -33,6 +34,7 @@
 @property (assign) int currentStep;
 @property (assign) IBOutlet NSButton *buttonNext;
 @property (assign) IBOutlet NSButton *buttonPrev;
+@property (assign) IBOutlet NSTabView *tabStep;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
