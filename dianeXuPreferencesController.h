@@ -23,8 +23,14 @@
 @interface dianeXuPreferencesController : NSPreferencePane
 {
     NSButton *preferenceFilterBox;
+    NSComboBox *preferenceDEStudyBox;
+    NSComboBox *preferenceT2StudyBox;
+    NSComboBox *preferenceEAMSourceBox;
 }
 @property (assign) IBOutlet NSButton *preferenceFilterBox;
+@property (assign) IBOutlet NSComboBox *preferenceDEStudyBox;
+@property (assign) IBOutlet NSComboBox *preferenceT2StudyBox;
+@property (assign) IBOutlet NSComboBox *preferenceEAMSourceBox;
 
 //URL reference opening via click
 - (IBAction)openProjectURL:(id)sender;

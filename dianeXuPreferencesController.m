@@ -25,6 +25,9 @@
 
 #pragma mark Overrides
 @synthesize preferenceFilterBox;
+@synthesize preferenceDEStudyBox;
+@synthesize preferenceT2StudyBox;
+@synthesize preferenceEAMSourceBox;
 + (void)initialize
 {
     //The following defines the default settings!
