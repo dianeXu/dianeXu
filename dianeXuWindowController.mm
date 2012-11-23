@@ -19,6 +19,8 @@
 //
 
 #import "dianeXuWindowController.h"
+#import <OsiriXAPI/PreferencesWindowController.h>
+#import "dianeXuPreferenceKeys.h"
 
 @interface dianeXuWindowController ()
 
@@ -37,6 +39,7 @@
     if (self) {
         //set properties
         currentStep = 0;
+        defaultSettings = [NSUserDefaults standardUserDefaults];
     }
     
     return self;
@@ -57,7 +60,6 @@
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
     [self updateStepGUI:currentStep];
-    // NSRunInformationalAlertPanel(@"DEBUG:", @"Infopopup", @"OK", nil, nil,nil);
 }
 
 - (IBAction)pushNext:(id)sender {
@@ -113,6 +115,7 @@
             break;
             
         default:
+            
             break;
     }
 }
@@ -129,7 +132,6 @@
         [statusWindow setStatusText:newStatusText];
     }
     [statusWindow setStatusPercent:newPercentage];
-    
 }
 
 - (void)hideStatus

@@ -19,10 +19,29 @@
 //
 
 #import "dianeXuPreferencesController.h"
+#import "dianeXuPreferenceKeys.h"
 
 @implementation dianeXuPreferencesController
 
+#pragma mark Overrides
+@synthesize preferenceFilterBox;
++ (void)initialize
+{
+    //The following defines the default settings!
+    //create dictionary
+    NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
+    
+    //archive objects
+        //none as of yet
+    
+    //throw defaults in the dictionary
+    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:dianeXuFilterKey];
+    
+    //register the dictionary
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
+}
 
+#pragma mark Actions
 //URL reference opening via click
 - (IBAction)openBugtrackerURL:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://traq.dianeXu.com"]];

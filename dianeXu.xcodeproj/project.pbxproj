@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0348130E165F542000ABC18A /* dianeXuPreferenceKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dianeXuPreferenceKeys.h; sourceTree = "<group>"; };
 		03729C5F165B4FDA00096AAA /* dianeXuStatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuStatusWindowController.h; sourceTree = "<group>"; };
 		03729C60165B4FDA00096AAA /* dianeXuStatusWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dianeXuStatusWindowController.mm; sourceTree = "<group>"; };
 		03729C61165B4FDA00096AAA /* dianeXuStatusWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = dianeXuStatusWindow.xib; sourceTree = "<group>"; };
@@ -202,6 +203,7 @@
 			children = (
 				03E1F9F515FF55F600C59023 /* dianeXuPreferencesController.h */,
 				03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */,
+				0348130E165F542000ABC18A /* dianeXuPreferenceKeys.h */,
 			);
 			name = dianeXuPreferences;
 			sourceTree = "<group>";

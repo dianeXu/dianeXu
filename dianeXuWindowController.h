@@ -22,11 +22,12 @@
 #import "dianeXuStatusWindowController.h"
 
 @interface dianeXuWindowController : NSWindowController {
+    dianeXuStatusWindowController* statusWindow;
+    NSUserDefaults *defaultSettings;
     int currentStep;
     NSButton *buttonNext;
     NSButton *buttonPrev;
     NSTabView *tabStep;
-    dianeXuStatusWindowController* statusWindow;
     NSButton *buttonInfo;
 }
 

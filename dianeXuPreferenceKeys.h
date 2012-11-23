@@ -1,5 +1,5 @@
 //
-//  dianeXuPreferencesController.h
+//  dianeXuPreferenceKeys.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -17,18 +17,6 @@
 //
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
+//
 
-#import <PreferencePanes/PreferencePanes.h>
-
-@interface dianeXuPreferencesController : NSPreferencePane
-{
-    NSButton *preferenceFilterBox;
-}
-@property (assign) IBOutlet NSButton *preferenceFilterBox;
-
-//URL reference opening via click
-- (IBAction)openProjectURL:(id)sender;
-- (IBAction)openBugtrackerURL:(id)sender;
-
-
-@end
+NSString * const dianeXuFilterKey = @"dianeXuFilterFlag";

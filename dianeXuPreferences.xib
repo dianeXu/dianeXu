@@ -27,6 +27,7 @@
 			<string>NSTextField</string>
 			<string>NSTextFieldCell</string>
 			<string>NSTextView</string>
+			<string>NSUserDefaultsController</string>
 			<string>NSView</string>
 			<string>NSWindowTemplate</string>
 		</object>
@@ -558,7 +559,7 @@
 																<string key="NSFrame">{{76, 37}, {444, 26}}</string>
 																<reference key="NSSuperview" ref="665307587"/>
 																<reference key="NSWindow"/>
-																<reference key="NSNextKeyView" ref="555990205"/>
+																<reference key="NSNextKeyView" ref="796556100"/>
 																<string key="NSReuseIdentifierKey">_NS:9</string>
 																<bool key="NSEnabled">YES</bool>
 																<object class="NSComboBoxCell" key="NSCell" id="644287532">
@@ -652,27 +653,27 @@
 																	<reference key="NSTextColor" ref="418506188"/>
 																</object>
 															</object>
-															<object class="NSTextField" id="555990205">
+															<object class="NSTextField" id="796556100">
 																<reference key="NSNextResponder" ref="665307587"/>
 																<int key="NSvFlags">268</int>
 																<string key="NSFrame">{{30, 16}, {36, 17}}</string>
 																<reference key="NSSuperview" ref="665307587"/>
 																<reference key="NSWindow"/>
-																<reference key="NSNextKeyView" ref="422411801"/>
+																<reference key="NSNextKeyView" ref="270289813"/>
 																<string key="NSReuseIdentifierKey">_NS:1535</string>
 																<bool key="NSEnabled">YES</bool>
-																<object class="NSTextFieldCell" key="NSCell" id="682169873">
+																<object class="NSTextFieldCell" key="NSCell" id="862191034">
 																	<int key="NSCellFlags">68157504</int>
 																	<int key="NSCellFlags2">272630784</int>
 																	<string key="NSContents">Path:</string>
 																	<reference key="NSSupport" ref="307766412"/>
 																	<string key="NSCellIdentifier">_NS:1535</string>
-																	<reference key="NSControlView" ref="555990205"/>
+																	<reference key="NSControlView" ref="796556100"/>
 																	<reference key="NSBackgroundColor" ref="40796836"/>
 																	<reference key="NSTextColor" ref="418506188"/>
 																</object>
 															</object>
-															<object class="NSPathControl" id="422411801">
+															<object class="NSPathControl" id="270289813">
 																<reference key="NSNextResponder" ref="665307587"/>
 																<int key="NSvFlags">268</int>
 																<object class="NSMutableSet" key="NSDragTypes">
@@ -689,7 +690,7 @@
 																<reference key="NSNextKeyView" ref="352808957"/>
 																<string key="NSReuseIdentifierKey">_NS:9</string>
 																<bool key="NSEnabled">YES</bool>
-																<object class="NSPathCell" key="NSCell" id="1067648273">
+																<object class="NSPathCell" key="NSCell" id="636269178">
 																	<int key="NSCellFlags">337641473</int>
 																	<int key="NSCellFlags2">131072</int>
 																	<object class="NSURL" key="NSContents">
@@ -698,7 +699,7 @@
 																	</object>
 																	<reference key="NSSupport" ref="26"/>
 																	<string key="NSCellIdentifier">_NS:9</string>
-																	<reference key="NSControlView" ref="422411801"/>
+																	<reference key="NSControlView" ref="270289813"/>
 																	<object class="NSMutableArray" key="NSPathComponentCells">
 																		<bool key="EncodedWithXMLCoder">YES</bool>
 																		<object class="NSPathComponentCell">
@@ -706,7 +707,7 @@
 																			<int key="NSCellFlags2">132096</int>
 																			<string key="NSContents">Leopard</string>
 																			<reference key="NSSupport" ref="26"/>
-																			<reference key="NSControlView" ref="422411801"/>
+																			<reference key="NSControlView" ref="270289813"/>
 																			<reference key="NSBackgroundColor" ref="735230909"/>
 																			<reference key="NSTextColor" ref="418506188"/>
 																			<object class="NSURL" key="NSURL">
@@ -719,7 +720,7 @@
 																			<int key="NSCellFlags2">132096</int>
 																			<string key="NSContents">Applications</string>
 																			<reference key="NSSupport" ref="26"/>
-																			<reference key="NSControlView" ref="422411801"/>
+																			<reference key="NSControlView" ref="270289813"/>
 																			<reference key="NSBackgroundColor" ref="735230909"/>
 																			<reference key="NSTextColor" ref="418506188"/>
 																			<object class="NSURL" key="NSURL">
@@ -729,7 +730,7 @@
 																		</object>
 																	</object>
 																	<int key="NSPathStyle">1</int>
-																	<reference key="NSDelegate" ref="422411801"/>
+																	<reference key="NSDelegate" ref="270289813"/>
 																</object>
 															</object>
 														</object>
@@ -1387,6 +1388,9 @@ wGw</bytes>
 			<object class="NSCustomObject" id="62358252">
 				<string key="NSClassName">dianeXuPreferencesController</string>
 			</object>
+			<object class="NSUserDefaultsController" id="248277632">
+				<bool key="NSSharedInstance">YES</bool>
+			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -1398,6 +1402,30 @@ wGw</bytes>
 						<reference key="destination" ref="1005"/>
 					</object>
 					<int key="connectionID">9</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">preferenceFilterBox</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="323889936"/>
+					</object>
+					<int key="connectionID">93</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.dianeXuFilterKey</string>
+						<reference key="source" ref="323889936"/>
+						<reference key="destination" ref="248277632"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="323889936"/>
+							<reference key="NSDestination" ref="248277632"/>
+							<string key="NSLabel">value: values.dianeXuFilterKey</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.dianeXuFilterKey</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">97</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1668,8 +1696,8 @@ wGw</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="70897039"/>
 							<reference ref="587754765"/>
-							<reference ref="555990205"/>
-							<reference ref="422411801"/>
+							<reference ref="796556100"/>
+							<reference ref="270289813"/>
 						</object>
 						<reference key="parent" ref="710151324"/>
 					</object>
@@ -1754,31 +1782,36 @@ wGw</bytes>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">89</int>
-						<reference key="object" ref="555990205"/>
+						<reference key="object" ref="796556100"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="682169873"/>
+							<reference ref="862191034"/>
 						</object>
 						<reference key="parent" ref="250862429"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">90</int>
-						<reference key="object" ref="682169873"/>
-						<reference key="parent" ref="555990205"/>
+						<reference key="object" ref="862191034"/>
+						<reference key="parent" ref="796556100"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">91</int>
-						<reference key="object" ref="422411801"/>
+						<reference key="object" ref="270289813"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1067648273"/>
+							<reference ref="636269178"/>
 						</object>
 						<reference key="parent" ref="250862429"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">92</int>
-						<reference key="object" ref="1067648273"/>
-						<reference key="parent" ref="422411801"/>
+						<reference key="object" ref="636269178"/>
+						<reference key="parent" ref="270289813"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">94</int>
+						<reference key="object" ref="248277632"/>
+						<reference key="parent" ref="0"/>
 					</object>
 				</object>
 			</object>
@@ -1835,6 +1868,7 @@ wGw</bytes>
 					<string>90.IBPluginDependency</string>
 					<string>91.IBPluginDependency</string>
 					<string>92.IBPluginDependency</string>
+					<string>94.IBPluginDependency</string>
 				</object>
 				<object class="NSArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1894,6 +1928,7 @@ wGw</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -1908,7 +1943,7 @@ wGw</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">92</int>
+			<int key="maxID">97</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2000,6 +2035,17 @@ wGw</bytes>
 								<string key="name">openProjectURL:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">preferenceFilterBox</string>
+						<string key="NS.object.0">NSButton</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">preferenceFilterBox</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">preferenceFilterBox</string>
+							<string key="candidateClassName">NSButton</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
