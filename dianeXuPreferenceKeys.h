@@ -20,6 +20,7 @@
 //
 
 NSString * const dianeXuFilterKey = @"dianeXuFilterFlag";
-NSString * const dianeXuDEStudyKey = @"dianeXuDEStudy";
-NSString * const dianeXuT2StudyKey = @"dianeXuT2Study";
+NSString * const dianeXuDESeriesKey = @"dianeXuDESeries";
+NSString * const dianeXuT2SeriesKey = @"dianeXuT2Series";
 NSString * const dianeXuEAMSourceKey = @"dianeXuEAMSource";
+NSString * const dianeXuEAMPathKey = @"dianeXuEAMPath";

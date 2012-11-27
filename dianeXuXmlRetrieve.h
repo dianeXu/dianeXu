@@ -20,6 +20,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface dianeXuXmlRetrieve : NSObject
+@interface dianeXuXmlRetrieve : NSObject {
+    
+}
+
+- (NSArray*) retrieveNavxDataFrom:(NSString*)sourcePath:(NSError**)errorOutput;
 
 @end

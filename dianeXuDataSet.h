@@ -27,7 +27,7 @@ typedef struct {
 } dxPoint;
 
 @interface dianeXuDataSet : NSObject {
-    NSMutableArray* eamPoints;
+    NSArray* eamPoints;
 }
 
 @end
