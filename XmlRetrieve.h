@@ -1,5 +1,5 @@
 //
-//  dianeXuXmlRetrieve.h
+//  XmlRetrieve.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface dianeXuXmlRetrieve : NSObject <NSXMLParserDelegate> {
+@interface XmlRetrieve : NSObject <NSXMLParserDelegate> {
     
 }
 

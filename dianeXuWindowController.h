@@ -20,6 +20,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "dianeXuStatusWindowController.h"
+#import "dianeXuPreferenceKeys.h"
+#import "XmlRetrieve.h"
 
 @interface dianeXuWindowController : NSWindowController {
     dianeXuStatusWindowController* statusWindow;

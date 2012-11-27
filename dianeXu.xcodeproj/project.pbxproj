@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		034813151664E6F700ABC18A /* dianeXuDataSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 034813131664E6F700ABC18A /* dianeXuDataSet.h */; };
 		034813161664E6F700ABC18A /* dianeXuDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 034813141664E6F700ABC18A /* dianeXuDataSet.m */; };
-		034813191664EC6C00ABC18A /* dianeXuXmlRetrieve.h in Headers */ = {isa = PBXBuildFile; fileRef = 034813171664EC6C00ABC18A /* dianeXuXmlRetrieve.h */; };
-		0348131A1664EC6C00ABC18A /* dianeXuXmlRetrieve.m in Sources */ = {isa = PBXBuildFile; fileRef = 034813181664EC6C00ABC18A /* dianeXuXmlRetrieve.m */; };
+		034813191664EC6C00ABC18A /* XmlRetrieve.h in Headers */ = {isa = PBXBuildFile; fileRef = 034813171664EC6C00ABC18A /* XmlRetrieve.h */; };
+		0348131A1664EC6C00ABC18A /* XmlRetrieve.m in Sources */ = {isa = PBXBuildFile; fileRef = 034813181664EC6C00ABC18A /* XmlRetrieve.m */; };
 		03729C62165B4FDA00096AAA /* dianeXuStatusWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 03729C5F165B4FDA00096AAA /* dianeXuStatusWindowController.h */; };
 		03729C63165B4FDA00096AAA /* dianeXuStatusWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03729C60165B4FDA00096AAA /* dianeXuStatusWindowController.mm */; };
 		03729C64165B4FDA00096AAA /* dianeXuStatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03729C61165B4FDA00096AAA /* dianeXuStatusWindow.xib */; };
@@ -43,8 +43,8 @@
 		0348130E165F542000ABC18A /* dianeXuPreferenceKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dianeXuPreferenceKeys.h; sourceTree = "<group>"; };
 		034813131664E6F700ABC18A /* dianeXuDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuDataSet.h; sourceTree = "<group>"; };
 		034813141664E6F700ABC18A /* dianeXuDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuDataSet.m; sourceTree = "<group>"; };
-		034813171664EC6C00ABC18A /* dianeXuXmlRetrieve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuXmlRetrieve.h; sourceTree = "<group>"; };
-		034813181664EC6C00ABC18A /* dianeXuXmlRetrieve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuXmlRetrieve.m; sourceTree = "<group>"; };
+		034813171664EC6C00ABC18A /* XmlRetrieve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlRetrieve.h; sourceTree = "<group>"; };
+		034813181664EC6C00ABC18A /* XmlRetrieve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XmlRetrieve.m; sourceTree = "<group>"; };
 		03729C5F165B4FDA00096AAA /* dianeXuStatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuStatusWindowController.h; sourceTree = "<group>"; };
 		03729C60165B4FDA00096AAA /* dianeXuStatusWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dianeXuStatusWindowController.mm; sourceTree = "<group>"; };
 		03729C61165B4FDA00096AAA /* dianeXuStatusWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = dianeXuStatusWindow.xib; sourceTree = "<group>"; };
@@ -206,6 +206,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0348131B16651C8600ABC18A /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				034813171664EC6C00ABC18A /* XmlRetrieve.h */,
+				034813181664EC6C00ABC18A /* XmlRetrieve.m */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		03E1F9F415FF553E00C59023 /* dianeXuPreferences */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +421,7 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0348131B16651C8600ABC18A /* Tools */,
 				03E1F9F415FF553E00C59023 /* dianeXuPreferences */,
 				AB2C26750677B0C400A08910 /* dianeXuFilter */,
 			);
@@ -456,16 +466,14 @@
 		AB2C26750677B0C400A08910 /* dianeXuFilter */ = {
 			isa = PBXGroup;
 			children = (
+				034813131664E6F700ABC18A /* dianeXuDataSet.h */,
+				034813141664E6F700ABC18A /* dianeXuDataSet.m */,
 				ABA48A640680BB600089EB4F /* dianeXuFilter.h */,
 				ABA48A660680BB690089EB4F /* dianeXuFilter.mm */,
 				03FED012165A676F0070F92A /* dianeXuWindowController.h */,
 				03FED013165A676F0070F92A /* dianeXuWindowController.mm */,
 				03729C5F165B4FDA00096AAA /* dianeXuStatusWindowController.h */,
 				03729C60165B4FDA00096AAA /* dianeXuStatusWindowController.mm */,
-				034813131664E6F700ABC18A /* dianeXuDataSet.h */,
-				034813141664E6F700ABC18A /* dianeXuDataSet.m */,
-				034813171664EC6C00ABC18A /* dianeXuXmlRetrieve.h */,
-				034813181664EC6C00ABC18A /* dianeXuXmlRetrieve.m */,
 			);
 			name = dianeXuFilter;
 			sourceTree = "<group>";
@@ -482,7 +490,7 @@
 				03FED015165A676F0070F92A /* dianeXuWindowController.h in Headers */,
 				03729C62165B4FDA00096AAA /* dianeXuStatusWindowController.h in Headers */,
 				034813151664E6F700ABC18A /* dianeXuDataSet.h in Headers */,
-				034813191664EC6C00ABC18A /* dianeXuXmlRetrieve.h in Headers */,
+				034813191664EC6C00ABC18A /* XmlRetrieve.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +613,7 @@
 				03FED016165A676F0070F92A /* dianeXuWindowController.mm in Sources */,
 				03729C63165B4FDA00096AAA /* dianeXuStatusWindowController.mm in Sources */,
 				034813161664E6F700ABC18A /* dianeXuDataSet.m in Sources */,
-				0348131A1664EC6C00ABC18A /* dianeXuXmlRetrieve.m in Sources */,
+				0348131A1664EC6C00ABC18A /* XmlRetrieve.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

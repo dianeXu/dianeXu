@@ -1,5 +1,5 @@
 //
-//  dianeXuXmlRetrieve.h
+//  XmlRetrieve.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -18,9 +18,9 @@
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
-#import "dianeXuXmlRetrieve.h"
+#import "XmlRetrieve.h"
 
-@implementation dianeXuXmlRetrieve
+@implementation XmlRetrieve
 
 - (id)init {
     self = [super init];

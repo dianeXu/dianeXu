@@ -20,7 +20,6 @@
 
 #import "dianeXuWindowController.h"
 #import <OsiriXAPI/PreferencesWindowController.h>
-#import "dianeXuPreferenceKeys.h"
 
 @interface dianeXuWindowController ()
 
