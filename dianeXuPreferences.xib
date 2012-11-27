@@ -645,7 +645,7 @@
 																<object class="NSTextFieldCell" key="NSCell" id="245477448">
 																	<int key="NSCellFlags">68157504</int>
 																	<int key="NSCellFlags2">272630784</int>
-																	<string key="NSContents">Source Sytem:</string>
+																	<string key="NSContents">Source System:</string>
 																	<reference key="NSSupport" ref="307766412"/>
 																	<string key="NSCellIdentifier">_NS:1535</string>
 																	<reference key="NSControlView" ref="70897039"/>
