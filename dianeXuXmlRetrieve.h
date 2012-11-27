@@ -1,5 +1,5 @@
 //
-//  dianeXuDataSet.h
+//  dianeXuXmlRetrieve.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -20,14 +20,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef struct {
-    double x;
-    double y;
-    double z;
-} dxPoint;
-
-@interface dianeXuDataSet : NSObject {
-    NSMutableArray* eamPoints;
-}
+@interface dianeXuXmlRetrieve : NSObject
 
 @end
