@@ -25,8 +25,8 @@
 
 #pragma mark Overrides
 @synthesize preferenceFilterBox;
-@synthesize preferenceDESeriesBox;
-@synthesize preferenceT2SeriesBox;
+@synthesize preferenceDEStudyBox;
+@synthesize preferenceT2StudyBox;
 @synthesize preferenceEAMSourceBox;
 + (void)initialize
 {

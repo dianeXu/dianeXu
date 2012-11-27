@@ -22,30 +22,4 @@
 
 @implementation dianeXuXmlRetrieve
 
-- (id)init {
-    self = [super init];
-    if(self) {
-    //initstuff
-    }
-    return self;
-}
-
-- (NSArray*) retrieveNavxDataFrom:(NSString*)sourcePath:(NSError**)errorOutput {
-    NSURL *xmlPath = [NSURL URLWithString:sourcePath];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:xmlPath cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
-    
-    NSURLResponse *response = nil;
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:errorOutput];
-    
-    if (!data) {
-        return nil;
-    }
-    
-    NSRunInformationalAlertPanel(@"DEBUG:", @"Got here", @"OK", nil, nil,nil);
-    
-    return nil;
-}
-
 @end
