@@ -574,11 +574,15 @@
 																	<reference key="NSTextColor" ref="418506188"/>
 																	<int key="NSVisibleItemCount">5</int>
 																	<bool key="NSHasVerticalScroller">YES</bool>
+																	<object class="NSMutableArray" key="NSPopUpListData">
+																		<bool key="EncodedWithXMLCoder">YES</bool>
+																		<string>St. Jude NavX</string>
+																	</object>
 																	<reference key="NSDelegate" ref="587754765"/>
 																	<object class="NSComboTableView" key="NSTableView" id="380703046">
 																		<reference key="NSNextResponder"/>
 																		<int key="NSvFlags">274</int>
-																		<string key="NSFrameSize">{13, 0}</string>
+																		<string key="NSFrameSize">{13, 21}</string>
 																		<reference key="NSSuperview"/>
 																		<reference key="NSWindow"/>
 																		<string key="NSReuseIdentifierKey">_NS:24</string>
@@ -1903,6 +1907,7 @@ wGw</bytes>
 					<string>60.IBPluginDependency</string>
 					<string>61.IBPluginDependency</string>
 					<string>62.IBPluginDependency</string>
+					<string>63.IBComboBoxObjectValuesKey.objectValues</string>
 					<string>63.IBPluginDependency</string>
 					<string>64.IBPluginDependency</string>
 					<string>65.IBPluginDependency</string>
@@ -1963,6 +1968,10 @@ wGw</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSArray">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<string>St. Jude NavX</string>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
