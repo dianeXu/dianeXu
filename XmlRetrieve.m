@@ -30,20 +30,27 @@
     return self;
 }
 
-- (NSArray*) retrieveNavxDataFrom:(NSString*)sourcePath:(NSError**)errorOutput {
-    NSURL *xmlPath = [NSURL URLWithString:sourcePath];
+- (dxRaw*) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput {
     
+    BOOL success;
+    NSURL *xmlPath = [[NSURL alloc] initWithString:@"difs/dif001.xml" relativeToURL:sourcePath];
     NSURLRequest *request = [NSURLRequest requestWithURL:xmlPath cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
     
     NSURLResponse *response = nil;
     
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:errorOutput];
     
-    if (!data) {
+    NSXMLParser *parser;
+    parser = [[NSXMLParser alloc] initWithData:data];
+    [parser setDelegate:self];
+    
+    success = [parser parse];
+    
+    if (!success) {
+        *errorOutput = [parser parserError];
         return nil;
     }
     
-    NSRunInformationalAlertPanel(@"DEBUG:", @"Got here", @"OK", nil, nil,nil);
     
     return nil;
 }

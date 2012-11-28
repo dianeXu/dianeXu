@@ -24,3 +24,14 @@ NSString * const dianeXuDESeriesKey = @"dianeXuDESeries";
 NSString * const dianeXuT2SeriesKey = @"dianeXuT2Series";
 NSString * const dianeXuEAMSourceKey = @"dianeXuEAMSource";
 NSString * const dianeXuEAMPathKey = @"dianeXuEAMPath";
+
+typedef struct {
+    double x;
+    double y;
+    double z;
+} dxPoint;
+
+typedef struct {
+    int vertices;
+    NSString* data;
+} dxRaw;

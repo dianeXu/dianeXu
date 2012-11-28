@@ -19,7 +19,7 @@
 //
 
 #import "dianeXuPreferencesController.h"
-#import "dianeXuPreferenceKeys.h"
+#import "dianeXuGlobalDefinitions.h"
 
 @implementation dianeXuPreferencesController
 

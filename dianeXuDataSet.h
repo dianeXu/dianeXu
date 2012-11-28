@@ -20,12 +20,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef struct {
-    double x;
-    double y;
-    double z;
-} dxPoint;
-
 @interface dianeXuDataSet : NSObject {
     NSMutableArray* eamPoints;
 }

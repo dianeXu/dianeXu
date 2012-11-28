@@ -20,10 +20,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "dianeXuStatusWindowController.h"
-#import "dianeXuPreferenceKeys.h"
+#import "dianeXuGlobalDefinitions.h"
 #import "XmlRetrieve.h"
+#import "dianeXuDataSet.h"
 
 @interface dianeXuWindowController : NSWindowController {
+    dianeXuDataSet* workingSet;
     dianeXuStatusWindowController* statusWindow;
     NSUserDefaults *defaultSettings;
     int currentStep;

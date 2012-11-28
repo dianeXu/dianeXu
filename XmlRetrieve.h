@@ -19,11 +19,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "dianeXuGlobalDefinitions.h"
 
 @interface XmlRetrieve : NSObject <NSXMLParserDelegate> {
     
 }
 
-- (NSArray*) retrieveNavxDataFrom:(NSString*)sourcePath:(NSError**)errorOutputM;
+- (dxRaw*) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutputM;
 
 @end

@@ -23,6 +23,7 @@
 
 @interface dianeXuWindowController ()
 
+
 @end
 
 @implementation dianeXuWindowController
@@ -40,6 +41,7 @@
     self = [super initWithWindow:window];
     if (self) {
         //set properties
+        workingSet = [[dianeXuDataSet alloc] init];
         currentStep = 0;
         defaultSettings = [NSUserDefaults standardUserDefaults];
     }
@@ -85,7 +87,11 @@
 
 - (IBAction)pushGetEAMData:(id)sender {
     XmlRetrieve *retrieve = [[XmlRetrieve alloc] init];
+    NSError *error = nil;
+    dxRaw* navxRaw;
+    navxRaw = [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
     
+    NSRunInformationalAlertPanel(@"DEBUG:", navxRaw->data, @"OK", nil, nil,nil);
 }
 
 - (void)updateStepGUI: (int)toStep
