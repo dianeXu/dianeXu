@@ -30,6 +30,9 @@
 @synthesize buttonNext;
 @synthesize buttonPrev;
 @synthesize tabStep;
+@synthesize pathEAM;
+@synthesize labelEAMSource;
+@synthesize labelEAMNumCoords;
 @synthesize buttonInfo;
 
 - (id)initWithWindow:(NSWindow *)window
@@ -80,6 +83,11 @@
     NSRunInformationalAlertPanel(@"DEBUG:", @"Infopopup", @"OK", nil, nil,nil);
 }
 
+- (IBAction)pushGetEAMData:(id)sender {
+    XmlRetrieve *retrieve = [[XmlRetrieve alloc] init];
+    
+}
+
 - (void)updateStepGUI: (int)toStep
 {
     switch (toStep) {
@@ -93,6 +101,7 @@
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
             [tabStep selectTabViewItemAtIndex:toStep];
+            [labelEAMSource setStringValue:[[NSUserDefaults standardUserDefaults] valueForKey:dianeXuEAMSourceKey]];
             break;
             
         case 2:

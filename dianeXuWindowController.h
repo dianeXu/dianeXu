@@ -30,6 +30,9 @@
     NSButton *buttonNext;
     NSButton *buttonPrev;
     NSTabView *tabStep;
+    NSPathControl *pathEAM;
+    NSTextField *labelEAMSource;
+    NSTextField *labelEAMNumCoords;
     NSButton *buttonInfo;
 }
 
@@ -38,11 +41,15 @@
 @property (assign) IBOutlet NSButton *buttonNext;
 @property (assign) IBOutlet NSButton *buttonPrev;
 @property (assign) IBOutlet NSTabView *tabStep;
+@property (assign) IBOutlet NSPathControl *pathEAM;
+@property (assign) IBOutlet NSTextField *labelEAMSource;
+@property (assign) IBOutlet NSTextField *labelEAMNumCoords;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
+- (IBAction)pushGetEAMData:(id)sender;
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 
