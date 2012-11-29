@@ -25,12 +25,12 @@
 - (id)init {
     self = [super init];
     if(self) {
-        //initstuff
+        countNavx = 0;
     }
     return self;
 }
 
-- (dxRaw*) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput {
+- (NSString*) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput {
     
     BOOL success;
     NSURL *xmlPath = [[NSURL alloc] initWithString:@"difs/dif001.xml" relativeToURL:sourcePath];
@@ -52,6 +52,28 @@
     }
     
     
-    return nil;
+    return rawNAvxData;
 }
+
+#pragma mark NSXMLParserDelegate
+- (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
+    if ([elementName isEqualToString:@"Vertices"]) {
+        countNavx = [[attributeDict objectForKey:@"number"] intValue];
+        currentContent = nil;
+    }
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+    currentContent = string;
+}
+
+- (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
+    if ([elementName isEqualToString:@"Vertices"]) {
+        NSRunInformationalAlertPanel(@"DEBUG:", currentContent, @"OK", nil, nil,nil);
+        
+    }
+    
+}
+
+
 @end

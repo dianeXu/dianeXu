@@ -40,7 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0348130E165F542000ABC18A /* dianeXuGlobalDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dianeXuGlobalDefinitions.h; sourceTree = "<group>"; };
+		0348130E165F542000ABC18A /* dianeXuPreferencesKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dianeXuPreferencesKeys.h; sourceTree = "<group>"; };
 		034813131664E6F700ABC18A /* dianeXuDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuDataSet.h; sourceTree = "<group>"; };
 		034813141664E6F700ABC18A /* dianeXuDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuDataSet.m; sourceTree = "<group>"; };
 		034813171664EC6C00ABC18A /* XmlRetrieve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlRetrieve.h; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 			children = (
 				03E1F9F515FF55F600C59023 /* dianeXuPreferencesController.h */,
 				03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */,
-				0348130E165F542000ABC18A /* dianeXuGlobalDefinitions.h */,
+				0348130E165F542000ABC18A /* dianeXuPreferencesKeys.h */,
 			);
 			name = dianeXuPreferences;
 			sourceTree = "<group>";

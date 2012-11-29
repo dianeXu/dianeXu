@@ -20,7 +20,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "dianeXuStatusWindowController.h"
-#import "dianeXuGlobalDefinitions.h"
+#import "dianeXuPreferencesKeys.h"
 #import "XmlRetrieve.h"
 #import "dianeXuDataSet.h"
 

@@ -24,4 +24,6 @@
     NSMutableArray* eamPoints;
 }
 
+- (void)makePointsFromNavxString:(NSString*) inputString;
+
 @end

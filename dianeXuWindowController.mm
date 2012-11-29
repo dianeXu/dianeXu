@@ -88,10 +88,8 @@
 - (IBAction)pushGetEAMData:(id)sender {
     XmlRetrieve *retrieve = [[XmlRetrieve alloc] init];
     NSError *error = nil;
-    dxRaw* navxRaw;
-    navxRaw = [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
-    
-    NSRunInformationalAlertPanel(@"DEBUG:", navxRaw->data, @"OK", nil, nil,nil);
+    NSString * rawData;
+    rawData = [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
 }
 
 - (void)updateStepGUI: (int)toStep

@@ -22,4 +22,8 @@
 
 @implementation dianeXuDataSet
 
+- (void)makePointsFromNavxString:(NSString *)inputString {
+    
+}
+
 @end
