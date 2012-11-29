@@ -22,7 +22,15 @@
 
 @implementation dianeXuDataSet
 
-- (void)makePointsFromNavxString:(NSString *)inputString {
+- (id)init {
+    self = [super init];
+    if (status == nil) {
+        status = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
+    }
+    return self;
+}
+
+- (void)makePointsFromNavxString:(NSString *)inputString:(int)pointCount {
     
 }
 

@@ -52,7 +52,32 @@
     }
     
     
-    return rawNAvxData;
+    return rawNavxData;
+}
+
+- (int) retrieveNavxVertixCount:(NSURL*)sourcePath:(NSError**)errorOutput {
+    
+    BOOL success;
+    NSURL *xmlPath = [[NSURL alloc] initWithString:@"difs/dif001.xml" relativeToURL:sourcePath];
+    NSURLRequest *request = [NSURLRequest requestWithURL:xmlPath cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+    
+    NSURLResponse *response = nil;
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:errorOutput];
+    
+    NSXMLParser *parser;
+    parser = [[NSXMLParser alloc] initWithData:data];
+    [parser setDelegate:self];
+    
+    success = [parser parse];
+    
+    if (!success) {
+        *errorOutput = [parser parserError];
+        return 0;
+    }
+    
+    
+    return countNavx;
 }
 
 #pragma mark NSXMLParserDelegate
@@ -69,8 +94,7 @@
 
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     if ([elementName isEqualToString:@"Vertices"]) {
-        NSRunInformationalAlertPanel(@"DEBUG:", currentContent, @"OK", nil, nil,nil);
-        
+       rawNavxData = currentContent;
     }
     
 }

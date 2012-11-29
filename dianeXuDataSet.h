@@ -19,11 +19,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "dianeXuStatusWindowController.h"
+
+typedef struct {
+    double x;
+    double y;
+    double z;
+}   dianeXuCoord;
 
 @interface dianeXuDataSet : NSObject {
+    dianeXuStatusWindowController* status;
     NSMutableArray* eamPoints;
 }
 
-- (void)makePointsFromNavxString:(NSString*) inputString;
+- (void)makePointsFromNavxString:(NSString*) inputString:(int)pointCount;
 
 @end

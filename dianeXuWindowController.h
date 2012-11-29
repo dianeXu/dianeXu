@@ -19,14 +19,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "dianeXuStatusWindowController.h"
 #import "dianeXuPreferencesKeys.h"
 #import "XmlRetrieve.h"
 #import "dianeXuDataSet.h"
 
 @interface dianeXuWindowController : NSWindowController {
     dianeXuDataSet* workingSet;
-    dianeXuStatusWindowController* statusWindow;
     NSUserDefaults *defaultSettings;
     int currentStep;
     NSButton *buttonNext;
@@ -56,8 +54,5 @@
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 
 - (void) updateStepGUI: (int)toStep;
-- (void) showStatus;
-- (void) updateStatus: (NSString*)newStatusText: (int)newPercentage;
-- (void) hideStatus;
 
 @end

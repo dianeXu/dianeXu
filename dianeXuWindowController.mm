@@ -52,11 +52,6 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    
-    //If not existent, create the status window
-    if (statusWindow == nil) {
-        statusWindow = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
-    }
     //update the GUI according to step
     [self updateStepGUI:currentStep];
 }
@@ -77,7 +72,6 @@
 }
 
 - (IBAction)pushQuit:(id)sender {
-    [[statusWindow window] orderOut:self];
     [[self window] orderOut:self];
 }
 
@@ -89,7 +83,9 @@
     XmlRetrieve *retrieve = [[XmlRetrieve alloc] init];
     NSError *error = nil;
     NSString * rawData;
+    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[retrieve retrieveNavxVertixCount:[pathEAM URL] :&error]]]; //get Number of vertices and Show!
     rawData = [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
+    NSRunInformationalAlertPanel(@"DEBUG:", rawData, @"OK", nil, nil,nil);
 }
 
 - (void)updateStepGUI: (int)toStep
@@ -130,25 +126,6 @@
             
             break;
     }
-}
-
-- (void)showStatus
-{
-    [statusWindow showWindow:self];
-    [[statusWindow window] setLevel:NSFloatingWindowLevel];
-}
-
-- (void)updateStatus: (NSString*)newStatusText: (int)newPercentage
-{
-    if (newStatusText != nil) {
-        [statusWindow setStatusText:newStatusText];
-    }
-    [statusWindow setStatusPercent:newPercentage];
-}
-
-- (void)hideStatus
-{
-    [[statusWindow window] orderOut:self];
 }
 
 @end

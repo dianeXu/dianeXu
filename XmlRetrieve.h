@@ -22,10 +22,11 @@
 
 @interface XmlRetrieve : NSObject <NSXMLParserDelegate> {
     NSString *currentContent;
-    NSString *rawNAvxData;
+    NSString *rawNavxData;
     int countNavx;
 }
 
-- (NSString*) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutputM;
+- (NSString*) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput;
+- (int) retrieveNavxVertixCount:(NSURL*)sourcePath:(NSError**)errorOutput;
 
 @end
