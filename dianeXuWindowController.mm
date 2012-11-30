@@ -87,7 +87,6 @@
     vertexCount = [retrieve retrieveNavxVertixCount:[pathEAM URL] :&error];
     rawData = [[NSString alloc] initWithString:[retrieve retrieveNavxDataFrom:[pathEAM URL] :&error]];
     [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",vertexCount]];
-    NSRunInformationalAlertPanel(@"DEBUG (data in Plugin):", rawData, @"OK", nil, nil,nil);
 }
 
 - (void)updateStepGUI: (int)toStep
