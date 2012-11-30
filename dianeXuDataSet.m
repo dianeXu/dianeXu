@@ -31,9 +31,12 @@
 }
 
 - (void)makePointsFromNavxString:(NSString *)inputString:(int)pointCount {
+    //+status
     [status showWindow:self];
     [[status window] orderFrontRegardless];
     [status setStatusText:@"Reading NavX coordinates to dianeXu..."];
+    int statusDone = 0;
+    //-status
     
     dianeXuCoord *currentCoord = [[dianeXuCoord alloc] init];
     
@@ -41,21 +44,30 @@
     //trim lines
     [lineCoords removeObjectAtIndex:0];
     [lineCoords removeLastObject];
-    int statusDone = 0;
+    
+    
     for (NSString *singleCoord in lineCoords) {
+        //trim junk from the single lines
         NSString *trimmedSingleCoord = [singleCoord stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        //seperate the coords
         NSArray *justCoords = [trimmedSingleCoord componentsSeparatedByString:@"  "];
         
+        //set coordinate values and add to eamPoints array.
         [currentCoord setX:[NSNumber numberWithDouble:[[justCoords objectAtIndex:0]  doubleValue]]];
         [currentCoord setY:[NSNumber numberWithDouble:[[justCoords objectAtIndex:0]  doubleValue]]];
         [currentCoord setZ:[NSNumber numberWithDouble:[[justCoords objectAtIndex:0]  doubleValue]]];
-        
         [eamPoints addObject:currentCoord];
+        
+        //+status
         statusDone++;
-        [status setStatusPercent:(int)statusDone];
+        [status setStatusPercent:(int)statusDone/pointCount];
+        //-status
     }
+    
+    //+status
     [[status window] orderOut:self];
     [status setStatusPercent:0];
+    //-status
 }
 
 @end
