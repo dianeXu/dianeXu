@@ -26,6 +26,7 @@
     self = [super init];
     if(self) {
         countNavx = 0;
+        currentContent = nil;
     }
     return self;
 }
@@ -46,11 +47,12 @@
     
     success = [parser parse];
     
+    [xmlPath release];
+    
     if (!success) {
         *errorOutput = [parser parserError];
         return nil;
     }
-    
     
     return rawNavxData;
 }
@@ -71,32 +73,34 @@
     
     success = [parser parse];
     
+    [xmlPath release];
     if (!success) {
         *errorOutput = [parser parserError];
         return 0;
     }
-    
     
     return countNavx;
 }
 
 #pragma mark NSXMLParserDelegate
 - (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    if ([elementName isEqualToString:@"Vertices"]) {
+    if ([elementName isEqualToString:@"Vertices"] && !currentContent) {
         countNavx = [[attributeDict objectForKey:@"number"] intValue];
-        currentContent = nil;
+        currentContent = [NSMutableString string];
     }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    currentContent = string;
+    if (currentContent) {
+        [currentContent appendString: string];
+    }
 }
 
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    if ([elementName isEqualToString:@"Vertices"]) {
-       rawNavxData = currentContent;
+    if ([elementName isEqualToString:@"Vertices"] && currentContent) {
+        rawNavxData = currentContent;
+        currentContent = nil;
     }
-    
 }
 
 

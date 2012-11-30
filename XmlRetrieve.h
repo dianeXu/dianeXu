@@ -21,7 +21,7 @@
 #import <Foundation/Foundation.h>
 
 @interface XmlRetrieve : NSObject <NSXMLParserDelegate> {
-    NSString *currentContent;
+    NSMutableString *currentContent;
     NSString *rawNavxData;
     int countNavx;
 }

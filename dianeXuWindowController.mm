@@ -83,9 +83,11 @@
     XmlRetrieve *retrieve = [[XmlRetrieve alloc] init];
     NSError *error = nil;
     NSString * rawData;
-    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[retrieve retrieveNavxVertixCount:[pathEAM URL] :&error]]]; //get Number of vertices and Show!
-    rawData = [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
-    NSRunInformationalAlertPanel(@"DEBUG:", rawData, @"OK", nil, nil,nil);
+    int vertexCount;
+    vertexCount = [retrieve retrieveNavxVertixCount:[pathEAM URL] :&error];
+    rawData = [[NSString alloc] initWithString:[retrieve retrieveNavxDataFrom:[pathEAM URL] :&error]];
+    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",vertexCount]];
+    NSRunInformationalAlertPanel(@"DEBUG (data in Plugin):", rawData, @"OK", nil, nil,nil);
 }
 
 - (void)updateStepGUI: (int)toStep
