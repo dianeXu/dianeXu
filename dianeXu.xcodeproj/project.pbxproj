@@ -14,6 +14,8 @@
 		03729C62165B4FDA00096AAA /* dianeXuStatusWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 03729C5F165B4FDA00096AAA /* dianeXuStatusWindowController.h */; };
 		03729C63165B4FDA00096AAA /* dianeXuStatusWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03729C60165B4FDA00096AAA /* dianeXuStatusWindowController.mm */; };
 		03729C64165B4FDA00096AAA /* dianeXuStatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03729C61165B4FDA00096AAA /* dianeXuStatusWindow.xib */; };
+		037430C11668B0E0006029AF /* dianeXuCoord.h in Headers */ = {isa = PBXBuildFile; fileRef = 037430BF1668B0E0006029AF /* dianeXuCoord.h */; };
+		037430C21668B0E0006029AF /* dianeXuCoord.m in Sources */ = {isa = PBXBuildFile; fileRef = 037430C01668B0E0006029AF /* dianeXuCoord.m */; };
 		03E1FA1815FF5A0000C59023 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E1FA1715FF5A0000C59023 /* PreferencePanes.framework */; };
 		03E1FA2F15FF5D6200C59023 /* dianeXuPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */; };
 		03E1FA3215FF658E00C59023 /* dianeXuPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E1F9F915FF56AF00C59023 /* dianeXuPreferences.xib */; };
@@ -48,6 +50,8 @@
 		03729C5F165B4FDA00096AAA /* dianeXuStatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuStatusWindowController.h; sourceTree = "<group>"; };
 		03729C60165B4FDA00096AAA /* dianeXuStatusWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dianeXuStatusWindowController.mm; sourceTree = "<group>"; };
 		03729C61165B4FDA00096AAA /* dianeXuStatusWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = dianeXuStatusWindow.xib; sourceTree = "<group>"; };
+		037430BF1668B0E0006029AF /* dianeXuCoord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuCoord.h; sourceTree = "<group>"; };
+		037430C01668B0E0006029AF /* dianeXuCoord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuCoord.m; sourceTree = "<group>"; };
 		03E1F9F515FF55F600C59023 /* dianeXuPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuPreferencesController.h; sourceTree = "<group>"; };
 		03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuPreferencesController.m; sourceTree = "<group>"; };
 		03E1F9F915FF56AF00C59023 /* dianeXuPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = dianeXuPreferences.xib; sourceTree = "<group>"; };
@@ -474,6 +478,8 @@
 				03FED013165A676F0070F92A /* dianeXuWindowController.mm */,
 				03729C5F165B4FDA00096AAA /* dianeXuStatusWindowController.h */,
 				03729C60165B4FDA00096AAA /* dianeXuStatusWindowController.mm */,
+				037430BF1668B0E0006029AF /* dianeXuCoord.h */,
+				037430C01668B0E0006029AF /* dianeXuCoord.m */,
 			);
 			name = dianeXuFilter;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 				03729C62165B4FDA00096AAA /* dianeXuStatusWindowController.h in Headers */,
 				034813151664E6F700ABC18A /* dianeXuDataSet.h in Headers */,
 				034813191664EC6C00ABC18A /* XmlRetrieve.h in Headers */,
+				037430C11668B0E0006029AF /* dianeXuCoord.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +621,7 @@
 				03729C63165B4FDA00096AAA /* dianeXuStatusWindowController.mm in Sources */,
 				034813161664E6F700ABC18A /* dianeXuDataSet.m in Sources */,
 				0348131A1664EC6C00ABC18A /* XmlRetrieve.m in Sources */,
+				037430C21668B0E0006029AF /* dianeXuCoord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
