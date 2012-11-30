@@ -14,3 +14,8 @@ xcuserdata
 profile
 *.moved-aside
 DerivedData
+#Symlinks
+#ITK4
+#Binaries
+#VTKHeaders
+#osirix

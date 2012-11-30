@@ -1,5 +1,5 @@
 //
-//  dianeXuPreferencesController.h
+//  dianeXuStatusWindowController.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -18,23 +18,17 @@
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
-#import <PreferencePanes/PreferencePanes.h>
+#import <Cocoa/Cocoa.h>
 
-@interface dianeXuPreferencesController : NSPreferencePane
-{
-    NSButton *preferenceFilterBox;
-    NSComboBox *preferenceDEStudyBox;
-    NSComboBox *preferenceT2StudyBox;
-    NSComboBox *preferenceEAMSourceBox;
+@interface dianeXuStatusWindowController : NSWindowController {
+    NSTextField *_statusText;
+    int _statusPercent;
 }
-@property (assign) IBOutlet NSButton *preferenceFilterBox;
-@property (assign) IBOutlet NSComboBox *preferenceDEStudyBox;
-@property (assign) IBOutlet NSComboBox *preferenceT2StudyBox;
-@property (assign) IBOutlet NSComboBox *preferenceEAMSourceBox;
 
-//URL reference opening via click
-- (IBAction)openProjectURL:(id)sender;
-- (IBAction)openBugtrackerURL:(id)sender;
+@property (assign) IBOutlet NSTextField *_statusText;
+@property (readwrite, assign) int _statusPercent;
 
+- (void)setStatusText:(NSString *)myText;
+- (void)setStatusPercent: (int)myPercent;
 
 @end
