@@ -19,6 +19,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "dianeXuCoord.h"
 #import "dianeXuStatusWindowController.h"
 
 @interface dianeXuDataSet : NSObject {
