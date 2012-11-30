@@ -13,7 +13,7 @@
 //  GNU General Public License for more details.
 //
 //  You should have received a copy of the GNU General Public License
-//  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+//  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
@@ -31,15 +31,22 @@
 
 - (long) filterImage:(NSString*) menuName
 {
+    NSLog(@"Starting dianeXu plugin for Osirix...");
     //Plugin Conditions: Ask for medical usage agreement
     int alertResult;
     alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. Its purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
-    if (alertResult == NSAlertDefaultReturn)
-    {
-        return 0;
+    if (alertResult == NSAlertDefaultReturn) {
+        return 0; //end prematurely with no errors
     }
     
-        
+    //If already existent, create the main Window
+    if (mainWindow == nil) {
+        mainWindow = [[dianeXuWindowController alloc] initWithWindowNibName:@"dianeXuWindow"];
+    }
+    //show our plugin window
+    [mainWindow showWindow:self];
+    
+    /*
 	ViewerController	*new2DViewer;
 	
 	// In this plugin, we will simply duplicate the current 2D window!
@@ -47,7 +54,10 @@
 	new2DViewer = [self duplicateCurrent2DViewerWindow];
 	
 	if( new2DViewer) return 0; // No Errors
-	else return -1;
+	else return -1;*/
+    
+    NSLog(@"Ending dianeXu OsiriX plugin...");
+    return 0;
 }
 
 @end

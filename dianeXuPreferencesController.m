@@ -13,13 +13,44 @@
 //  GNU General Public License for more details.
 //
 //  You should have received a copy of the GNU General Public License
-//  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+//  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import "dianeXuPreferencesController.h"
+#import "dianeXuPreferencesKeys.h"
 
 @implementation dianeXuPreferencesController
+
+#pragma mark Overrides
+@synthesize preferenceFilterBox;
+@synthesize preferenceDEStudyBox;
+@synthesize preferenceT2StudyBox;
+@synthesize preferenceEAMSourceBox;
++ (void)initialize
+{
+    //The following defines the default settings!
+    //create dictionary
+    NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
+    
+    //archive objects
+        //none as of yet
+    
+    //throw defaults in the dictionary
+    [defaultValues setObject:[NSNumber numberWithBool:YES] forKey:dianeXuFilterKey];
+    
+    //register the dictionary
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
+}
+
+#pragma mark Actions
+//URL reference opening via click
+- (IBAction)openBugtrackerURL:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://traq.dianeXu.com"]];
+}
+- (IBAction)openProjectURL:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.dianeXu.com"]];
+}
 
 @end

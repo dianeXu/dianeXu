@@ -1,5 +1,5 @@
 //
-//  dianeXuPreferencesController.h
+//  dianeXuCoord.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -18,23 +18,16 @@
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
-#import <PreferencePanes/PreferencePanes.h>
+#import <Foundation/Foundation.h>
 
-@interface dianeXuPreferencesController : NSPreferencePane
-{
-    NSButton *preferenceFilterBox;
-    NSComboBox *preferenceDEStudyBox;
-    NSComboBox *preferenceT2StudyBox;
-    NSComboBox *preferenceEAMSourceBox;
+@interface dianeXuCoord : NSObject {
+    NSNumber *x;
+    NSNumber *y;
+    NSNumber *z;
 }
-@property (assign) IBOutlet NSButton *preferenceFilterBox;
-@property (assign) IBOutlet NSComboBox *preferenceDEStudyBox;
-@property (assign) IBOutlet NSComboBox *preferenceT2StudyBox;
-@property (assign) IBOutlet NSComboBox *preferenceEAMSourceBox;
 
-//URL reference opening via click
-- (IBAction)openProjectURL:(id)sender;
-- (IBAction)openBugtrackerURL:(id)sender;
-
+@property (assign) NSNumber *x;
+@property (assign) NSNumber *y;
+@property (assign) NSNumber *z;
 
 @end

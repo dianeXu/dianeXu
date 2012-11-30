@@ -13,7 +13,7 @@
 //  GNU General Public License for more details.
 //
 //  You should have received a copy of the GNU General Public License
-//  along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+//  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
 //  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
@@ -21,7 +21,10 @@
 #import <Foundation/Foundation.h>
 #import <OsiriXAPI/PluginFilter.h>
 
+#import "dianeXuWindowController.h"
+
 @interface dianeXuFilter : PluginFilter {
+    dianeXuWindowController* mainWindow;
 
 }
 
