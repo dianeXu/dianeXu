@@ -31,6 +31,7 @@
 
 - (long) filterImage:(NSString*) menuName
 {
+    NSLog(@"Starting dianeXu plugin for Osirix...");
     //Plugin Conditions: Ask for medical usage agreement
     int alertResult;
     alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. Its purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
@@ -55,9 +56,8 @@
 	if( new2DViewer) return 0; // No Errors
 	else return -1;*/
     
+    NSLog(@"Ending dianeXu OsiriX plugin...");
     return 0;
-    
-    
 }
 
 @end
