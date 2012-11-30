@@ -84,9 +84,15 @@
     NSError *error = nil;
     NSString * rawData;
     int vertexCount;
+    
     vertexCount = [retrieve retrieveNavxVertixCount:[pathEAM URL] :&error];
     rawData = [[NSString alloc] initWithString:[retrieve retrieveNavxDataFrom:[pathEAM URL] :&error]];
+    
+    //update interface
     [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",vertexCount]];
+    
+    //feed rawData to the workingSet
+    [workingSet makePointsFromNavxString:rawData :vertexCount];
 }
 
 - (void)updateStepGUI: (int)toStep
