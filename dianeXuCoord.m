@@ -10,4 +10,6 @@
 
 @implementation dianeXuCoord
 
+@synthesize x,y,z;
+
 @end
