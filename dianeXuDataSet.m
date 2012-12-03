@@ -30,6 +30,12 @@
     return self;
 }
 
+- (ROI*) eamROI {
+    //TODO: Add code!
+    
+    return eamROI;
+}
+
 - (void)makePointsFromNavxString:(NSString *)inputString:(int)pointCount {
     //+status
     [status showWindow:self];

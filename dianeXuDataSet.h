@@ -21,11 +21,16 @@
 #import <Foundation/Foundation.h>
 #import "dianeXuCoord.h"
 #import "dianeXuStatusWindowController.h"
+#import <OsiriXAPI/ROI.h>
+#import <OsiriXAPI/ViewerController.h>
 
 @interface dianeXuDataSet : NSObject {
     dianeXuStatusWindowController* status;
     NSMutableArray* eamPoints;
+    ROI* eamROI;
 }
+
+- (ROI*)eamROI;
 
 - (void)makePointsFromNavxString:(NSString*) inputString:(int)pointCount;
 

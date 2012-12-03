@@ -40,6 +40,7 @@
     }
     
     //If already existent, create the main Window
+    
     if (mainWindow == nil) {
         mainWindow = [[dianeXuWindowController alloc] initWithWindowNibName:@"dianeXuWindow"];
     }

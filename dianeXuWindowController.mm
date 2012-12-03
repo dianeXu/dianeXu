@@ -74,7 +74,7 @@
 - (IBAction)pushQuit:(id)sender {
     [[self window] orderOut:self];
     //TODO: Clean up everything (especially observers) before deallocating!
-    [self dealloc];
+    //[self dealloc];
 }
 
 - (IBAction)pushInfo:(id)sender {
