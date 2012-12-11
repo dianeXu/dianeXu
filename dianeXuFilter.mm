@@ -36,7 +36,8 @@
     int alertResult;
     alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. Its purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
     if (alertResult == NSAlertDefaultReturn) {
-        return 0; //end prematurely with no errors
+        //end prematurely with no errors
+        return 0;
     }
     
     dianeXuWindowController* mainWindow;
@@ -44,8 +45,13 @@
     
     //TODO: Add search for controllers in existence!
     
-    mainWindow = [[dianeXuWindowController alloc] initWithViewer:viewerController andViewer:[viewerController blendingController]];
+    mainWindow = [dianeXuFilter getWindowForController:viewerController andController:[viewerController blendingController]];
     
+    if (!mainWindow) {
+        mainWindow = [[dianeXuWindowController alloc] initWithViewer:viewerController andViewer:[viewerController blendingController]];
+    }
+    
+    NSLog(@"Initialized dianeXu with two Viewers, showing main Window...");
     //show our plugin window
     [mainWindow showWindow:self];
     
@@ -61,6 +67,21 @@
     
     NSLog(@"Ending dianeXu OsiriX plugin...");
     return 0;
+}
+
++(id)getWindowForController:(ViewerController*)mViewer andController:(ViewerController*)sViewer {
+    NSArray* windowList = [NSApp windows];
+    
+    for (id windowItem in windowList) {
+        //is the window even ours?
+        if ([[[windowItem windowController] windowNibName] isEqualToString:@"dianeXuWindow"]) {
+            if ([[windowItem windowController] mainViewer] == mViewer && [[windowItem windowController] scndViewer] == sViewer) {
+                NSLog(@"Using existing window...");
+                return [windowItem windowController];
+            }
+        }
+    }
+    return nil;
 }
 
 @end
