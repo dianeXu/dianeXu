@@ -24,6 +24,8 @@
 #import "dianeXuDataSet.h"
 
 @interface dianeXuWindowController : NSWindowController {
+    ViewerController* mainViewer;
+    ViewerController* scndViewer;
     dianeXuDataSet* workingSet;
     NSUserDefaults *defaultSettings;
     int currentStep;
@@ -35,6 +37,9 @@
     NSTextField *labelEAMNumCoords;
     NSButton *buttonInfo;
 }
+
+@property (readonly) ViewerController* mainViewer;
+@property (readonly) ViewerController* scndViewer;
 
 @property (assign) IBOutlet NSButton *buttonInfo;
 @property (assign) int currentStep;

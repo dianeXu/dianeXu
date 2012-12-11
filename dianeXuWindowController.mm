@@ -27,14 +27,13 @@
 @end
 
 @implementation dianeXuWindowController
+@synthesize mainViewer,scndViewer;
 @synthesize currentStep;
-@synthesize buttonNext;
-@synthesize buttonPrev;
+@synthesize buttonNext,buttonPrev,buttonInfo;
 @synthesize tabStep;
 @synthesize pathEAM;
-@synthesize labelEAMSource;
-@synthesize labelEAMNumCoords;
-@synthesize buttonInfo;
+@synthesize labelEAMSource,labelEAMNumCoords;
+
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -46,6 +45,21 @@
         defaultSettings = [NSUserDefaults standardUserDefaults];
     }
     
+    return self;
+}
+
+- (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer {
+    
+    self = [super initWithWindowNibName:@"dianeXuWindow"];
+    
+    defaultSettings = [NSUserDefaults standardUserDefaults];
+    workingSet = [[dianeXuDataSet alloc] init];
+    currentStep = 0;
+    
+    if (self != nil) {
+        mainViewer = mViewer;
+        scndViewer = sViewer;
+    }
     return self;
 }
 
