@@ -39,11 +39,13 @@
         return 0; //end prematurely with no errors
     }
     
-    //If already existent, create the main Window
+    dianeXuWindowController* mainWindow;
+    //If not existent, create the main Window
     
-    if (mainWindow == nil) {
-        mainWindow = [[dianeXuWindowController alloc] initWithWindowNibName:@"dianeXuWindow"];
-    }
+    //TODO: Add search for controllers in existence!
+    
+    mainWindow = [[dianeXuWindowController alloc] initWithViewer:viewerController andViewer:[viewerController blendingController]];
+    
     //show our plugin window
     [mainWindow showWindow:self];
     

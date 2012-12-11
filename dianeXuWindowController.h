@@ -56,6 +56,8 @@
 - (IBAction)pushInfo:(id)sender;
 - (IBAction)pushGetEAMData:(id)sender;
 
+- (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer;
+
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 
 - (void) updateStepGUI: (int)toStep;

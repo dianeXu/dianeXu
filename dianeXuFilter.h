@@ -24,7 +24,6 @@
 #import "dianeXuWindowController.h"
 
 @interface dianeXuFilter : PluginFilter {
-    dianeXuWindowController* mainWindow;
 
 }
 
