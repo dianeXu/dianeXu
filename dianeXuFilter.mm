@@ -25,8 +25,13 @@
 
 - (void) initPlugin
 {
+    //get path fpr the prefpane icon
+    NSString* appPath = [[NSBundle bundleForClass:[dianeXuWindowController class]] bundlePath];
+    NSString* iconPath = [[NSString alloc] initWithFormat:@"%@/Contents/Resources/Icon-Small.png",appPath];
+    NSImage* appIcon = [[NSImage alloc] initWithContentsOfFile:iconPath];
     //Add PreferencePane to OsiriX Preferences
-    [PreferencesWindowController addPluginPaneWithResourceNamed:@"dianeXuPreferences" inBundle:[NSBundle bundleForClass:[self class]] withTitle:@"dianeXu" image:[NSImage imageNamed:@"NSUser"]];
+    [PreferencesWindowController addPluginPaneWithResourceNamed:@"dianeXuPreferences" inBundle:[NSBundle bundleForClass:[self class]] withTitle:@"dianeXu" image:appIcon];
+   
 }
 
 - (long) filterImage:(NSString*) menuName
