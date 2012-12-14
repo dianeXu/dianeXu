@@ -70,7 +70,6 @@
 	if( new2DViewer) return 0; // No Errors
 	else return -1;*/
     
-    NSLog(@"Ending dianeXu OsiriX plugin...");
     return 0;
 }
 
