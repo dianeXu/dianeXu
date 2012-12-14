@@ -29,14 +29,17 @@
     NSMutableArray* eamPoints;
     ROI* eamROI;
     dianeXuCoord* primarySpacing;
+    dianeXuCoord* primaryOrigin;
     dianeXuCoord* secondarySpacing;
+    dianeXuCoord* secondaryOrigin;
+    
 }
 
 - (ROI*)eamROI;
 
 - (void)makePointsFromNavxString:(NSString*) inputString:(int)pointCount;
 
-- (void)updatePrimarySpacingFrom:(ViewerController*) pViewer;
-- (void)updateSecondarySpacingFrom:(ViewerController*) sViewer;
+- (void)updateGeometryInfoFrom:(ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
+
 
 @end

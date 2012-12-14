@@ -59,6 +59,7 @@
     if (self != nil) {
         mainViewer = mViewer;
         scndViewer = sViewer;
+        [workingSet updateGeometryInfoFrom:mainViewer andFrom:scndViewer];
     }
     return self;
 }
