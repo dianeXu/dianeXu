@@ -27,6 +27,13 @@
     if (status == nil) {
         status = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
     }
+    NSNumber* stdSpacing = [[NSNumber alloc] initWithInt:1];
+    [primarySpacing setX:stdSpacing];
+    [primarySpacing setY:stdSpacing];
+    [primarySpacing setZ:stdSpacing];
+    [secondarySpacing setX:stdSpacing];
+    [secondarySpacing setY:stdSpacing];
+    [secondarySpacing setZ:stdSpacing];
     return self;
 }
 
@@ -74,6 +81,15 @@
     [[status window] orderOut:self];
     [status setStatusPercent:0];
     //-status
+}
+
+- (void)updatePrimarySpacingFrom:(ViewerController *)pViewer {
+    //TODO: Add Code
+    
+}
+
+- (void)updateSecondarySpacingFrom:(ViewerController *)sViewer {
+    //TODO: Add Code
 }
 
 @end

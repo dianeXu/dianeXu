@@ -28,10 +28,15 @@
     dianeXuStatusWindowController* status;
     NSMutableArray* eamPoints;
     ROI* eamROI;
+    dianeXuCoord* primarySpacing;
+    dianeXuCoord* secondarySpacing;
 }
 
 - (ROI*)eamROI;
 
 - (void)makePointsFromNavxString:(NSString*) inputString:(int)pointCount;
+
+- (void)updatePrimarySpacingFrom:(ViewerController*) pViewer;
+- (void)updateSecondarySpacingFrom:(ViewerController*) sViewer;
 
 @end
