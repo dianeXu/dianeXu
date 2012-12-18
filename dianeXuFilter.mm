@@ -46,14 +46,22 @@
     }
     
     dianeXuWindowController* mainWindow;
+    
     //If not existent, create the main Window
+    NSArray* activeViewers = [ViewerController getDisplayed2DViewers];
+    if ([activeViewers count] < 2) {
+        NSRunInformationalAlertPanel(@"ERROR", @"This plugin needs two viewers to function properly. Please open a second viewer first.", @"Quit", nil, nil,nil);
+        return 0;
+    } else if ([activeViewers count]>2) {
+        NSRunInformationalAlertPanel(@"WARNING", @"This plugin only uses two viewers. Please check the registred Viewers!", @"OK", nil, nil,nil);
+    }
     
-    //TODO: Add search for controllers in existence!
+    //check for the first two viewers
+    mainWindow = [dianeXuFilter getWindowForController:[activeViewers objectAtIndex:0] andController:[activeViewers objectAtIndex:1]];
     
-    mainWindow = [dianeXuFilter getWindowForController:viewerController andController:[viewerController blendingController]];
     
     if (!mainWindow) {
-        mainWindow = [[dianeXuWindowController alloc] initWithViewer:viewerController andViewer:[viewerController blendingController]];
+        mainWindow = [[dianeXuWindowController alloc] initWithViewer:[activeViewers objectAtIndex:0] andViewer:[activeViewers objectAtIndex:1]];
     }
     
     NSLog(@"Initialized dianeXu with two Viewers, showing main Window...");

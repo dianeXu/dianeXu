@@ -59,6 +59,9 @@
     if (self != nil) {
         mainViewer = mViewer;
         scndViewer = sViewer;
+        NSLog(@"psX: %f",[[[scndViewer pixList] objectAtIndex:0] pixelSpacingX]);
+        NSLog(@"psY: %f",[[[scndViewer pixList] objectAtIndex:0] pixelSpacingY]);
+        NSLog(@"psZ: %f",[[[scndViewer pixList] objectAtIndex:0] sliceThickness]);
         [workingSet updateGeometryInfoFrom:mainViewer andFrom:scndViewer];
     }
     return self;

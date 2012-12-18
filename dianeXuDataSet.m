@@ -27,20 +27,10 @@
     if (status == nil) {
         status = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
     }
-    NSNumber* stdSpacing = [[NSNumber alloc] initWithInt:1];
-    NSNumber* stdOrigin = [[NSNumber alloc] initWithInt:0];
-    [primarySpacing setX:stdSpacing];
-    [primarySpacing setY:stdSpacing];
-    [primarySpacing setZ:stdSpacing];
-    [secondarySpacing setX:stdSpacing];
-    [secondarySpacing setY:stdSpacing];
-    [secondarySpacing setZ:stdSpacing];
-    [primaryOrigin setX:stdOrigin];
-    [primaryOrigin setY:stdOrigin];
-    [primaryOrigin setZ:stdOrigin];
-    [secondaryOrigin setX:stdOrigin];
-    [secondaryOrigin setY:stdOrigin];
-    [secondaryOrigin setZ:stdOrigin];
+    primarySpacing = [[dianeXuCoord alloc] init];
+    primaryOrigin = [[dianeXuCoord alloc] init];
+    secondarySpacing = [[dianeXuCoord alloc] init];
+    secondaryOrigin = [[dianeXuCoord alloc] init];
     return self;
 }
 
@@ -96,13 +86,13 @@
     DCMPix* primeSlice = [[primeViewer pixList] objectAtIndex:0];
     DCMPix* secondSlice = [[secondViewer pixList] objectAtIndex:0];
     
-    [primarySpacing setX:[[NSNumber alloc] initWithDouble:[primeSlice pixelSpacingX]]];
-    [primarySpacing setY:[[NSNumber alloc] initWithDouble:[primeSlice pixelSpacingY]]];
-    //[primarySpacing setZ:[[NSNumber alloc] initWithDouble:[primeSlice sliceInterval]]];
+    [primarySpacing setX:[NSNumber numberWithDouble:[primeSlice pixelSpacingX]]];
+    [primarySpacing setY:[NSNumber numberWithDouble:[primeSlice pixelSpacingY]]];
+    [primarySpacing setZ:[NSNumber numberWithDouble:[primeSlice sliceThickness]]];
     
     [secondarySpacing setX:[[NSNumber alloc] initWithDouble:[secondSlice pixelSpacingX]]];
     [secondarySpacing setY:[[NSNumber alloc] initWithDouble:[secondSlice pixelSpacingY]]];
-    //[secondarySpacing setZ:[[NSNumber alloc] initWithDouble:[secondSlice sliceInterval]]];
+    [secondarySpacing setZ:[[NSNumber alloc] initWithDouble:[secondSlice sliceThickness]]];
     
     NSLog(@"Updated prime geometry info to psX:%@, psY:%@, psZ:%@",[primarySpacing x],[primarySpacing y],[primarySpacing z]);
     NSLog(@"Updated scnd geometry info to psX:%@, psY:%@, psZ:%@",[secondarySpacing x],[secondarySpacing y],[secondarySpacing z]);
