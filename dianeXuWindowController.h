@@ -36,6 +36,7 @@
     NSTextField *labelEAMSource;
     NSTextField *labelEAMNumCoords;
     NSButton *buttonInfo;
+    NSButton *pushShowEAMRoi;
 }
 
 @property (readonly) ViewerController* mainViewer;
@@ -55,6 +56,7 @@
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
 - (IBAction)pushGetEAMData:(id)sender;
+@property (assign) IBOutlet NSButton *pushShowEAMRoi;
 
 - (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer;
 

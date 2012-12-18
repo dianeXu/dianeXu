@@ -27,6 +27,7 @@
 @end
 
 @implementation dianeXuWindowController
+@synthesize pushShowEAMRoi;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
