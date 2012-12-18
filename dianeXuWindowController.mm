@@ -27,7 +27,7 @@
 @end
 
 @implementation dianeXuWindowController
-@synthesize pushShowEAMRoi;
+@synthesize buttonEAMRoi;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
@@ -114,7 +114,20 @@
     
     //feed rawData to the workingSet
     [workingSet makePointsFromNavxString:rawData :vertexCount];
+    
+    //Enable show ROI button now that we have the data
+    [buttonEAMRoi setEnabled:YES];
 }
+
+- (IBAction)pushEAMRoi:(id)sender {
+    if ([buttonEAMRoi title] == @"Show ROI") {
+        
+        [buttonEAMRoi setTitle:@"Hide ROI"];
+    } else {
+        [buttonEAMRoi setTitle:@"Show ROI"];
+    }
+}
+
 
 - (void)updateStepGUI: (int)toStep
 {

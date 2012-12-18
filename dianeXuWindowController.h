@@ -35,6 +35,7 @@
     NSPathControl *pathEAM;
     NSTextField *labelEAMSource;
     NSTextField *labelEAMNumCoords;
+    NSButton *buttonEAMRoi;
     NSButton *buttonInfo;
     NSButton *pushShowEAMRoi;
 }
@@ -50,13 +51,15 @@
 @property (assign) IBOutlet NSPathControl *pathEAM;
 @property (assign) IBOutlet NSTextField *labelEAMSource;
 @property (assign) IBOutlet NSTextField *labelEAMNumCoords;
+@property (assign) IBOutlet NSButton *buttonEAMRoi;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
 - (IBAction)pushGetEAMData:(id)sender;
-@property (assign) IBOutlet NSButton *pushShowEAMRoi;
+- (IBAction)pushEAMRoi:(id)sender;
+
 
 - (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer;
 
