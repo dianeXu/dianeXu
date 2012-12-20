@@ -27,7 +27,6 @@
 @interface dianeXuDataSet : NSObject {
     dianeXuStatusWindowController* status;
     NSMutableArray* eamPoints;
-    ROI* eamROI;
     dianeXuCoord* primarySpacing;
     dianeXuCoord* primaryOrigin;
     dianeXuCoord* secondarySpacing;
@@ -35,7 +34,7 @@
     
 }
 
-- (ROI*)eamROI;
+- (void)eamROItoController: (ViewerController*)targetController;
 
 - (void)makePointsFromNavxString:(NSString*) inputString:(int)pointCount;
 

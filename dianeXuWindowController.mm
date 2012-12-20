@@ -121,7 +121,7 @@
 
 - (IBAction)pushEAMRoi:(id)sender {
     if ([buttonEAMRoi title] == @"Show ROI") {
-        
+        [workingSet eamROItoController:mainViewer];
         [buttonEAMRoi setTitle:@"Hide ROI"];
     } else {
         [buttonEAMRoi setTitle:@"Show ROI"];

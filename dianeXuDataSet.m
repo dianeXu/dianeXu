@@ -31,13 +31,33 @@
     primaryOrigin = [[dianeXuCoord alloc] init];
     secondarySpacing = [[dianeXuCoord alloc] init];
     secondaryOrigin = [[dianeXuCoord alloc] init];
+    eamPoints = [[NSMutableArray alloc] init];
     return self;
 }
 
-- (ROI*) eamROI {
-    //TODO: Add code!
+- (void)eamROItoController: (ViewerController*)targetController {
+    //prepare needed data
+    dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
+    DCMPix* slice = [[targetController pixList] objectAtIndex:0];
+    NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
     
-    return eamROI;
+    [pixelGeometry setX:[NSNumber numberWithDouble:[slice pixelSpacingX]]];
+    [pixelGeometry setY:[NSNumber numberWithDouble:[slice pixelSpacingY]]];
+    [pixelGeometry setZ:[NSNumber numberWithDouble:[slice sliceThickness]]];
+    
+    NSLog(@"%u",[eamPoints count]);
+    for (dianeXuCoord* currentCoord in eamPoints) {
+        dianeXuCoord* tmpCoord = [[dianeXuCoord alloc] init];
+         NSLog(@"%@",tmpCoord);
+        [tmpCoord setX:[NSNumber numberWithDouble:[[currentCoord x] doubleValue]/[[pixelGeometry x] doubleValue]]];
+        [tmpCoord setY:[NSNumber numberWithDouble:[[currentCoord y] doubleValue]/[[pixelGeometry y] doubleValue]]];
+        [tmpCoord setZ:[NSNumber numberWithDouble:[[currentCoord z] doubleValue]/[[pixelGeometry z] doubleValue]]];
+        [pointsROI addObject:[tmpCoord copy]];
+        tmpCoord = nil;
+    }
+    
+    NSLog(@"%@",[pointsROI objectAtIndex:0]);
+    
 }
 
 - (void)makePointsFromNavxString:(NSString *)inputString:(int)pointCount {
@@ -48,8 +68,6 @@
     int statusDone = 0;
     //-status
     
-    dianeXuCoord *currentCoord = [[dianeXuCoord alloc] init];
-    
     NSMutableArray *lineCoords = [[inputString componentsSeparatedByString:@"\n"] mutableCopy];
     //trim lines
     [lineCoords removeObjectAtIndex:0];
@@ -57,16 +75,22 @@
     
     
     for (NSString *singleCoord in lineCoords) {
+        dianeXuCoord *currentCoord = [[dianeXuCoord alloc] init];
+        
         //trim junk from the single lines
         NSString *trimmedSingleCoord = [singleCoord stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
         //seperate the coords
         NSArray *justCoords = [trimmedSingleCoord componentsSeparatedByString:@"  "];
         
         //set coordinate values and add to eamPoints array.
         [currentCoord setX:[NSNumber numberWithDouble:[[justCoords objectAtIndex:0]  doubleValue]]];
-        [currentCoord setY:[NSNumber numberWithDouble:[[justCoords objectAtIndex:0]  doubleValue]]];
-        [currentCoord setZ:[NSNumber numberWithDouble:[[justCoords objectAtIndex:0]  doubleValue]]];
+        [currentCoord setY:[NSNumber numberWithDouble:[[justCoords objectAtIndex:1]  doubleValue]]];
+        [currentCoord setZ:[NSNumber numberWithDouble:[[justCoords objectAtIndex:2]  doubleValue]]];
+         
         [eamPoints addObject:currentCoord];
+        
+        currentCoord = nil;
         
         //+status
         statusDone++;
@@ -77,6 +101,7 @@
     //+status
     [[status window] orderOut:self];
     [status setStatusPercent:0];
+    NSLog(@"%u",[eamPoints count]);
     //-status
 }
 
