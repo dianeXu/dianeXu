@@ -26,12 +26,12 @@
     self = [super init];
     if (status == nil) {
         status = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
+        primarySpacing = [[dianeXuCoord alloc] init];
+        primaryOrigin = [[dianeXuCoord alloc] init];
+        secondarySpacing = [[dianeXuCoord alloc] init];
+        secondaryOrigin = [[dianeXuCoord alloc] init];
+        eamPoints = [[NSMutableArray alloc] init];
     }
-    primarySpacing = [[dianeXuCoord alloc] init];
-    primaryOrigin = [[dianeXuCoord alloc] init];
-    secondarySpacing = [[dianeXuCoord alloc] init];
-    secondaryOrigin = [[dianeXuCoord alloc] init];
-    eamPoints = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -47,20 +47,14 @@
     
     NSLog(@"Preparing EAM ROI for %u points with pixelspacings X=%@ Y=%@ Z=%@",[eamPoints count],[pixelGeometry xValue],[pixelGeometry yValue],[pixelGeometry zValue]);
     
-    NSLog(@"%@ %@ %@", [[eamPoints objectAtIndex:0] xValue],[[eamPoints objectAtIndex:0] yValue],[[eamPoints objectAtIndex:0] zValue]);
-    
     for (dianeXuCoord* mmValues in eamPoints) {
-        dianeXuCoord* newValues = [[dianeXuCoord alloc] init]; //[eamPoints objectAtIndex:i];
+        dianeXuCoord* newValues = [[dianeXuCoord alloc] init];
         
-        [newValues setXValue:[mmValues xValue]];
-        [newValues setYValue:[mmValues yValue]];
-        [newValues setZValue:[mmValues zValue]];
+        [newValues setXValue:[[mmValues xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
+        [newValues setXValue:[[mmValues yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
+        [newValues setXValue:[[mmValues zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
         
-        //[tmpCoord setX:[[currentCoord x] decimalNumberByDividingBy:[pixelGeometry x]]];
-        //[tmpCoord setY:[[currentCoord y] decimalNumberByDividingBy:[pixelGeometry y]]];
-        //[tmpCoord setZ:[[currentCoord z] decimalNumberByDividingBy:[pixelGeometry z]]];
-        
-        NSLog(@"%@ %@ %@", [newValues xValue],[newValues yValue],[newValues zValue]);
+       // NSLog(@"%@", newValues);
     }
 }
 
@@ -113,7 +107,7 @@
     //-status
     
     for (dianeXuCoord* mmValues in eamPoints) {
-        dianeXuCoord* newValues = [[dianeXuCoord alloc] init]; //[eamPoints objectAtIndex:i];
+        dianeXuCoord* newValues = [[dianeXuCoord alloc] init];
         
         [newValues setXValue:[mmValues xValue]];
         [newValues setYValue:[mmValues yValue]];
@@ -123,7 +117,7 @@
         //[tmpCoord setY:[[currentCoord y] decimalNumberByDividingBy:[pixelGeometry y]]];
         //[tmpCoord setZ:[[currentCoord z] decimalNumberByDividingBy:[pixelGeometry z]]];
         
-        NSLog(@"%@ %@ %@", [newValues xValue],[newValues yValue],[newValues zValue]);
+        NSLog(@"%@", newValues);
     }
 }
 

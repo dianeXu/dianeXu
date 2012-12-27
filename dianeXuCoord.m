@@ -34,4 +34,8 @@
     return self;
 }
 
+- (NSString*) description {
+    return [NSString stringWithFormat:@"X: %@, Y: %@, Z: %@",[self xValue],[self yValue],[self zValue]];
+}
+
 @end
