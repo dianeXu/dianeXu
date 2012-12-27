@@ -22,6 +22,16 @@
 
 @implementation dianeXuCoord
 
-@synthesize x,y,z;
+@synthesize xValue,yValue,zValue;
+
+- (id) init {
+    self = [super init];
+    if (self != nil) {
+        xValue = [[NSDecimalNumber alloc] init];
+        yValue = [[NSDecimalNumber alloc] init];
+        zValue = [[NSDecimalNumber alloc] init];
+    }
+    return self;
+}
 
 @end

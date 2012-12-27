@@ -21,13 +21,13 @@
 #import <Foundation/Foundation.h>
 
 @interface dianeXuCoord : NSObject {
-    NSNumber *x;
-    NSNumber *y;
-    NSNumber *z;
+    NSDecimalNumber *xValue;
+    NSDecimalNumber *yValue;
+    NSDecimalNumber *zValue;
 }
 
-@property (assign) NSNumber *x;
-@property (assign) NSNumber *y;
-@property (assign) NSNumber *z;
+@property (assign) NSDecimalNumber *xValue;
+@property (assign) NSDecimalNumber *yValue;
+@property (assign) NSDecimalNumber *zValue;
 
 @end

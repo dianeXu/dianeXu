@@ -60,9 +60,6 @@
     if (self != nil) {
         mainViewer = mViewer;
         scndViewer = sViewer;
-        NSLog(@"psX: %f",[[[scndViewer pixList] objectAtIndex:0] pixelSpacingX]);
-        NSLog(@"psY: %f",[[[scndViewer pixList] objectAtIndex:0] pixelSpacingY]);
-        NSLog(@"psZ: %f",[[[scndViewer pixList] objectAtIndex:0] sliceThickness]);
         [workingSet updateGeometryInfoFrom:mainViewer andFrom:scndViewer];
     }
     return self;
@@ -120,12 +117,8 @@
 }
 
 - (IBAction)pushEAMRoi:(id)sender {
-    if ([buttonEAMRoi title] == @"Show ROI") {
-        [workingSet eamROItoController:mainViewer];
-        [buttonEAMRoi setTitle:@"Hide ROI"];
-    } else {
-        [buttonEAMRoi setTitle:@"Show ROI"];
-    }
+    //[workingSet eamROItoController:mainViewer];
+    [workingSet logValues];
 }
 
 

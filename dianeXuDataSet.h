@@ -40,5 +40,6 @@
 
 - (void)updateGeometryInfoFrom:(ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
 
+- (void)logValues;
 
 @end
