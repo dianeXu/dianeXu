@@ -110,7 +110,7 @@
     [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",vertexCount]];
     
     //feed rawData to the workingSet
-    [workingSet makePointsFromNavxString:rawData :vertexCount];
+    [workingSet makePointsFromNavxString:rawData];
     
     //Enable show ROI button now that we have the data
     [buttonEAMRoi setEnabled:YES];

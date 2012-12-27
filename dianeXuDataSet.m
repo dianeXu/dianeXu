@@ -39,38 +39,23 @@
     //prepare needed data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
     DCMPix* slice = [[targetController pixList] objectAtIndex:0];
-    //NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
+    NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
     
     [pixelGeometry setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingX]] decimalValue]]];
     [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
     [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
     
-    NSLog(@"Preparing EAM ROI for %u points with pixelspacings X=%@ Y=%@ Z=%@",[eamPoints count],[pixelGeometry xValue],[pixelGeometry yValue],[pixelGeometry zValue]);
+    NSLog(@"Preparing EAM ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
     
-    for (dianeXuCoord* mmValues in eamPoints) {
-        dianeXuCoord* newValues = [[dianeXuCoord alloc] init];
-        
-        [newValues setXValue:[[mmValues xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
-        [newValues setXValue:[[mmValues yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
-        [newValues setXValue:[[mmValues zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
-        
-       // NSLog(@"%@", newValues);
-    }
+    NSLog(@"%@",eamPoints);
 }
 
-- (void)makePointsFromNavxString:(NSString *)inputString:(int)pointCount {
-    //+status
-    [status showWindow:self];
-    [[status window] orderFrontRegardless];
-    [status setStatusText:@"Reading NavX coordinates to dianeXu..."];
-    int statusDone = 0;
-    //-status
+- (void)makePointsFromNavxString:(NSString *)inputString {
     
     NSMutableArray *lineCoords = [[inputString componentsSeparatedByString:@"\n"] mutableCopy];
     //trim lines
     [lineCoords removeObjectAtIndex:0];
     [lineCoords removeLastObject];
-    
     
     for (NSString *singleCoord in lineCoords) {
         dianeXuCoord *currentCoord = [[dianeXuCoord alloc] init];
@@ -85,40 +70,15 @@
         [currentCoord setXValue:[NSDecimalNumber  decimalNumberWithString:[justCoords objectAtIndex:0]]];
         [currentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
         [currentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
-         
         //NSLog(@"%@ %@ %@", [currentCoord xValue],[currentCoord yValue],[currentCoord zValue]);
         
         [eamPoints addObject:currentCoord];
-        
-        //NSLog(@"%@ %@ %@", [[eamPoints objectAtIndex:[eamPoints count]-1] xValue],[[eamPoints objectAtIndex:[eamPoints count]-1] yValue],[[eamPoints objectAtIndex:[eamPoints count]-1] zValue]);
+        //NSLog(@"%@", [eamPoints objectAtIndex:[eamPoints count]-1]);
         
         currentCoord = nil;
-        
-        //+status
-        statusDone++;
-        [status setStatusPercent:(int)statusDone/pointCount];
-        [[status window] update];
-        //-status
     }
     
-    //+status
-    [[status window] orderOut:self];
-    [status setStatusPercent:0];
-    //-status
-    
-    for (dianeXuCoord* mmValues in eamPoints) {
-        dianeXuCoord* newValues = [[dianeXuCoord alloc] init];
-        
-        [newValues setXValue:[mmValues xValue]];
-        [newValues setYValue:[mmValues yValue]];
-        [newValues setZValue:[mmValues zValue]];
-        
-        //[tmpCoord setX:[[currentCoord x] decimalNumberByDividingBy:[pixelGeometry x]]];
-        //[tmpCoord setY:[[currentCoord y] decimalNumberByDividingBy:[pixelGeometry y]]];
-        //[tmpCoord setZ:[[currentCoord z] decimalNumberByDividingBy:[pixelGeometry z]]];
-        
-        NSLog(@"%@", newValues);
-    }
+    NSLog(@"%@",eamPoints);
 }
 
 - (void)updateGeometryInfoFrom:(ViewerController *)primeViewer andFrom:(ViewerController *)secondViewer {
@@ -134,8 +94,8 @@
     [secondarySpacing setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[secondSlice pixelSpacingY]] decimalValue]]];
     [secondarySpacing setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[secondSlice sliceThickness]] decimalValue]]];
     
-    NSLog(@"Updated prime geometry info to psX:%@, psY:%@, psZ:%@",[primarySpacing xValue],[primarySpacing yValue],[primarySpacing zValue]);
-    NSLog(@"Updated scnd geometry info to psX:%@, psY:%@, psZ:%@",[secondarySpacing xValue],[secondarySpacing yValue],[secondarySpacing zValue]);
+    NSLog(@"Updated prime geometry info to %@",primarySpacing);
+    NSLog(@"Updated scnd geometry info to %@",secondarySpacing);
 }
 
 

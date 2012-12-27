@@ -31,12 +31,11 @@
     dianeXuCoord* primaryOrigin;
     dianeXuCoord* secondarySpacing;
     dianeXuCoord* secondaryOrigin;
-    
 }
 
 - (void)eamROItoController: (ViewerController*)targetController;
 
-- (void)makePointsFromNavxString:(NSString*) inputString:(int)pointCount;
+- (void)makePointsFromNavxString:(NSString*) inputString;
 
 - (void)updateGeometryInfoFrom:(ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
 
