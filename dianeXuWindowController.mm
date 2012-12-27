@@ -117,8 +117,7 @@
 }
 
 - (IBAction)pushEAMRoi:(id)sender {
-    //[workingSet eamROItoController:mainViewer];
-    [workingSet logValues];
+    [workingSet eamROItoController:mainViewer];
 }
 
 

@@ -44,22 +44,23 @@
     [pixelGeometry setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingX]] decimalValue]]];
     [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
     [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
+    
     NSLog(@"Preparing EAM ROI for %u points with pixelspacings X=%@ Y=%@ Z=%@",[eamPoints count],[pixelGeometry xValue],[pixelGeometry yValue],[pixelGeometry zValue]);
     
     NSLog(@"%@ %@ %@", [[eamPoints objectAtIndex:0] xValue],[[eamPoints objectAtIndex:0] yValue],[[eamPoints objectAtIndex:0] zValue]);
     
-    for (int i = 0; i < [eamPoints count]; i++) {
+    for (dianeXuCoord* mmValues in eamPoints) {
         dianeXuCoord* newValues = [[dianeXuCoord alloc] init]; //[eamPoints objectAtIndex:i];
         
-        [newValues setXValue:[[eamPoints objectAtIndex:i] xValue]];
-        [newValues setYValue:[[eamPoints objectAtIndex:i] yValue]];
-        [newValues setZValue:[[eamPoints objectAtIndex:i] zValue]];
+        [newValues setXValue:[mmValues xValue]];
+        [newValues setYValue:[mmValues yValue]];
+        [newValues setZValue:[mmValues zValue]];
         
         //[tmpCoord setX:[[currentCoord x] decimalNumberByDividingBy:[pixelGeometry x]]];
         //[tmpCoord setY:[[currentCoord y] decimalNumberByDividingBy:[pixelGeometry y]]];
         //[tmpCoord setZ:[[currentCoord z] decimalNumberByDividingBy:[pixelGeometry z]]];
         
-     //   NSLog(@"%@ %@ %@", [[eamPoints objectAtIndex:i] xValue],[[eamPoints objectAtIndex:i] yValue],[[eamPoints objectAtIndex:i] zValue]);
+        NSLog(@"%@ %@ %@", [newValues xValue],[newValues yValue],[newValues zValue]);
     }
 }
 
@@ -110,6 +111,20 @@
     [[status window] orderOut:self];
     [status setStatusPercent:0];
     //-status
+    
+    for (dianeXuCoord* mmValues in eamPoints) {
+        dianeXuCoord* newValues = [[dianeXuCoord alloc] init]; //[eamPoints objectAtIndex:i];
+        
+        [newValues setXValue:[mmValues xValue]];
+        [newValues setYValue:[mmValues yValue]];
+        [newValues setZValue:[mmValues zValue]];
+        
+        //[tmpCoord setX:[[currentCoord x] decimalNumberByDividingBy:[pixelGeometry x]]];
+        //[tmpCoord setY:[[currentCoord y] decimalNumberByDividingBy:[pixelGeometry y]]];
+        //[tmpCoord setZ:[[currentCoord z] decimalNumberByDividingBy:[pixelGeometry z]]];
+        
+        NSLog(@"%@ %@ %@", [newValues xValue],[newValues yValue],[newValues zValue]);
+    }
 }
 
 - (void)updateGeometryInfoFrom:(ViewerController *)primeViewer andFrom:(ViewerController *)secondViewer {
