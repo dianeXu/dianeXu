@@ -24,8 +24,7 @@
 
 - (id)init {
     self = [super init];
-    if (status == nil) {
-        status = [[dianeXuStatusWindowController alloc] initWithWindowNibName:@"dianeXuStatusWindow"];
+    if (self != nil) {
         primarySpacing = [[dianeXuCoord alloc] init];
         primaryOrigin = [[dianeXuCoord alloc] init];
         secondarySpacing = [[dianeXuCoord alloc] init];
@@ -57,14 +56,43 @@
         [newItem setYValue:[[currentCoord yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
         [newItem setZValue:[[currentCoord zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
         [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
+        //TODO: IMPLEMENT ORIGIN OFFSET!
         [pointsROI addObject:newItem];
         newItem = nil;
     }
     
     [pointsROI sortUsingDescriptors:sortDescriptors];
     
-    NSLog(@"%@",eamPoints);
-    NSLog(@"%@",pointsROI);
+    //prepare data for ROI handling
+    DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];
+    NSMutableArray* roiSeriesList = [targetController roiList];
+    NSMutableArray* roiImageList = [roiSeriesList objectAtIndex:[[targetController imageView] curImage]];
+    ROI* newRoi = [targetController newROI: tCPolygon];
+    
+    //TODO: ITERARE over all Images and correspindung slice coords
+    //prepare more data for handling points
+    NSMutableArray* points = [newRoi points];
+    float xCenter = 0;
+    float yCenter = 0;
+    
+    for (dianeXuCoord* currentCoord in pointsROI) {
+        if ([[[currentCoord zValue] stringValue] isEqualToString:@"-28"]) {
+            [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]+111 :[[currentCoord yValue] floatValue]+111]];
+            
+            xCenter += [[points lastObject] x];
+            yCenter += [[points lastObject] y];
+        }
+    }
+    //adjust center for sorting
+    xCenter /= [points count];
+    yCenter /= [points count];
+
+    //sort points clockwise around center
+    
+    //display ROI
+    [newRoi setROIMode: ROI_selected];
+    [roiImageList addObject:newRoi];
+    [targetController needsDisplayUpdate];
 }
 
 - (void)makePointsFromNavxString:(NSString *)inputString {
@@ -113,5 +141,30 @@
     NSLog(@"Updated scnd geometry info to %@",secondarySpacing);
 }
 
++ (void)sortClockwise:(NSMutableArray *)theArray {
+    
+    NSPoint currentCenter;
+    currentCenter.x = 0;
+    currentCenter.y = 0;
+    for (MyPoint* currentPoint in theArray) {
+        currentCenter.x += [currentPoint x];
+        currentCenter.y += [currentPoint y];
+    }
+    currentCenter.x /= [theArray count];
+    currentCenter.y /= [theArray count];
+    
+    NSComparisonResult (^sortBlock)(id, id) = ^(id obj1, id obj2) {
+        if ([obj1 position] > [obj2 position]) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if ([obj1 position] < [obj2 position]) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    };
+
+        
+    }
+}
 
 @end

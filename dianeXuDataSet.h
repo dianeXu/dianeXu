@@ -23,9 +23,9 @@
 #import "dianeXuStatusWindowController.h"
 #import <OsiriXAPI/ROI.h>
 #import <OsiriXAPI/ViewerController.h>
+#import <OsiriXAPI/DCMView.h>
 
 @interface dianeXuDataSet : NSObject {
-    dianeXuStatusWindowController* status;
     NSMutableArray* eamPoints;
     dianeXuCoord* primarySpacing;
     dianeXuCoord* primaryOrigin;
@@ -37,6 +37,8 @@
 
 - (void)makePointsFromNavxString:(NSString*) inputString;
 
-- (void)updateGeometryInfoFrom:(ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
+- (void)updateGeometryInfoFrom: (ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
+
++ (void)sortClockwise: (NSMutableArray*)theArray;
 
 @end
