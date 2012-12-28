@@ -26,8 +26,8 @@
     NSDecimalNumber *zValue;
 }
 
-@property (assign) NSDecimalNumber *xValue;
-@property (assign) NSDecimalNumber *yValue;
-@property (assign) NSDecimalNumber *zValue;
+@property (retain) NSDecimalNumber *xValue;
+@property (retain) NSDecimalNumber *yValue;
+@property (retain) NSDecimalNumber *zValue;
 
 @end

@@ -36,18 +36,35 @@
 }
 
 - (void)eamROItoController: (ViewerController*)targetController {
-    //prepare needed data
+    //prepare needed data du adjust pixelspacings in eam data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
     DCMPix* slice = [[targetController pixList] objectAtIndex:0];
     NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
+    NSDecimalNumberHandler* roundingControl = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:0 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
+    NSSortDescriptor* zSort =[[[NSSortDescriptor alloc] initWithKey:@"zValue" ascending:YES] autorelease];
+    NSArray* sortDescriptors = [NSArray arrayWithObject:zSort];
     
     [pixelGeometry setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingX]] decimalValue]]];
     [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
     [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
+    //NSLog(@"Preparing EAM ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
     
-    NSLog(@"Preparing EAM ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
+    //make new points with values in pixels!
+    for (dianeXuCoord* currentCoord in eamPoints) {
+        dianeXuCoord* newItem = [[dianeXuCoord alloc] init];
+        
+        [newItem setXValue:[[currentCoord xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
+        [newItem setYValue:[[currentCoord yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
+        [newItem setZValue:[[currentCoord zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
+        [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
+        [pointsROI addObject:newItem];
+        newItem = nil;
+    }
+    
+    [pointsROI sortUsingDescriptors:sortDescriptors];
     
     NSLog(@"%@",eamPoints);
+    NSLog(@"%@",pointsROI);
 }
 
 - (void)makePointsFromNavxString:(NSString *)inputString {
@@ -58,7 +75,7 @@
     [lineCoords removeLastObject];
     
     for (NSString *singleCoord in lineCoords) {
-        dianeXuCoord *currentCoord = [[dianeXuCoord alloc] init];
+        dianeXuCoord *currentCoord = [dianeXuCoord alloc];
         
         //trim junk from the single lines
         NSString *trimmedSingleCoord = [singleCoord stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -77,8 +94,6 @@
         
         currentCoord = nil;
     }
-    
-    NSLog(@"%@",eamPoints);
 }
 
 - (void)updateGeometryInfoFrom:(ViewerController *)primeViewer andFrom:(ViewerController *)secondViewer {
