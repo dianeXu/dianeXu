@@ -35,7 +35,7 @@
 }
 
 - (void)eamROItoController: (ViewerController*)targetController {
-    //prepare needed data du adjust pixelspacings in eam data
+    // prepare needed data du adjust pixelspacings in eam data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
     DCMPix* slice = [[targetController pixList] objectAtIndex:0];
     NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
@@ -48,7 +48,7 @@
     [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
     //NSLog(@"Preparing EAM ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
     
-    //make new points with values in pixels!
+    // make new points with values in pixels!
     for (dianeXuCoord* currentCoord in eamPoints) {
         dianeXuCoord* newItem = [[dianeXuCoord alloc] init];
         
@@ -56,40 +56,32 @@
         [newItem setYValue:[[currentCoord yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
         [newItem setZValue:[[currentCoord zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
         [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
-        //TODO: IMPLEMENT ORIGIN OFFSET!
+        // TODO: IMPLEMENT ORIGIN OFFSET!
         [pointsROI addObject:newItem];
         newItem = nil;
     }
     
     [pointsROI sortUsingDescriptors:sortDescriptors];
     
-    //prepare data for ROI handling
+    // prepare data for ROI handling
     DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];
     NSMutableArray* roiSeriesList = [targetController roiList];
     NSMutableArray* roiImageList = [roiSeriesList objectAtIndex:[[targetController imageView] curImage]];
     ROI* newRoi = [targetController newROI: tCPolygon];
     
-    //TODO: ITERARE over all Images and correspindung slice coords
-    //prepare more data for handling points
+    // TODO: ITERARE over all Images and correspindung slice coords
+    // prepare more data for handling points
     NSMutableArray* points = [newRoi points];
-    float xCenter = 0;
-    float yCenter = 0;
     
     for (dianeXuCoord* currentCoord in pointsROI) {
-        if ([[[currentCoord zValue] stringValue] isEqualToString:@"-28"]) {
+        if ([[[currentCoord zValue] stringValue] isEqualToString:@"-26"]) {
             [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]+111 :[[currentCoord yValue] floatValue]+111]];
-            
-            xCenter += [[points lastObject] x];
-            yCenter += [[points lastObject] y];
         }
     }
-    //adjust center for sorting
-    xCenter /= [points count];
-    yCenter /= [points count];
-
-    //sort points clockwise around center
+    // sort points clockwise around center
+    [dianeXuDataSet sortClockwise:points];
     
-    //display ROI
+    // display ROI
     [newRoi setROIMode: ROI_selected];
     [roiImageList addObject:newRoi];
     [targetController needsDisplayUpdate];
@@ -125,7 +117,7 @@
 }
 
 - (void)updateGeometryInfoFrom:(ViewerController *)primeViewer andFrom:(ViewerController *)secondViewer {
-    //get the first images of each viewer
+    // get the first images of each viewer
     DCMPix* primeSlice = [[primeViewer pixList] objectAtIndex:0];
     DCMPix* secondSlice = [[secondViewer pixList] objectAtIndex:0];
     
@@ -153,18 +145,42 @@
     currentCenter.x /= [theArray count];
     currentCenter.y /= [theArray count];
     
-    NSComparisonResult (^sortBlock)(id, id) = ^(id obj1, id obj2) {
-        if ([obj1 position] > [obj2 position]) {
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        if ([obj1 position] < [obj2 position]) {
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        return (NSComparisonResult)NSOrderedSame;
-    };
-
+    [theArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        MyPoint* point1 = obj1;
+        MyPoint* point2 = obj2;
         
-    }
+        if (point1.x >= 0 && point2.x < 0) {
+            return NSOrderedDescending;
+        }
+        if (point1.x == 0 && point2.x == 0) {
+            if (point1.y > point2.y) {
+                return NSOrderedDescending;
+            } else {
+                return NSOrderedAscending;
+            }
+        }
+        
+        // cross product of vectors center->a and center->b
+        float det = (point1.x-currentCenter.x) * (point2.y-currentCenter.y) - (point2.x - currentCenter.x) * (point1.y - currentCenter.y);
+        if (det < 0) {
+            return NSOrderedDescending;
+        } else if (det > 0){
+            return NSOrderedAscending;
+        }
+        
+        // points a and b are now on the same line from the center
+        // check which point is closer to
+        float det1 = (point1.x-currentCenter.x) * (point1.x-currentCenter.x) + (point1.y-currentCenter.y) * (point1.y-currentCenter.y);
+        float det2 = (point2.x-currentCenter.x) * (point2.x-currentCenter.x) + (point2.y-currentCenter.y) * (point2.y-currentCenter.y);
+        if (det1 > det2) {
+            return NSOrderedAscending;
+        } else if (det1 < det2) {
+            return NSOrderedDescending;
+        }
+        
+        // nothing returned yet? nothing to order here!
+        return NSOrderedSame;
+    }];
 }
 
 @end
