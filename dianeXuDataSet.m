@@ -74,11 +74,11 @@
     NSMutableArray* points = [newRoi points];
     
     for (dianeXuCoord* currentCoord in pointsROI) {
-        if ([[[currentCoord zValue] stringValue] isEqualToString:@"-10"]) {
+        if ([[[currentCoord zValue] stringValue] isEqualToString:@"-28"]) {
             [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]+111 :[[currentCoord yValue] floatValue]+111]];
         }
     }
-    // sort points clockwise around center
+    // sort points to be a polygon in order
     [dianeXuDataSet sortClockwise:points];
     
     // display ROI
@@ -151,7 +151,7 @@
         return newCentroid;
     };
     
-    //create a centroid point and use the above block
+    // create a centroid point and use the above block
     NSPoint centroid = updateCentroid(sortArray);
     
     /*
@@ -162,10 +162,13 @@
         return -1*angle;
     };
     
+    
+    // now sort the array
     [sortArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         MyPoint* p1 = obj1;
         MyPoint* p2 = obj2;
         
+        // create vectors from centroid to points first
         NSPoint v1;
         v1.x = p1.x-centroid.x;
         v1.y = p1.y-centroid.y;
@@ -173,9 +176,11 @@
         v2.x = p2.x-centroid.x;
         v2.y = p2.y-centroid.y;
         
+        // compute headings
         float h1 = heading2d(v1);
         float h2 = heading2d(v2);
         
+        // compare headings ans return accordingly
         if (h1 > h2) {
             return NSOrderedAscending;
         } else if (h1 < h2) {
