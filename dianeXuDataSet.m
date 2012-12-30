@@ -75,6 +75,7 @@
     
     for (dianeXuCoord* currentCoord in pointsROI) {
         if ([[[currentCoord zValue] stringValue] isEqualToString:@"-28"]) {
+            // TODO: ADD ORIGIN OFFSET and REMOVE arbitrary coord manipulation
             [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]+111 :[[currentCoord yValue] floatValue]+111]];
         }
     }
