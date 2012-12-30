@@ -74,7 +74,7 @@
     NSMutableArray* points = [newRoi points];
     
     for (dianeXuCoord* currentCoord in pointsROI) {
-        if ([[[currentCoord zValue] stringValue] isEqualToString:@"-26"]) {
+        if ([[[currentCoord zValue] stringValue] isEqualToString:@"-10"]) {
             [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]+111 :[[currentCoord yValue] floatValue]+111]];
         }
     }
@@ -133,53 +133,56 @@
     NSLog(@"Updated scnd geometry info to %@",secondarySpacing);
 }
 
-+ (void)sortClockwise:(NSMutableArray *)theArray {
++ (void)sortClockwise:(NSMutableArray *)sortArray {
+    /*
+     * Block to compute new centroid of our sorted polygon!
+     */
+    NSPoint (^updateCentroid)(NSMutableArray*) = ^(NSMutableArray* polygon) {
+        NSPoint newCentroid;
+        newCentroid.x = 0;
+        newCentroid.y = 0;
+        
+        for (MyPoint* currentPoint in sortArray) {
+            newCentroid.x += [currentPoint x];
+            newCentroid.y += [currentPoint y];
+        }
+        newCentroid.x /= [polygon count];
+        newCentroid.y /= [polygon count];
+        return newCentroid;
+    };
     
-    NSPoint currentCenter;
-    currentCenter.x = 0;
-    currentCenter.y = 0;
-    for (MyPoint* currentPoint in theArray) {
-        currentCenter.x += [currentPoint x];
-        currentCenter.y += [currentPoint y];
-    }
-    currentCenter.x /= [theArray count];
-    currentCenter.y /= [theArray count];
+    //create a centroid point and use the above block
+    NSPoint centroid = updateCentroid(sortArray);
     
-    [theArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        MyPoint* point1 = obj1;
-        MyPoint* point2 = obj2;
+    /*
+     * Block to compute heading for a given Point
+     */
+    float (^heading2d)(NSPoint) = ^(NSPoint inPoint) {
+        float angle = atan2f(-inPoint.y, inPoint.x);
+        return -1*angle;
+    };
+    
+    [sortArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        MyPoint* p1 = obj1;
+        MyPoint* p2 = obj2;
         
-        if (point1.x >= 0 && point2.x < 0) {
-            return NSOrderedDescending;
-        }
-        if (point1.x == 0 && point2.x == 0) {
-            if (point1.y > point2.y) {
-                return NSOrderedDescending;
-            } else {
-                return NSOrderedAscending;
-            }
-        }
+        NSPoint v1;
+        v1.x = p1.x-centroid.x;
+        v1.y = p1.y-centroid.y;
+        NSPoint v2;
+        v2.x = p2.x-centroid.x;
+        v2.y = p2.y-centroid.y;
         
-        // cross product of vectors center->a and center->b
-        float det = (point1.x-currentCenter.x) * (point2.y-currentCenter.y) - (point2.x - currentCenter.x) * (point1.y - currentCenter.y);
-        if (det < 0) {
-            return NSOrderedDescending;
-        } else if (det > 0){
+        float h1 = heading2d(v1);
+        float h2 = heading2d(v2);
+        
+        if (h1 > h2) {
             return NSOrderedAscending;
-        }
-        
-        // points a and b are now on the same line from the center
-        // check which point is closer to
-        float det1 = (point1.x-currentCenter.x) * (point1.x-currentCenter.x) + (point1.y-currentCenter.y) * (point1.y-currentCenter.y);
-        float det2 = (point2.x-currentCenter.x) * (point2.x-currentCenter.x) + (point2.y-currentCenter.y) * (point2.y-currentCenter.y);
-        if (det1 > det2) {
-            return NSOrderedAscending;
-        } else if (det1 < det2) {
+        } else if (h1 < h2) {
             return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
         }
-        
-        // nothing returned yet? nothing to order here!
-        return NSOrderedSame;
     }];
 }
 

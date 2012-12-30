@@ -39,6 +39,6 @@
 
 - (void)updateGeometryInfoFrom: (ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
 
-+ (void)sortClockwise: (NSMutableArray*)theArray;
++ (void)sortClockwise: (NSMutableArray*)sortArray;
 
 @end
