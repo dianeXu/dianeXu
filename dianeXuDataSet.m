@@ -77,11 +77,6 @@
     NSMutableArray* roiSeriesList = [targetController roiList];
     NSMutableArray* roiImageList = [roiSeriesList objectAtIndex:[[targetController imageView] curImage]];
     
-    
-    // TODO: ITERATE over all Images and correspindung slice coords
-    // prepare more data for handling points
-    
-    
     for (DCMPix* currentSlice in [targetController pixList]) {
         ROI* newRoi = [targetController newROI: tCPolygon];
         NSMutableArray* points = [newRoi points];
@@ -89,25 +84,22 @@
         NSInteger currentIndex = [[targetController pixList] indexOfObject:currentSlice];
         for (dianeXuCoord* currentCoord in pointsROI) {
             if ([[[currentCoord zValue] stringValue] isEqualToString:[NSString stringWithFormat:@"%u",currentIndex]]) {
-                // TODO: ADD ORIGIN OFFSET and REMOVE arbitrary coord manipulation
                 [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]:[[currentCoord yValue] floatValue]]];
                 NSLog(@"!");
             }
         }
-        // sort points to be a polygon in order
+        // sort points to be a polygon in order and set some additional properties
         [dianeXuDataSet sortClockwise:points];
-        // display ROI
         //[newRoi setROIMode: ROI_selected];
+        [newRoi setName:@"Imported EAM Data"];
+        // go to image matching the current slice
         roiImageList = [roiSeriesList objectAtIndex:currentIndex];
+        // add ROI if there are any points in it
         if ([points count] != 0) {
             [roiImageList addObject:newRoi];
         }
     }
-    
-    
-    
-    
-    
+    //update the targetcontroller in case something happened on the current image
     [targetController needsDisplayUpdate];
 }
 
