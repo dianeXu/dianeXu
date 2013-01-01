@@ -20,13 +20,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.1</string>
-	<key>NSPrincipalClass</key>
-	<string>dianeXuFilter</string>
+	<string>0.50</string>
 	<key>MenuTitles</key>
 	<array>
 		<string>dianeXu</string>
 	</array>
+	<key>NSPrincipalClass</key>
+	<string>dianeXuFilter</string>
 	<key>pluginType</key>
 	<string>other</string>
 </dict>

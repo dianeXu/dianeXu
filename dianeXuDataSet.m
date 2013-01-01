@@ -48,43 +48,66 @@
     [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
     //NSLog(@"Preparing EAM ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
     
+    //NSLog(@"%f %f %f",[slice originX],[slice originY],[slice originZ]);
+    
     // make new points with values in pixels!
     for (dianeXuCoord* currentCoord in eamPoints) {
         dianeXuCoord* newItem = [[dianeXuCoord alloc] init];
         
-        [newItem setXValue:[[currentCoord xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
-        [newItem setYValue:[[currentCoord yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
-        [newItem setZValue:[[currentCoord zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
+        // get coordinates corrected by originoffset, correct offset orientation, swap y- and z-values to match Osirix image orientation
+        [newItem setXValue:[[currentCoord xValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originX]] decimalValue]]]];
+        [newItem setYValue:[[currentCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
+        [newItem setZValue:[[currentCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
+        
+        //adjust pixelspacings and adjust z to be matched with slices
+        [newItem setXValue:[[newItem xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
+        [newItem setYValue:[[newItem yValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
+        [newItem setZValue:[[newItem zValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
         [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
-        // TODO: IMPLEMENT ORIGIN OFFSET!
         [pointsROI addObject:newItem];
         newItem = nil;
     }
     
     [pointsROI sortUsingDescriptors:sortDescriptors];
     
+    NSLog(@"%@",pointsROI);
+    
     // prepare data for ROI handling
-    DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];
+    //DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];
     NSMutableArray* roiSeriesList = [targetController roiList];
     NSMutableArray* roiImageList = [roiSeriesList objectAtIndex:[[targetController imageView] curImage]];
-    ROI* newRoi = [targetController newROI: tCPolygon];
     
-    // TODO: ITERARE over all Images and correspindung slice coords
+    
+    // TODO: ITERATE over all Images and correspindung slice coords
     // prepare more data for handling points
-    NSMutableArray* points = [newRoi points];
     
-    for (dianeXuCoord* currentCoord in pointsROI) {
-        if ([[[currentCoord zValue] stringValue] isEqualToString:@"-28"]) {
-            // TODO: ADD ORIGIN OFFSET and REMOVE arbitrary coord manipulation
-            [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]+111 :[[currentCoord yValue] floatValue]+111]];
+    
+    for (DCMPix* currentSlice in [targetController pixList]) {
+        ROI* newRoi = [targetController newROI: tCPolygon];
+        NSMutableArray* points = [newRoi points];
+        
+        NSInteger currentIndex = [[targetController pixList] indexOfObject:currentSlice];
+        for (dianeXuCoord* currentCoord in pointsROI) {
+            if ([[[currentCoord zValue] stringValue] isEqualToString:[NSString stringWithFormat:@"%u",currentIndex]]) {
+                // TODO: ADD ORIGIN OFFSET and REMOVE arbitrary coord manipulation
+                [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]:[[currentCoord yValue] floatValue]]];
+                NSLog(@"!");
+            }
+        }
+        // sort points to be a polygon in order
+        [dianeXuDataSet sortClockwise:points];
+        // display ROI
+        //[newRoi setROIMode: ROI_selected];
+        roiImageList = [roiSeriesList objectAtIndex:currentIndex];
+        if ([points count] != 0) {
+            [roiImageList addObject:newRoi];
         }
     }
-    // sort points to be a polygon in order
-    [dianeXuDataSet sortClockwise:points];
     
-    // display ROI
-    [newRoi setROIMode: ROI_selected];
-    [roiImageList addObject:newRoi];
+    
+    
+    
+    
     [targetController needsDisplayUpdate];
 }
 

@@ -24,6 +24,7 @@
 #import <OsiriXAPI/ROI.h>
 #import <OsiriXAPI/ViewerController.h>
 #import <OsiriXAPI/DCMView.h>
+#import <OsiriXAPI/DCMPix.h>
 
 @interface dianeXuDataSet : NSObject {
     NSMutableArray* eamPoints;
