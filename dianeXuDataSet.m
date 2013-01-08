@@ -85,7 +85,6 @@
         for (dianeXuCoord* currentCoord in pointsROI) {
             if ([[[currentCoord zValue] stringValue] isEqualToString:[NSString stringWithFormat:@"%u",currentIndex]]) {
                 [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]:[[currentCoord yValue] floatValue]]];
-                NSLog(@"!");
             }
         }
         // sort points to be a polygon in order and set some additional properties
