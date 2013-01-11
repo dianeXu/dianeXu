@@ -20,6 +20,7 @@
 
 #import "dianeXuWindowController.h"
 #import <OsiriXAPI/PreferencesWindowController.h>
+#import "dianeXuITKImageWrapper.h"
 
 @interface dianeXuWindowController ()
 

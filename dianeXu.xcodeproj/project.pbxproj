@@ -7,6 +7,84 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0340066216A098B0006F97F4 /* libITKBiasCorrection-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EE7162486AA003F510A /* libITKBiasCorrection-4.2.a */; };
+		0340066316A098B0006F97F4 /* libITKBioCell-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EE8162486AA003F510A /* libITKBioCell-4.2.a */; };
+		0340066416A098B0006F97F4 /* libITKCommon-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EE9162486AA003F510A /* libITKCommon-4.2.a */; };
+		0340066516A098B0006F97F4 /* libITKDeprecated-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EEA162486AA003F510A /* libITKDeprecated-4.2.a */; };
+		0340066616A098B0006F97F4 /* libITKDICOMParser-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EEB162486AA003F510A /* libITKDICOMParser-4.2.a */; };
+		0340066716A098B0006F97F4 /* libITKEXPAT-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EEC162486AA003F510A /* libITKEXPAT-4.2.a */; };
+		0340066816A098B0006F97F4 /* libITKFEM-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EED162486AA003F510A /* libITKFEM-4.2.a */; };
+		0340066916A098B0006F97F4 /* libitkgdcmCommon-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EEE162486AA003F510A /* libitkgdcmCommon-4.2.a */; };
+		0340066A16A098B0006F97F4 /* libitkgdcmDICT-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EEF162486AA003F510A /* libitkgdcmDICT-4.2.a */; };
+		0340066B16A098B0006F97F4 /* libitkgdcmDSED-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF0162486AA003F510A /* libitkgdcmDSED-4.2.a */; };
+		0340066C16A098B0006F97F4 /* libitkgdcmIOD-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF1162486AA003F510A /* libitkgdcmIOD-4.2.a */; };
+		0340066D16A098B0006F97F4 /* libitkgdcmjpeg8-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF4162486AA003F510A /* libitkgdcmjpeg8-4.2.a */; };
+		0340066E16A098B0006F97F4 /* libitkgdcmjpeg12-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF2162486AA003F510A /* libitkgdcmjpeg12-4.2.a */; };
+		0340066F16A098B0006F97F4 /* libitkgdcmjpeg16-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF3162486AA003F510A /* libitkgdcmjpeg16-4.2.a */; };
+		0340067016A098B0006F97F4 /* libitkgdcmMSFF-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF5162486AA003F510A /* libitkgdcmMSFF-4.2.a */; };
+		0340067116A098B0006F97F4 /* libitkgdcmuuid-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF6162486AA003F510A /* libitkgdcmuuid-4.2.a */; };
+		0340067216A098B0006F97F4 /* libITKgiftiio-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF7162486AA003F510A /* libITKgiftiio-4.2.a */; };
+		0340067316A098B0006F97F4 /* libitkhdf5_cpp-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF9162486AA003F510A /* libitkhdf5_cpp-4.2.a */; };
+		0340067416A098B0006F97F4 /* libitkhdf5-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EF8162486AA003F510A /* libitkhdf5-4.2.a */; };
+		0340067516A098B0006F97F4 /* libITKIOBioRad-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EFA162486AA003F510A /* libITKIOBioRad-4.2.a */; };
+		0340067616A098B0006F97F4 /* libITKIOBMP-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EFB162486AA003F510A /* libITKIOBMP-4.2.a */; };
+		0340067716A098B0006F97F4 /* libITKIOCSV-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EFC162486AA003F510A /* libITKIOCSV-4.2.a */; };
+		0340067816A098B0006F97F4 /* libITKIOGDCM-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EFD162486AA003F510A /* libITKIOGDCM-4.2.a */; };
+		0340067916A098B0006F97F4 /* libITKIOGE-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EFE162486AA003F510A /* libITKIOGE-4.2.a */; };
+		0340067A16A098B0006F97F4 /* libITKIOGIPL-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9EFF162486AA003F510A /* libITKIOGIPL-4.2.a */; };
+		0340067B16A098B0006F97F4 /* libITKIOHDF5-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F00162486AA003F510A /* libITKIOHDF5-4.2.a */; };
+		0340067C16A098B0006F97F4 /* libITKIOImageBase-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F01162486AA003F510A /* libITKIOImageBase-4.2.a */; };
+		0340067D16A098B0006F97F4 /* libITKIOIPL-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F02162486AA003F510A /* libITKIOIPL-4.2.a */; };
+		0340067E16A098B0006F97F4 /* libITKIOJPEG-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F03162486AA003F510A /* libITKIOJPEG-4.2.a */; };
+		0340067F16A098B0006F97F4 /* libITKIOLSM-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F04162486AA003F510A /* libITKIOLSM-4.2.a */; };
+		0340068016A098B0006F97F4 /* libITKIOMesh-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F05162486AA003F510A /* libITKIOMesh-4.2.a */; };
+		0340068116A098B0006F97F4 /* libITKIOMeta-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F06162486AA003F510A /* libITKIOMeta-4.2.a */; };
+		0340068216A098B0006F97F4 /* libITKIONIFTI-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F07162486AA003F510A /* libITKIONIFTI-4.2.a */; };
+		0340068316A098B0006F97F4 /* libITKIONRRD-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F08162486AA003F510A /* libITKIONRRD-4.2.a */; };
+		0340068416A098B0006F97F4 /* libITKIOPNG-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F09162486AA003F510A /* libITKIOPNG-4.2.a */; };
+		0340068516A098B0006F97F4 /* libITKIOSiemens-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F0A162486AA003F510A /* libITKIOSiemens-4.2.a */; };
+		0340068616A098B0006F97F4 /* libITKIOSpatialObjects-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F0B162486AA003F510A /* libITKIOSpatialObjects-4.2.a */; };
+		0340068716A098B0006F97F4 /* libITKIOStimulate-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F0C162486AA003F510A /* libITKIOStimulate-4.2.a */; };
+		0340068816A098B0006F97F4 /* libITKIOTIFF-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F0D162486AA003F510A /* libITKIOTIFF-4.2.a */; };
+		0340068916A098B0006F97F4 /* libITKIOTransformBase-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F0E162486AA003F510A /* libITKIOTransformBase-4.2.a */; };
+		0340068A16A098B0006F97F4 /* libITKIOTransformHDF5-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F0F162486AA003F510A /* libITKIOTransformHDF5-4.2.a */; };
+		0340068B16A098B0006F97F4 /* libITKIOTransformInsightLegacy-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F10162486AA003F510A /* libITKIOTransformInsightLegacy-4.2.a */; };
+		0340068C16A098B0006F97F4 /* libITKIOTransformMatlab-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F11162486AA003F510A /* libITKIOTransformMatlab-4.2.a */; };
+		0340068D16A098B0006F97F4 /* libITKIOVTK-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F12162486AA003F510A /* libITKIOVTK-4.2.a */; };
+		0340068E16A098B0006F97F4 /* libITKIOXML-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F13162486AA003F510A /* libITKIOXML-4.2.a */; };
+		0340068F16A098B0006F97F4 /* libitkjpeg-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F14162486AA003F510A /* libitkjpeg-4.2.a */; };
+		0340069016A098B0006F97F4 /* libITKKLMRegionGrowing-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F15162486AA003F510A /* libITKKLMRegionGrowing-4.2.a */; };
+		0340069116A098B0006F97F4 /* libITKLabelMap-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F16162486AA003F510A /* libITKLabelMap-4.2.a */; };
+		0340069216A098B0006F97F4 /* libITKMesh-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F17162486AA003F510A /* libITKMesh-4.2.a */; };
+		0340069316A098B0006F97F4 /* libITKMetaIO-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F18162486AA003F510A /* libITKMetaIO-4.2.a */; };
+		0340069416A098B0006F97F4 /* libitkNetlibSlatec-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F19162486AA003F510A /* libitkNetlibSlatec-4.2.a */; };
+		0340069516A098B0006F97F4 /* libITKniftiio-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F1A162486AA003F510A /* libITKniftiio-4.2.a */; };
+		0340069616A098B0006F97F4 /* libITKNrrdIO-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F1B162486AA003F510A /* libITKNrrdIO-4.2.a */; };
+		0340069716A098B0006F97F4 /* libitkopenjpeg-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F1C162486AA003F510A /* libitkopenjpeg-4.2.a */; };
+		0340069816A098B0006F97F4 /* libitkopITKsys-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F1D162486AA003F510A /* libitkopITKsys-4.2.a */; };
+		0340069916A098B0006F97F4 /* libITKOptimizers-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F1E162486AA003F510A /* libITKOptimizers-4.2.a */; };
+		0340069A16A098B0006F97F4 /* libITKOptimizersv4-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F1F162486AA003F510A /* libITKOptimizersv4-4.2.a */; };
+		0340069B16A098B0006F97F4 /* libITKPath-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F20162486AA003F510A /* libITKPath-4.2.a */; };
+		0340069C16A098B0006F97F4 /* libitkpng-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F21162486AA003F510A /* libitkpng-4.2.a */; };
+		0340069D16A098B0006F97F4 /* libITKPolynomials-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F22162486AA003F510A /* libITKPolynomials-4.2.a */; };
+		0340069E16A098B0006F97F4 /* libITKQuadEdgeMesh-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F23162486AA003F510A /* libITKQuadEdgeMesh-4.2.a */; };
+		0340069F16A098B0006F97F4 /* libITKReview-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F24162486AA003F510A /* libITKReview-4.2.a */; };
+		034006A016A098B0006F97F4 /* libITKSpatialObjects-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F25162486AA003F510A /* libITKSpatialObjects-4.2.a */; };
+		034006A116A098B0006F97F4 /* libITKStatistics-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F26162486AA003F510A /* libITKStatistics-4.2.a */; };
+		034006A216A098B0006F97F4 /* libitktestlib-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F27162486AA003F510A /* libitktestlib-4.2.a */; };
+		034006A316A098B0006F97F4 /* libitktiff-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F28162486AA003F510A /* libitktiff-4.2.a */; };
+		034006A416A098B0006F97F4 /* libitkv3p_lsqr-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F29162486AA003F510A /* libitkv3p_lsqr-4.2.a */; };
+		034006A516A098B0006F97F4 /* libitkv3p_netlib-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F2A162486AA003F510A /* libitkv3p_netlib-4.2.a */; };
+		034006A616A098B0006F97F4 /* libitkvcl-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F2B162486AA003F510A /* libitkvcl-4.2.a */; };
+		034006A716A098B0006F97F4 /* libITKVideoCore-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F2C162486AA003F510A /* libITKVideoCore-4.2.a */; };
+		034006A816A098B0006F97F4 /* libITKVideoIO-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F2D162486AA003F510A /* libITKVideoIO-4.2.a */; };
+		034006A916A098B0006F97F4 /* libitkvnl_algo-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F2F162486AA003F510A /* libitkvnl_algo-4.2.a */; };
+		034006AA16A098B0006F97F4 /* libitkvnl-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F2E162486AA003F510A /* libitkvnl-4.2.a */; };
+		034006AB16A098B0006F97F4 /* libITKVNLInstantiation-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F30162486AA003F510A /* libITKVNLInstantiation-4.2.a */; };
+		034006AC16A098B0006F97F4 /* libITKVTK-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F31162486AA003F510A /* libITKVTK-4.2.a */; };
+		034006AD16A098B0006F97F4 /* libITKWatersheds-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F32162486AA003F510A /* libITKWatersheds-4.2.a */; };
+		034006AE16A098B0006F97F4 /* libitkzlib-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F33162486AA003F510A /* libitkzlib-4.2.a */; };
+		034006AF16A098B0006F97F4 /* libITKznz-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F34162486AA003F510A /* libITKznz-4.2.a */; };
 		034813151664E6F700ABC18A /* dianeXuDataSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 034813131664E6F700ABC18A /* dianeXuDataSet.h */; };
 		034813161664E6F700ABC18A /* dianeXuDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 034813141664E6F700ABC18A /* dianeXuDataSet.m */; };
 		034813191664EC6C00ABC18A /* dianeXuNavxImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 034813171664EC6C00ABC18A /* dianeXuNavxImport.h */; };
@@ -212,6 +290,84 @@
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				8420023212E829A200E1E9CE /* OsiriXAPI.framework in Frameworks */,
+				0340066216A098B0006F97F4 /* libITKBiasCorrection-4.2.a in Frameworks */,
+				0340066316A098B0006F97F4 /* libITKBioCell-4.2.a in Frameworks */,
+				0340066416A098B0006F97F4 /* libITKCommon-4.2.a in Frameworks */,
+				0340066516A098B0006F97F4 /* libITKDeprecated-4.2.a in Frameworks */,
+				0340066616A098B0006F97F4 /* libITKDICOMParser-4.2.a in Frameworks */,
+				0340066716A098B0006F97F4 /* libITKEXPAT-4.2.a in Frameworks */,
+				0340066816A098B0006F97F4 /* libITKFEM-4.2.a in Frameworks */,
+				0340066916A098B0006F97F4 /* libitkgdcmCommon-4.2.a in Frameworks */,
+				0340066A16A098B0006F97F4 /* libitkgdcmDICT-4.2.a in Frameworks */,
+				0340066B16A098B0006F97F4 /* libitkgdcmDSED-4.2.a in Frameworks */,
+				0340066C16A098B0006F97F4 /* libitkgdcmIOD-4.2.a in Frameworks */,
+				0340066D16A098B0006F97F4 /* libitkgdcmjpeg8-4.2.a in Frameworks */,
+				0340066E16A098B0006F97F4 /* libitkgdcmjpeg12-4.2.a in Frameworks */,
+				0340066F16A098B0006F97F4 /* libitkgdcmjpeg16-4.2.a in Frameworks */,
+				0340067016A098B0006F97F4 /* libitkgdcmMSFF-4.2.a in Frameworks */,
+				0340067116A098B0006F97F4 /* libitkgdcmuuid-4.2.a in Frameworks */,
+				0340067216A098B0006F97F4 /* libITKgiftiio-4.2.a in Frameworks */,
+				0340067316A098B0006F97F4 /* libitkhdf5_cpp-4.2.a in Frameworks */,
+				0340067416A098B0006F97F4 /* libitkhdf5-4.2.a in Frameworks */,
+				0340067516A098B0006F97F4 /* libITKIOBioRad-4.2.a in Frameworks */,
+				0340067616A098B0006F97F4 /* libITKIOBMP-4.2.a in Frameworks */,
+				0340067716A098B0006F97F4 /* libITKIOCSV-4.2.a in Frameworks */,
+				0340067816A098B0006F97F4 /* libITKIOGDCM-4.2.a in Frameworks */,
+				0340067916A098B0006F97F4 /* libITKIOGE-4.2.a in Frameworks */,
+				0340067A16A098B0006F97F4 /* libITKIOGIPL-4.2.a in Frameworks */,
+				0340067B16A098B0006F97F4 /* libITKIOHDF5-4.2.a in Frameworks */,
+				0340067C16A098B0006F97F4 /* libITKIOImageBase-4.2.a in Frameworks */,
+				0340067D16A098B0006F97F4 /* libITKIOIPL-4.2.a in Frameworks */,
+				0340067E16A098B0006F97F4 /* libITKIOJPEG-4.2.a in Frameworks */,
+				0340067F16A098B0006F97F4 /* libITKIOLSM-4.2.a in Frameworks */,
+				0340068016A098B0006F97F4 /* libITKIOMesh-4.2.a in Frameworks */,
+				0340068116A098B0006F97F4 /* libITKIOMeta-4.2.a in Frameworks */,
+				0340068216A098B0006F97F4 /* libITKIONIFTI-4.2.a in Frameworks */,
+				0340068316A098B0006F97F4 /* libITKIONRRD-4.2.a in Frameworks */,
+				0340068416A098B0006F97F4 /* libITKIOPNG-4.2.a in Frameworks */,
+				0340068516A098B0006F97F4 /* libITKIOSiemens-4.2.a in Frameworks */,
+				0340068616A098B0006F97F4 /* libITKIOSpatialObjects-4.2.a in Frameworks */,
+				0340068716A098B0006F97F4 /* libITKIOStimulate-4.2.a in Frameworks */,
+				0340068816A098B0006F97F4 /* libITKIOTIFF-4.2.a in Frameworks */,
+				0340068916A098B0006F97F4 /* libITKIOTransformBase-4.2.a in Frameworks */,
+				0340068A16A098B0006F97F4 /* libITKIOTransformHDF5-4.2.a in Frameworks */,
+				0340068B16A098B0006F97F4 /* libITKIOTransformInsightLegacy-4.2.a in Frameworks */,
+				0340068C16A098B0006F97F4 /* libITKIOTransformMatlab-4.2.a in Frameworks */,
+				0340068D16A098B0006F97F4 /* libITKIOVTK-4.2.a in Frameworks */,
+				0340068E16A098B0006F97F4 /* libITKIOXML-4.2.a in Frameworks */,
+				0340068F16A098B0006F97F4 /* libitkjpeg-4.2.a in Frameworks */,
+				0340069016A098B0006F97F4 /* libITKKLMRegionGrowing-4.2.a in Frameworks */,
+				0340069116A098B0006F97F4 /* libITKLabelMap-4.2.a in Frameworks */,
+				0340069216A098B0006F97F4 /* libITKMesh-4.2.a in Frameworks */,
+				0340069316A098B0006F97F4 /* libITKMetaIO-4.2.a in Frameworks */,
+				0340069416A098B0006F97F4 /* libitkNetlibSlatec-4.2.a in Frameworks */,
+				0340069516A098B0006F97F4 /* libITKniftiio-4.2.a in Frameworks */,
+				0340069616A098B0006F97F4 /* libITKNrrdIO-4.2.a in Frameworks */,
+				0340069716A098B0006F97F4 /* libitkopenjpeg-4.2.a in Frameworks */,
+				0340069816A098B0006F97F4 /* libitkopITKsys-4.2.a in Frameworks */,
+				0340069916A098B0006F97F4 /* libITKOptimizers-4.2.a in Frameworks */,
+				0340069A16A098B0006F97F4 /* libITKOptimizersv4-4.2.a in Frameworks */,
+				0340069B16A098B0006F97F4 /* libITKPath-4.2.a in Frameworks */,
+				0340069C16A098B0006F97F4 /* libitkpng-4.2.a in Frameworks */,
+				0340069D16A098B0006F97F4 /* libITKPolynomials-4.2.a in Frameworks */,
+				0340069E16A098B0006F97F4 /* libITKQuadEdgeMesh-4.2.a in Frameworks */,
+				0340069F16A098B0006F97F4 /* libITKReview-4.2.a in Frameworks */,
+				034006A016A098B0006F97F4 /* libITKSpatialObjects-4.2.a in Frameworks */,
+				034006A116A098B0006F97F4 /* libITKStatistics-4.2.a in Frameworks */,
+				034006A216A098B0006F97F4 /* libitktestlib-4.2.a in Frameworks */,
+				034006A316A098B0006F97F4 /* libitktiff-4.2.a in Frameworks */,
+				034006A416A098B0006F97F4 /* libitkv3p_lsqr-4.2.a in Frameworks */,
+				034006A516A098B0006F97F4 /* libitkv3p_netlib-4.2.a in Frameworks */,
+				034006A616A098B0006F97F4 /* libitkvcl-4.2.a in Frameworks */,
+				034006A716A098B0006F97F4 /* libITKVideoCore-4.2.a in Frameworks */,
+				034006A816A098B0006F97F4 /* libITKVideoIO-4.2.a in Frameworks */,
+				034006A916A098B0006F97F4 /* libitkvnl_algo-4.2.a in Frameworks */,
+				034006AA16A098B0006F97F4 /* libitkvnl-4.2.a in Frameworks */,
+				034006AB16A098B0006F97F4 /* libITKVNLInstantiation-4.2.a in Frameworks */,
+				034006AC16A098B0006F97F4 /* libITKVTK-4.2.a in Frameworks */,
+				034006AD16A098B0006F97F4 /* libITKWatersheds-4.2.a in Frameworks */,
+				034006AE16A098B0006F97F4 /* libitkzlib-4.2.a in Frameworks */,
+				034006AF16A098B0006F97F4 /* libITKznz-4.2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -801,6 +957,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					Binaries/VTKLibs,
 					ITK4/build/lib/Release,
+					"\"$(SRCROOT)/../ITK421/build/lib/Release\"",
 				);
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -845,6 +1002,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					Binaries/VTKLibs,
 					ITK4/build/lib/Release,
+					"\"$(SRCROOT)/../ITK421/build/lib/Release\"",
 				);
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
