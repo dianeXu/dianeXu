@@ -31,7 +31,6 @@
         NSLog(@"ITK image wrapper initialized.");
         activeViewer = sourceViewer;
         sliceIndex = slice;
-        volumeData = 0;
         [self updateWrapper];
     } else {
         NSLog(@"dianeXu: ITK image wrapper failed to initialize.");
@@ -43,78 +42,14 @@
  * Get a pointer to the ITK image
  */
 - (ImageType::Pointer)image {
-    return image;
+    return nil;
 }
 
 /*
  * Update the imagewrapper to reflect changes in the viewer
  */
 - (void)updateWrapper {
-    DCMPix* firstPix = [[activeViewer pixList] objectAtIndex:0];
-    int sliceCount = [[activeViewer pixList] count];
-    long bufferSize;
     
-    ImportFilterType::Pointer importfilter=ImportFilterType::New();
-    ImportFilterType::SizeType size;
-    ImportFilterType::IndexType start;
-    ImportFilterType::RegionType region;
-    // uncomment to enable debugging
-    importfilter->DebugOn();
-    
-    activeOrigin[0] = [firstPix originX];
-    activeOrigin[1] = [firstPix originY];
-    activeOrigin[2] = [firstPix originZ];
-    
-    voxelSpacing[0] = [firstPix pixelSpacingX];
-    voxelSpacing[1] = [firstPix pixelSpacingY];
-    voxelSpacing[2] = [firstPix sliceThickness];
-    
-    size[0] = [firstPix pwidth];
-    size[1] = [firstPix pheight];
-    
-    // ensure tabula rasa
-    if (volumeData) {
-        free(volumeData);
-    }
-    
-    if (sliceIndex == -1) { // -1 = import all of them
-        size[2] = sliceCount;
-        bufferSize = size[0]*size[1]*size[2];
-        volumeData = (float*)malloc(bufferSize*sizeof(float));
-        if (volumeData) {
-            memcpy(volumeData, [activeViewer volumePtr], bufferSize*sizeof(float));
-        } else {
-            NSLog(@"dianeXu: Couldn't allocate volume buffer for ITK image wrapper. Sorry!");
-        }
-        start.Fill(0);
-    } else { // just get a single slice
-        size[2] = 1;
-        bufferSize = size[0]*size[1];
-        volumeData = (float*)malloc(bufferSize*sizeof(float));
-        if (volumeData) {
-            memcpy(volumeData, [activeViewer volumePtr], bufferSize*sizeof(float));
-        } else {
-            NSLog(@"dianeXu: Couldn't allocate volume buffer for ITK image wrapper. Sorry!");
-        }
-        start[0];
-		start[1];
-		start[2] = sliceIndex;
-    }
-    
-    region.SetIndex(start);
-    region.SetSize(size);
-    
-    importfilter->SetRegion(region);
-    importfilter->SetOrigin(activeOrigin);
-    importfilter->SetSpacing(voxelSpacing);
-    importfilter->SetImportPointer(volumeData, bufferSize, false);
-    
-    image = importfilter->GetOutput();
-    // uncomment for debugging
-    image->DebugOn();
-    image->Update();
-    
-    NSLog(@"dianeXu: ITK image wrapper updated");
 }
 
 @end
