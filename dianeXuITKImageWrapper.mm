@@ -42,7 +42,7 @@
  * Get a pointer to the ITK image
  */
 - (ImageType::Pointer)image {
-    return nil;
+    return image;
 }
 
 /*

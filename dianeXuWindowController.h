@@ -22,6 +22,7 @@
 #import "dianeXuPreferencesKeys.h"
 #import "dianeXuNavxImport.h"
 #import "dianeXuDataSet.h"
+#import "dianeXuITKImageWrapper.h"
 
 @interface dianeXuWindowController : NSWindowController {
     ViewerController* mainViewer;

@@ -96,7 +96,7 @@
 }
 
 - (IBAction)pushInfo:(id)sender {
-    NSRunInformationalAlertPanel(@"DEBUG:", @"Infopopup", @"OK", nil, nil,nil);
+    dianeXuITKImageWrapper* itkImage = [[dianeXuITKImageWrapper alloc] initWithViewer:mainViewer andSlice:-1];
 }
 
 - (IBAction)pushGetEAMData:(id)sender {
