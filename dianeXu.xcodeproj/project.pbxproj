@@ -16,6 +16,8 @@
 		03729C64165B4FDA00096AAA /* dianeXuStatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03729C61165B4FDA00096AAA /* dianeXuStatusWindow.xib */; };
 		037430C11668B0E0006029AF /* dianeXuCoord.h in Headers */ = {isa = PBXBuildFile; fileRef = 037430BF1668B0E0006029AF /* dianeXuCoord.h */; };
 		037430C21668B0E0006029AF /* dianeXuCoord.m in Sources */ = {isa = PBXBuildFile; fileRef = 037430C01668B0E0006029AF /* dianeXuCoord.m */; };
+		037430C8167790E7006029AF /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 037430C7167790E7006029AF /* Icon-Small.png */; };
+		037430D31677B23F006029AF /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 037430D21677B23F006029AF /* Icon.png */; };
 		03E1FA1815FF5A0000C59023 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E1FA1715FF5A0000C59023 /* PreferencePanes.framework */; };
 		03E1FA2F15FF5D6200C59023 /* dianeXuPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */; };
 		03E1FA3215FF658E00C59023 /* dianeXuPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E1F9F915FF56AF00C59023 /* dianeXuPreferences.xib */; };
@@ -52,6 +54,8 @@
 		03729C61165B4FDA00096AAA /* dianeXuStatusWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = dianeXuStatusWindow.xib; sourceTree = "<group>"; };
 		037430BF1668B0E0006029AF /* dianeXuCoord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuCoord.h; sourceTree = "<group>"; };
 		037430C01668B0E0006029AF /* dianeXuCoord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuCoord.m; sourceTree = "<group>"; };
+		037430C7167790E7006029AF /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		037430D21677B23F006029AF /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		03E1F9F515FF55F600C59023 /* dianeXuPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuPreferencesController.h; sourceTree = "<group>"; };
 		03E1F9F615FF55F600C59023 /* dianeXuPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuPreferencesController.m; sourceTree = "<group>"; };
 		03E1F9F915FF56AF00C59023 /* dianeXuPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = dianeXuPreferences.xib; sourceTree = "<group>"; };
@@ -318,6 +322,8 @@
 		03EA9F3516248712003F510A /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				037430D21677B23F006029AF /* Icon.png */,
+				037430C7167790E7006029AF /* Icon-Small.png */,
 				03E1FA3015FF611E00C59023 /* dianeXuPreferences-Info.plist */,
 				03E1F9F915FF56AF00C59023 /* dianeXuPreferences.xib */,
 			);
@@ -588,6 +594,8 @@
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				03FED017165A676F0070F92A /* dianeXuWindow.xib in Resources */,
 				03729C64165B4FDA00096AAA /* dianeXuStatusWindow.xib in Resources */,
+				037430C8167790E7006029AF /* Icon-Small.png in Resources */,
+				037430D31677B23F006029AF /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

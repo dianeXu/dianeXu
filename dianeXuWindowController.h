@@ -24,6 +24,8 @@
 #import "dianeXuDataSet.h"
 
 @interface dianeXuWindowController : NSWindowController {
+    ViewerController* mainViewer;
+    ViewerController* scndViewer;
     dianeXuDataSet* workingSet;
     NSUserDefaults *defaultSettings;
     int currentStep;
@@ -33,8 +35,13 @@
     NSPathControl *pathEAM;
     NSTextField *labelEAMSource;
     NSTextField *labelEAMNumCoords;
+    NSButton *buttonEAMRoi;
     NSButton *buttonInfo;
+    NSButton *pushShowEAMRoi;
 }
+
+@property (readonly) ViewerController* mainViewer;
+@property (readonly) ViewerController* scndViewer;
 
 @property (assign) IBOutlet NSButton *buttonInfo;
 @property (assign) int currentStep;
@@ -44,12 +51,17 @@
 @property (assign) IBOutlet NSPathControl *pathEAM;
 @property (assign) IBOutlet NSTextField *labelEAMSource;
 @property (assign) IBOutlet NSTextField *labelEAMNumCoords;
+@property (assign) IBOutlet NSButton *buttonEAMRoi;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
 - (IBAction)pushGetEAMData:(id)sender;
+- (IBAction)pushEAMRoi:(id)sender;
+
+
+- (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer;
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 

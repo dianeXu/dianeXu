@@ -21,12 +21,25 @@
 #import <Foundation/Foundation.h>
 #import "dianeXuCoord.h"
 #import "dianeXuStatusWindowController.h"
+#import <OsiriXAPI/ROI.h>
+#import <OsiriXAPI/ViewerController.h>
+#import <OsiriXAPI/DCMView.h>
+#import <OsiriXAPI/DCMPix.h>
 
 @interface dianeXuDataSet : NSObject {
-    dianeXuStatusWindowController* status;
     NSMutableArray* eamPoints;
+    dianeXuCoord* primarySpacing;
+    dianeXuCoord* primaryOrigin;
+    dianeXuCoord* secondarySpacing;
+    dianeXuCoord* secondaryOrigin;
 }
 
-- (void)makePointsFromNavxString:(NSString*) inputString:(int)pointCount;
+- (void)eamROItoController: (ViewerController*)targetController;
+
+- (void)makePointsFromNavxString:(NSString*) inputString;
+
+- (void)updateGeometryInfoFrom: (ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
+
++ (void)sortClockwise: (NSMutableArray*)sortArray;
 
 @end
