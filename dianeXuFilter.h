@@ -24,10 +24,16 @@
 #import "dianeXuWindowController.h"
 
 @interface dianeXuFilter : PluginFilter {
-    dianeXuWindowController* mainWindow;
 
 }
-
+/**
+ * Plugin entry hook
+ */
 - (long) filterImage:(NSString*) menuName;
+
+/**
+ * Find instance of mainWindow matching the current viewControllers
+ */
++(id)getWindowForController:(ViewerController*)mViewer andController:(ViewerController*)sViewer;
 
 @end

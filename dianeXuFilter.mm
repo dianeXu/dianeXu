@@ -25,8 +25,13 @@
 
 - (void) initPlugin
 {
+    //get path fpr the prefpane icon
+    NSString* appPath = [[NSBundle bundleForClass:[dianeXuWindowController class]] bundlePath];
+    NSString* iconPath = [[NSString alloc] initWithFormat:@"%@/Contents/Resources/Icon-Small.png",appPath];
+    NSImage* appIcon = [[NSImage alloc] initWithContentsOfFile:iconPath];
     //Add PreferencePane to OsiriX Preferences
-    [PreferencesWindowController addPluginPaneWithResourceNamed:@"dianeXuPreferences" inBundle:[NSBundle bundleForClass:[self class]] withTitle:@"dianeXu" image:[NSImage imageNamed:@"NSUser"]];
+    [PreferencesWindowController addPluginPaneWithResourceNamed:@"dianeXuPreferences" inBundle:[NSBundle bundleForClass:[self class]] withTitle:@"dianeXu" image:appIcon];
+   
 }
 
 - (long) filterImage:(NSString*) menuName
@@ -36,13 +41,30 @@
     int alertResult;
     alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. Its purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
     if (alertResult == NSAlertDefaultReturn) {
-        return 0; //end prematurely with no errors
+        //end prematurely with no errors
+        return 0;
     }
     
-    //If already existent, create the main Window
-    if (mainWindow == nil) {
-        mainWindow = [[dianeXuWindowController alloc] initWithWindowNibName:@"dianeXuWindow"];
+    dianeXuWindowController* mainWindow;
+    
+    //If not existent, create the main Window
+    NSArray* activeViewers = [ViewerController getDisplayed2DViewers];
+    if ([activeViewers count] < 2) {
+        NSRunInformationalAlertPanel(@"ERROR", @"This plugin needs two viewers to function properly. Please open a second viewer first.", @"Quit", nil, nil,nil);
+        return 0;
+    } else if ([activeViewers count]>2) {
+        NSRunInformationalAlertPanel(@"WARNING", @"This plugin only uses two viewers. Please check the registred Viewers!", @"OK", nil, nil,nil);
     }
+    
+    //check for the first two viewers
+    mainWindow = [dianeXuFilter getWindowForController:[activeViewers objectAtIndex:0] andController:[activeViewers objectAtIndex:1]];
+    
+    
+    if (!mainWindow) {
+        mainWindow = [[dianeXuWindowController alloc] initWithViewer:[activeViewers objectAtIndex:0] andViewer:[activeViewers objectAtIndex:1]];
+    }
+    
+    NSLog(@"Initialized dianeXu with two Viewers, showing main Window...");
     //show our plugin window
     [mainWindow showWindow:self];
     
@@ -56,8 +78,22 @@
 	if( new2DViewer) return 0; // No Errors
 	else return -1;*/
     
-    NSLog(@"Ending dianeXu OsiriX plugin...");
     return 0;
+}
+
++(id)getWindowForController:(ViewerController*)mViewer andController:(ViewerController*)sViewer {
+    NSArray* windowList = [NSApp windows];
+    
+    for (id windowItem in windowList) {
+        //is the window even ours?
+        if ([[[windowItem windowController] windowNibName] isEqualToString:@"dianeXuWindow"]) {
+            if ([[windowItem windowController] mainViewer] == mViewer && [[windowItem windowController] scndViewer] == sViewer) {
+                NSLog(@"Using existing window...");
+                return [windowItem windowController];
+            }
+        }
+    }
+    return nil;
 }
 
 @end

@@ -27,14 +27,14 @@
 @end
 
 @implementation dianeXuWindowController
+@synthesize buttonEAMRoi;
+@synthesize mainViewer,scndViewer;
 @synthesize currentStep;
-@synthesize buttonNext;
-@synthesize buttonPrev;
+@synthesize buttonNext,buttonPrev,buttonInfo;
 @synthesize tabStep;
 @synthesize pathEAM;
-@synthesize labelEAMSource;
-@synthesize labelEAMNumCoords;
-@synthesize buttonInfo;
+@synthesize labelEAMSource,labelEAMNumCoords;
+
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -46,6 +46,22 @@
         defaultSettings = [NSUserDefaults standardUserDefaults];
     }
     
+    return self;
+}
+
+- (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer {
+    
+    self = [super initWithWindowNibName:@"dianeXuWindow"];
+    
+    defaultSettings = [NSUserDefaults standardUserDefaults];
+    workingSet = [[dianeXuDataSet alloc] init];
+    currentStep = 0;
+    
+    if (self != nil) {
+        mainViewer = mViewer;
+        scndViewer = sViewer;
+        [workingSet updateGeometryInfoFrom:mainViewer andFrom:scndViewer];
+    }
     return self;
 }
 
@@ -74,7 +90,7 @@
 - (IBAction)pushQuit:(id)sender {
     [[self window] orderOut:self];
     //TODO: Clean up everything (especially observers) before deallocating!
-    [self dealloc];
+    //[self dealloc];
 }
 
 - (IBAction)pushInfo:(id)sender {
@@ -94,8 +110,16 @@
     [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",vertexCount]];
     
     //feed rawData to the workingSet
-    [workingSet makePointsFromNavxString:rawData :vertexCount];
+    [workingSet makePointsFromNavxString:rawData];
+    
+    //Enable show ROI button now that we have the data
+    [buttonEAMRoi setEnabled:YES];
 }
+
+- (IBAction)pushEAMRoi:(id)sender {
+    [workingSet eamROItoController:mainViewer];
+}
+
 
 - (void)updateStepGUI: (int)toStep
 {
