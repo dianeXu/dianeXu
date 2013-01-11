@@ -19,14 +19,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "dianeXuCoord.h"
 
-@interface XmlRetrieve : NSObject <NSXMLParserDelegate> {
+@interface NavxImport : NSObject <NSXMLParserDelegate> {
+    NSMutableArray *difGeometry;
+    NSMutableArray *eamGeometry;
+    NSMutableArray *lesionGeometry;
     NSMutableString *currentContent;
     NSString *rawNavxData;
-    int countNavx;
 }
 
-- (NSString*) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput;
-- (int) retrieveNavxVertixCount:(NSURL*)sourcePath:(NSError**)errorOutput;
+@property (assign) NSMutableArray* difGeometry;
+@property (assign) NSMutableArray* eamGeometry;
+@property (assign) NSMutableArray* lesionGeometry;
+
+- (void) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput;
+
+/*
+ *  Method to extract coordinate Data from a parsed dif model String.
+ */
+- (void)makePointsFromNavxDIFString:(NSString *)inputString;
 
 @end

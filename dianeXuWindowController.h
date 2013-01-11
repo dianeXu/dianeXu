@@ -20,7 +20,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "dianeXuPreferencesKeys.h"
-#import "XmlRetrieve.h"
+#import "dianeXuNavxImport.h"
 #import "dianeXuDataSet.h"
 
 @interface dianeXuWindowController : NSWindowController {
@@ -34,8 +34,10 @@
     NSTabView *tabStep;
     NSPathControl *pathEAM;
     NSTextField *labelEAMSource;
-    NSTextField *labelEAMNumCoords;
+    NSTextField *labelMRINumCoords;
     NSButton *buttonEAMRoi;
+    NSTextField *labelEAMNumCoords;
+    NSTextField *labelLesionNumCoords;
     NSButton *buttonInfo;
     NSButton *pushShowEAMRoi;
 }
@@ -50,8 +52,10 @@
 @property (assign) IBOutlet NSTabView *tabStep;
 @property (assign) IBOutlet NSPathControl *pathEAM;
 @property (assign) IBOutlet NSTextField *labelEAMSource;
-@property (assign) IBOutlet NSTextField *labelEAMNumCoords;
+@property (assign) IBOutlet NSTextField *labelMRINumCoords;
 @property (assign) IBOutlet NSButton *buttonEAMRoi;
+@property (assign) IBOutlet NSTextField *labelEAMNumCoords;
+@property (assign) IBOutlet NSTextField *labelLesionNumCoords;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;

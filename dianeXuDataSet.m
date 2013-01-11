@@ -22,19 +22,19 @@
 
 @implementation dianeXuDataSet
 
+@synthesize difGeometry,eamGeometry,lesionGeometry;
+
 - (id)init {
     self = [super init];
     if (self != nil) {
-        primarySpacing = [[dianeXuCoord alloc] init];
-        primaryOrigin = [[dianeXuCoord alloc] init];
-        secondarySpacing = [[dianeXuCoord alloc] init];
-        secondaryOrigin = [[dianeXuCoord alloc] init];
-        eamPoints = [[NSMutableArray alloc] init];
+        difGeometry = [[NSMutableArray alloc] init];
+        eamGeometry = [[NSMutableArray alloc] init];
+        lesionGeometry = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (void)eamROItoController: (ViewerController*)targetController {
+- (void)difROItoController: (ViewerController*)targetController {
     // prepare needed data du adjust pixelspacings in eam data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
     DCMPix* slice = [[targetController pixList] objectAtIndex:0];
@@ -51,7 +51,7 @@
     //NSLog(@"%f %f %f",[slice originX],[slice originY],[slice originZ]);
     
     // make new points with values in pixels!
-    for (dianeXuCoord* currentCoord in eamPoints) {
+    for (dianeXuCoord* currentCoord in difGeometry) {
         dianeXuCoord* newItem = [[dianeXuCoord alloc] init];
         
         // get coordinates corrected by originoffset, correct offset orientation, swap y- and z-values to match Osirix image orientation
@@ -69,8 +69,7 @@
     }
     
     [pointsROI sortUsingDescriptors:sortDescriptors];
-    
-    NSLog(@"%@",pointsROI);
+    //NSLog(@"%@",pointsROI);
     
     // prepare data for ROI handling
     //DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];
@@ -100,52 +99,6 @@
     }
     //update the targetcontroller in case something happened on the current image
     [targetController needsDisplayUpdate];
-}
-
-- (void)makePointsFromNavxString:(NSString *)inputString {
-    
-    NSMutableArray *lineCoords = [[inputString componentsSeparatedByString:@"\n"] mutableCopy];
-    //trim lines
-    [lineCoords removeObjectAtIndex:0];
-    [lineCoords removeLastObject];
-    
-    for (NSString *singleCoord in lineCoords) {
-        dianeXuCoord *currentCoord = [dianeXuCoord alloc];
-        
-        //trim junk from the single lines
-        NSString *trimmedSingleCoord = [singleCoord stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        
-        //seperate the coords
-        NSArray *justCoords = [trimmedSingleCoord componentsSeparatedByString:@"  "];
-        
-        //set coordinate values and add to eamPoints array.
-        [currentCoord setXValue:[NSDecimalNumber  decimalNumberWithString:[justCoords objectAtIndex:0]]];
-        [currentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
-        [currentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
-        //NSLog(@"%@ %@ %@", [currentCoord xValue],[currentCoord yValue],[currentCoord zValue]);
-        
-        [eamPoints addObject:currentCoord];
-        //NSLog(@"%@", [eamPoints objectAtIndex:[eamPoints count]-1]);
-        
-        currentCoord = nil;
-    }
-}
-
-- (void)updateGeometryInfoFrom:(ViewerController *)primeViewer andFrom:(ViewerController *)secondViewer {
-    // get the first images of each viewer
-    DCMPix* primeSlice = [[primeViewer pixList] objectAtIndex:0];
-    DCMPix* secondSlice = [[secondViewer pixList] objectAtIndex:0];
-    
-    [primarySpacing setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[primeSlice pixelSpacingX]] decimalValue]]];
-    [primarySpacing setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[primeSlice pixelSpacingY]] decimalValue]]];
-    [primarySpacing setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[primeSlice sliceThickness]] decimalValue]]];
-    
-    [secondarySpacing setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[secondSlice pixelSpacingX]] decimalValue]]];
-    [secondarySpacing setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[secondSlice pixelSpacingY]] decimalValue]]];
-    [secondarySpacing setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[secondSlice sliceThickness]] decimalValue]]];
-    
-    NSLog(@"Updated prime geometry info to %@",primarySpacing);
-    NSLog(@"Updated scnd geometry info to %@",secondarySpacing);
 }
 
 + (void)sortClockwise:(NSMutableArray *)sortArray {

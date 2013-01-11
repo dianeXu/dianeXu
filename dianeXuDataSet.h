@@ -27,18 +27,16 @@
 #import <OsiriXAPI/DCMPix.h>
 
 @interface dianeXuDataSet : NSObject {
-    NSMutableArray* eamPoints;
-    dianeXuCoord* primarySpacing;
-    dianeXuCoord* primaryOrigin;
-    dianeXuCoord* secondarySpacing;
-    dianeXuCoord* secondaryOrigin;
+    NSMutableArray* eamGeometry;
+    NSMutableArray* difGeometry;
+    NSMutableArray* lesionGeometry;
 }
 
-- (void)eamROItoController: (ViewerController*)targetController;
+@property (retain) NSMutableArray* difGeometry;
+@property (retain) NSMutableArray* eamGeometry;
+@property (retain) NSMutableArray* lesionGeometry;
 
-- (void)makePointsFromNavxString:(NSString*) inputString;
-
-- (void)updateGeometryInfoFrom: (ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
+- (void)difROItoController: (ViewerController*)targetController;
 
 + (void)sortClockwise: (NSMutableArray*)sortArray;
 

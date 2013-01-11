@@ -28,12 +28,14 @@
 
 @implementation dianeXuWindowController
 @synthesize buttonEAMRoi;
+@synthesize labelEAMNumCoords;
+@synthesize labelLesionNumCoords;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
 @synthesize tabStep;
 @synthesize pathEAM;
-@synthesize labelEAMSource,labelEAMNumCoords;
+@synthesize labelEAMSource,labelMRINumCoords;
 
 
 - (id)initWithWindow:(NSWindow *)window
@@ -60,7 +62,6 @@
     if (self != nil) {
         mainViewer = mViewer;
         scndViewer = sViewer;
-        [workingSet updateGeometryInfoFrom:mainViewer andFrom:scndViewer];
     }
     return self;
 }
@@ -98,26 +99,23 @@
 }
 
 - (IBAction)pushGetEAMData:(id)sender {
-    XmlRetrieve *retrieve = [[XmlRetrieve alloc] init];
+    NavxImport *retrieve = [[NavxImport alloc] init];
     NSError *error = nil;
-    NSString * rawData;
-    int vertexCount;
-    
-    vertexCount = [retrieve retrieveNavxVertixCount:[pathEAM URL] :&error];
-    rawData = [[NSString alloc] initWithString:[retrieve retrieveNavxDataFrom:[pathEAM URL] :&error]];
+
+    [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
+    [workingSet setDifGeometry:[[retrieve difGeometry] copy]];
     
     //update interface
-    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",vertexCount]];
-    
-    //feed rawData to the workingSet
-    [workingSet makePointsFromNavxString:rawData];
+    [labelMRINumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
+    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
+    [labelLesionNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
     
     //Enable show ROI button now that we have the data
     [buttonEAMRoi setEnabled:YES];
 }
 
 - (IBAction)pushEAMRoi:(id)sender {
-    [workingSet eamROItoController:mainViewer];
+    [workingSet difROItoController:mainViewer];
 }
 
 
