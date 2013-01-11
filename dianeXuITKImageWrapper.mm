@@ -117,7 +117,7 @@
     // uncomment for debugging
     image->DebugOn();
     image->Update();
-    NSLog(@"dianeXu: ITK image wrapper updated");
+    NSLog(@"dianeXu: ITK image wrapper updated with buffersize %ld",bufferSize*sizeof(float));
 }
 
 @end
