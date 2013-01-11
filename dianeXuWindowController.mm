@@ -110,6 +110,8 @@
     [workingSet setEamGeometry:[[retrieve eamGeometry] copy]];
     [workingSet setLesionGeometry:[[retrieve lesionGeometry] copy]];
     
+    [retrieve dealloc];
+    
     // update interface
     [labelMRINumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
     [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
