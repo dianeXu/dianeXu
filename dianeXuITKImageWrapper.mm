@@ -22,4 +22,34 @@
 
 @implementation dianeXuITKImageWrapper
 
+/*
+ * Create a new imagewrapper from the given ViewerController's content
+ */
+- (id)initWithViewer:(ViewerController*)sourceViewer andSlice:(int)slice {
+    self = [super init];
+    if (self) {
+        NSLog(@"ITK image wrapper initialized.");
+        activeViewer = sourceViewer;
+        sliceIndex = slice;
+        [self updateWrapper];
+    } else {
+        NSLog(@"dianeXu: ITK image wrapper failed to initialize.");
+    }
+    return self;
+}
+
+/*
+ * Get a pointer to the ITK image
+ */
+- (ImageType::Pointer)image {
+    return nil;
+}
+
+/*
+ * Update the imagewrapper to reflect changes in the viewer
+ */
+- (void)updateWrapper {
+    
+}
+
 @end

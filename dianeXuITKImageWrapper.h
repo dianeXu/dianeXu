@@ -20,6 +20,37 @@
 
 #import <Foundation/Foundation.h>
 
-@interface dianeXuITKImageWrapper : NSObject
+#import "OsiriXAPI/DCMPix.h"
+#import "OsiriXAPI/ViewerController.h"
+
+#include "itkImage.h"
+#include "itkImportImageFilter.h"
+
+typedef float itkPixelType;
+typedef opITK::Image< itkPixelType, 3 > ImageType;
+typedef opITK::ImportImageFilter< itkPixelType, 3 > ImportFilterType;
+
+@interface dianeXuITKImageWrapper : NSObject {
+    ImageType::Pointer image;
+    ViewerController* activeViewer;
+    double activeOrigin[3];
+    double voxelSpacing[3];
+    int sliceIndex;
+}
+
+/*
+ * Create a new imagewrapper from the given ViewerController's content
+ */
+- (id)initWithViewer:(ViewerController*)sourceViewer andSlice:(int)slice;
+
+/*
+ * Get a pointer to the ITK image
+ */
+- (ImageType::Pointer)image;
+
+/*
+ * Update the imagewrapper to reflect changes in the viewer
+ */
+- (void)updateWrapper;
 
 @end

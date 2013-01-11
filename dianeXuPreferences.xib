@@ -557,7 +557,7 @@
 																<string key="NSFrame">{{120, 10}, {400, 26}}</string>
 																<reference key="NSSuperview" ref="665307587"/>
 																<reference key="NSWindow"/>
-																<reference key="NSNextKeyView"/>
+																<reference key="NSNextKeyView" ref="352808957"/>
 																<string key="NSReuseIdentifierKey">_NS:9</string>
 																<bool key="NSEnabled">YES</bool>
 																<object class="NSComboBoxCell" key="NSCell" id="644287532">
@@ -773,7 +773,7 @@
 																<object class="NSButtonCell" key="NSCell" id="158944646">
 																	<int key="NSCellFlags">67108864</int>
 																	<int key="NSCellFlags2">134217728</int>
-																	<string key="NSContents">http://traq.dianeXu.com</string>
+																	<string key="NSContents">GitHub Issues Tracker</string>
 																	<reference key="NSSupport" ref="307766412"/>
 																	<string key="NSCellIdentifier">_NS:9</string>
 																	<reference key="NSControlView" ref="68651634"/>

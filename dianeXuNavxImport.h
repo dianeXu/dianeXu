@@ -49,7 +49,10 @@
 @property (assign) NSMutableArray* eamGeometry;
 @property (assign) NSMutableArray* lesionGeometry;
 
-- (void) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput;
+/*
+ * Method to import NavX data from given export's base directory
+ */
+- (void)retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput;
 
 /*
  *  Method to extract coordinate Data from a parsed dif model String.
