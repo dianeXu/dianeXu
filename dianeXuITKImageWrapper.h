@@ -36,6 +36,7 @@ typedef opITK::ImportImageFilter< itkPixelType, 3 > ImportFilterType;
     double activeOrigin[3];
     double voxelSpacing[3];
     int sliceIndex;
+    float* volumeData;
 }
 
 /*
