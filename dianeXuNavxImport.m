@@ -28,6 +28,9 @@
     self = [super init];
     if(self) {
         currentContent = nil;
+        currentCoord = nil;
+        currentAxis = noaxis;
+        currentDataType = notype;
         difGeometry = [NSMutableArray new];
         eamGeometry = [NSMutableArray new];
         lesionGeometry = [NSMutableArray new];
@@ -39,60 +42,150 @@
 - (void) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput {
     
     BOOL success = NO;
-    BOOL difImport = NO;
-    
+
     NSURL *difPath = [[NSURL alloc] initWithString:@"difs/dif001.xml" relativeToURL:sourcePath];
     NSURL *eamPath = [[NSURL alloc] initWithString:@"ensiteModel/geometry.xml" relativeToURL:sourcePath];
     NSURL *lesionPath = [[NSURL alloc] initWithString:@"ensiteModel/lesions.xml" relativeToURL:sourcePath];
+
     
-    
+#pragma mark DIF Import Section
+    // Strign to check for availabilty of dif data
     NSString *difPathString = [[[difPath absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""];
     
+    // import only if dif data is present
     if ([[NSFileManager defaultManager] fileExistsAtPath:difPathString]) {
-        NSLog(@"dianeXu: found NavX DIF data for import.");
-        difImport = YES;
+        NSLog(@"dianeXu: Found NavX DIF data for import.");
         
-        NSURLRequest *request = [NSURLRequest requestWithURL:difPath cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+        NSURLRequest *difRequest = [NSURLRequest requestWithURL:difPath cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
     
-        NSURLResponse *response = nil;
+        NSURLResponse *difResponse = nil;
     
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:errorOutput];
+        NSData *difData = [NSURLConnection sendSynchronousRequest:difRequest returningResponse:&difResponse error:errorOutput];
     
-        NSXMLParser *parser;
-        parser = [[NSXMLParser alloc] initWithData:data];
-        [parser setDelegate:self];
+        NSXMLParser *difParser;
+        difParser = [[NSXMLParser alloc] initWithData:difData];
+        [difParser setDelegate:self];
     
-        success = [parser parse];
+        success = [difParser parse];
     
         [difPath release];
         
         if (!success) {
-            *errorOutput = [parser parserError];
+            NSLog(@"dianeXu: Error importing DIF data.");
+            *errorOutput = [difParser parserError];
         } else {
             [self makePointsFromNavxDIFString:rawNavxData];
         }
     }
-NSLog(@"%@",difGeometry);
+#pragma mark EAM import section
+    NSURLRequest *eamRequest = [NSURLRequest requestWithURL:eamPath cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+    
+    NSURLResponse *eamResponse = nil;
+    
+    NSData *eamData = [NSURLConnection sendSynchronousRequest:eamRequest returningResponse:&eamResponse error:errorOutput];
+    
+    NSXMLParser *eamParser;
+    eamParser = [[NSXMLParser alloc] initWithData:eamData];
+    [eamParser setDelegate:self];
+    
+    success = [eamParser parse];
+    
+    [eamPath release];
+    
+    if (!success) {
+        NSLog(@"dianeXu: Error importing EAM data.");
+        *errorOutput = [eamParser parserError];
+    }
+
+#pragma mark lesion import section
+    NSURLRequest *lesionRequest = [NSURLRequest requestWithURL:lesionPath cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+    
+    NSURLResponse *lesionResponse = nil;
+    
+    NSData *lesionData = [NSURLConnection sendSynchronousRequest:lesionRequest returningResponse:&lesionResponse error:errorOutput];
+    
+    NSXMLParser *lesionParser;
+    lesionParser = [[NSXMLParser alloc] initWithData:lesionData];
+    [lesionParser setDelegate:self];
+    
+    success = [lesionParser parse];
+    
+    [lesionPath release];
+    
+    if (!success) {
+        NSLog(@"dianeXu: Error importing lesion data.");
+        *errorOutput = [lesionParser parserError];
+    }
+    
+    // verbose result logging
+    //NSLog(@"%@",difGeometry);
+    //NSLog(@"%@",eamGeometry);
+    //NSLog(@"%@",lesionGeometry);
+
+
 }
+
 
 #pragma mark NSXMLParserDelegate
 - (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     if ([elementName isEqualToString:@"Vertices"] && !currentContent) {
         currentContent = [NSMutableString string];
+        currentDataType = dif;
+    } else if (([elementName isEqualToString:@"Label"] || [elementName isEqualToString:@"Pt"]) && !currentCoord) {
+        currentCoord = [dianeXuCoord new];
+    } else if (([elementName isEqualToString:@"x"] || [elementName isEqualToString:@"Coord_x"]) && currentCoord) {
+        currentAxis = x;
+        currentDataType = eam;
+        if ([elementName isEqualToString:@"Coord_x"]) {
+            currentDataType = lesion;
+        }
+    } else if (([elementName isEqualToString:@"y"] || [elementName isEqualToString:@"Coord_y"]) && currentCoord) {
+        currentAxis = y;
+        currentDataType = eam;
+        if ([elementName isEqualToString:@"Coord_y"]) {
+            currentDataType = lesion;
+        }
+    } else if (([elementName isEqualToString:@"z"] || [elementName isEqualToString:@"Coord_z"])&& currentCoord) {
+        currentAxis = z;
+        currentDataType = eam;
+        if ([elementName isEqualToString:@"Coord_z"]) {
+            currentDataType = lesion;
+        }
+        
     }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    if (currentContent) {
+    if (currentDataType == dif && currentContent) {
         [currentContent appendString: string];
+    } else if ((currentDataType == eam || currentDataType == lesion) && currentCoord) {
+        if (currentAxis == x) {
+            [currentCoord setXValue:[NSDecimalNumber decimalNumberWithString:string]];
+        } else if (currentAxis == y) {
+            [currentCoord setYValue:[NSDecimalNumber decimalNumberWithString:string]];
+        } else if (currentAxis == z) {
+            [currentCoord setZValue:[NSDecimalNumber decimalNumberWithString:string]];
+        }
     }
+    
 }
 
 - (void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     if ([elementName isEqualToString:@"Vertices"] && currentContent) {
         rawNavxData = currentContent;
         currentContent = nil;
+    
+    } else if ([elementName isEqualToString:@"Label"] && currentCoord) {
+        [lesionGeometry addObject:currentCoord];
+        currentCoord = nil;
+        currentDataType = notype;
+        
+    } else if ([elementName isEqualToString:@"Pt"] && currentCoord) {
+        [eamGeometry addObject:currentCoord];
+        currentCoord = nil;
+        currentDataType = notype;
     }
+    currentAxis = noaxis;
 }
 
 #pragma mark Data Formatting Methods
@@ -104,7 +197,7 @@ NSLog(@"%@",difGeometry);
     [lineCoords removeLastObject];
     
     for (NSString *singleCoord in lineCoords) {
-        dianeXuCoord *currentCoord = [dianeXuCoord alloc];
+        dianeXuCoord *localCurrentCoord = [dianeXuCoord alloc];
         
         //trim junk from the single lines
         NSString *trimmedSingleCoord = [singleCoord stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -113,15 +206,15 @@ NSLog(@"%@",difGeometry);
         NSArray *justCoords = [trimmedSingleCoord componentsSeparatedByString:@"  "];
         
         //set coordinate values and add to eamPoints array.
-        [currentCoord setXValue:[NSDecimalNumber  decimalNumberWithString:[justCoords objectAtIndex:0]]];
-        [currentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
-        [currentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
-        //NSLog(@"%@ %@ %@", [currentCoord xValue],[currentCoord yValue],[currentCoord zValue]);
+        [localCurrentCoord setXValue:[NSDecimalNumber  decimalNumberWithString:[justCoords objectAtIndex:0]]];
+        [localCurrentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
+        [localCurrentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
+        //NSLog(@"%@ %@ %@", [localCurrentCoord xValue],[localCurrentCoord yValue],[localCurrentCoord zValue]);
         
-        [difGeometry addObject:currentCoord];
-        //NSLog(@"%@", [eamPoints objectAtIndex:[eamPoints count]-1]);
+        [difGeometry addObject:localCurrentCoord];
+        //NSLog(@"%@", [difGeometry objectAtIndex:[difGeometry count]-1]);
         
-        currentCoord = nil;
+        localCurrentCoord = nil;
     }
 }
 

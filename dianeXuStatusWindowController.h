@@ -21,14 +21,15 @@
 #import <Cocoa/Cocoa.h>
 
 @interface dianeXuStatusWindowController : NSWindowController {
-    NSTextField *_statusText;
-    int _statusPercent;
+    NSTextField *labelStatusText;
+    NSProgressIndicator *_progressBar;
+    NSString* statusText;
 }
 
-@property (assign) IBOutlet NSTextField *_statusText;
-@property (readwrite, assign) int _statusPercent;
+@property (weak) IBOutlet NSTextField *labelStatusText;
+@property (weak) IBOutlet NSProgressIndicator *_progressBar;
+@property (retain) NSString* statusText;
 
-- (void)setStatusText:(NSString *)myText;
-- (void)setStatusPercent: (int)myPercent;
+- (void)showStatusText;
 
 @end

@@ -27,7 +27,7 @@
 @end
 
 @implementation dianeXuWindowController
-@synthesize buttonEAMRoi;
+@synthesize buttonDifRoi;
 @synthesize labelEAMNumCoords;
 @synthesize labelLesionNumCoords;
 @synthesize mainViewer,scndViewer;
@@ -42,7 +42,8 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        //set properties
+        //set member variables
+        statusWindow = [[dianeXuStatusWindowController alloc]initWithWindowNibName:@"dianeXuStatusWindow"];
         workingSet = [[dianeXuDataSet alloc] init];
         currentStep = 0;
         defaultSettings = [NSUserDefaults standardUserDefaults];
@@ -99,22 +100,26 @@
 }
 
 - (IBAction)pushGetEAMData:(id)sender {
+    [statusWindow setStatusText:@"Importing NavX data..."];
+    [statusWindow showStatusText];
     NavxImport *retrieve = [[NavxImport alloc] init];
     NSError *error = nil;
 
     [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
     [workingSet setDifGeometry:[[retrieve difGeometry] copy]];
+    [workingSet setEamGeometry:[[retrieve eamGeometry] copy]];
+    [workingSet setLesionGeometry:[[retrieve lesionGeometry] copy]];
     
-    //update interface
+    // update interface
     [labelMRINumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
     [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
     [labelLesionNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
-    
-    //Enable show ROI button now that we have the data
-    [buttonEAMRoi setEnabled:YES];
+    // Enable show ROI button now that we have the data
+    [buttonDifRoi setEnabled:YES];
+    [[statusWindow window] orderOut:nil];
 }
 
-- (IBAction)pushEAMRoi:(id)sender {
+- (IBAction)pushDifRoi:(id)sender {
     [workingSet difROItoController:mainViewer];
 }
 

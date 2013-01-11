@@ -22,10 +22,26 @@
 #import "dianeXuCoord.h"
 
 @interface NavxImport : NSObject <NSXMLParserDelegate> {
+    enum axis {
+        noaxis,
+        x,
+        y,
+        z
+    };
+    enum dataType {
+        notype,
+        dif,
+        eam,
+        lesion
+    };
+    
     NSMutableArray *difGeometry;
     NSMutableArray *eamGeometry;
     NSMutableArray *lesionGeometry;
     NSMutableString *currentContent;
+    dianeXuCoord *currentCoord;
+    enum axis currentAxis;
+    enum dataType currentDataType;
     NSString *rawNavxData;
 }
 

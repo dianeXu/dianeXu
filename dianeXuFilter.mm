@@ -36,7 +36,7 @@
 
 - (long) filterImage:(NSString*) menuName
 {
-    NSLog(@"Starting dianeXu plugin for Osirix...");
+    NSLog(@"dianeXu: Starting OsiriX plugin...");
     //Plugin Conditions: Ask for medical usage agreement
     int alertResult;
     alertResult = NSRunInformationalAlertPanel(@"WARNING", @"This plugin is not certified for medical usage. Its purpose is limited to research at this point.", @"Quit", @"Agree", nil,nil);
@@ -64,7 +64,7 @@
         mainWindow = [[dianeXuWindowController alloc] initWithViewer:[activeViewers objectAtIndex:0] andViewer:[activeViewers objectAtIndex:1]];
     }
     
-    NSLog(@"Initialized dianeXu with two Viewers, showing main Window...");
+    NSLog(@"dianeXu: Initialized with two viewers, showing main window...");
     //show our plugin window
     [mainWindow showWindow:self];
     

@@ -27,6 +27,7 @@
     ViewerController* mainViewer;
     ViewerController* scndViewer;
     dianeXuDataSet* workingSet;
+    dianeXuStatusWindowController* statusWindow;
     NSUserDefaults *defaultSettings;
     int currentStep;
     NSButton *buttonNext;
@@ -35,7 +36,7 @@
     NSPathControl *pathEAM;
     NSTextField *labelEAMSource;
     NSTextField *labelMRINumCoords;
-    NSButton *buttonEAMRoi;
+    NSButton *buttonDifRoi;
     NSTextField *labelEAMNumCoords;
     NSTextField *labelLesionNumCoords;
     NSButton *buttonInfo;
@@ -53,7 +54,7 @@
 @property (assign) IBOutlet NSPathControl *pathEAM;
 @property (assign) IBOutlet NSTextField *labelEAMSource;
 @property (assign) IBOutlet NSTextField *labelMRINumCoords;
-@property (assign) IBOutlet NSButton *buttonEAMRoi;
+@property (assign) IBOutlet NSButton *buttonDifRoi;
 @property (assign) IBOutlet NSTextField *labelEAMNumCoords;
 @property (assign) IBOutlet NSTextField *labelLesionNumCoords;
 
@@ -62,13 +63,13 @@
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
 - (IBAction)pushGetEAMData:(id)sender;
-- (IBAction)pushEAMRoi:(id)sender;
+- (IBAction)pushDifRoi:(id)sender;
 
 
-- (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer;
+- (id) initWithViewer:(ViewerController*)mViewer andViewer:(ViewerController*)sViewer;
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 
-- (void) updateStepGUI: (int)toStep;
+- (void) updateStepGUI:(int)toStep;
 
 @end

@@ -36,8 +36,8 @@
 @property (retain) NSMutableArray* eamGeometry;
 @property (retain) NSMutableArray* lesionGeometry;
 
-- (void)difROItoController: (ViewerController*)targetController;
+- (void)difROItoController:(ViewerController*)targetController;
 
-+ (void)sortClockwise: (NSMutableArray*)sortArray;
++ (void)sortClockwise:(NSMutableArray*)sortArray;
 
 @end
