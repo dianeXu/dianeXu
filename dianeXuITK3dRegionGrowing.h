@@ -25,7 +25,11 @@
 #import "dianeXuITKImageWrapper.h"
 
 @interface dianeXuITK3dRegionGrowing : NSObject {
-    
+    ViewerController* segViewer;
+    dianeXuITKImageWrapper* segImage;
+    ImageType::PointType outOrigin;
+    ImageType::SpacingType outSpacing;
+    ImageType::SizeType outSize;
 }
 
 @end
