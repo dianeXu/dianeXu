@@ -35,7 +35,7 @@
 }
 
 - (void)difROItoController: (ViewerController*)targetController {
-    // prepare needed data du adjust pixelspacings in eam data
+    // prepare needed data du adjust pixelspacings in dif data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
     DCMPix* slice = [[targetController pixList] objectAtIndex:0];
     NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
