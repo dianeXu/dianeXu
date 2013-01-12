@@ -22,4 +22,26 @@
 
 @implementation dianeXuITK3dRegionGrowing
 
+/*
+ * Initializes the class with a viewer for segmentation
+ */
+-(id) initWithViewer:(ViewerController*)viewer {
+    self = [super init];
+    if (self) {
+        segViewer = viewer;
+        
+        segImageWrapper = [[dianeXuITKImageWrapper alloc] initWithViewer:segViewer andSlice:-1];
+        ImageType::Pointer tmpImage = [segImageWrapper image];
+        outOrigin = tmpImage->GetOrigin();
+        outSpacing = tmpImage->GetSpacing();
+        outSize[0] = [[[segViewer pixList] objectAtIndex:0] pwidth];
+        outSize[1] = [[[segViewer pixList] objectAtIndex:0] pheight];
+        outSize[2] = [[segViewer pixList] count];
+        NSLog(@"dianeXu: Initialized 3D region growing segmentation controller.");
+    } else {
+        NSLog(@"dianeXu: Init of 3D region growing segmentation controller failed.");
+    }
+    return self;
+}
+
 @end

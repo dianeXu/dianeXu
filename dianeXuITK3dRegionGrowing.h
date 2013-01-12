@@ -26,10 +26,16 @@
 
 @interface dianeXuITK3dRegionGrowing : NSObject {
     ViewerController* segViewer;
-    dianeXuITKImageWrapper* segImage;
+    dianeXuITKImageWrapper* segImageWrapper;
     ImageType::PointType outOrigin;
     ImageType::SpacingType outSpacing;
     ImageType::SizeType outSize;
 }
+
+/*
+ * Initializes the class with a viewer for segmentation
+ */
+-(id) initWithViewer:(ViewerController*)viewer;
+
 
 @end
