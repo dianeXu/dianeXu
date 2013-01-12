@@ -37,15 +37,22 @@
         outSize[0] = [[[segViewer pixList] objectAtIndex:0] pwidth];
         outSize[1] = [[[segViewer pixList] objectAtIndex:0] pheight];
         outSize[2] = [[segViewer pixList] count];
-        NSLog(@"dianeXu: Initialized 3D region growing segmentation controller.");
+        NSLog(@"dianeXu: Initialized 3D region growing segmentation.");
     } else {
-        NSLog(@"dianeXu: Init of 3D region growing segmentation controller failed.");
+        NSLog(@"dianeXu: Init of 3D region growing segmentation failed.");
     }
     return self;
 }
 
 /*
- * Custom dealloc to get rid of itk objects.
+ * Perform the 3d region growing and return a ROI to the viewer
+ */
+-(void) start3dRegionGrowingAt:(long)slice withSeedPoint:(int[3])seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithm andOptions:(NSArray*)options {
+    NSLog(@"dianeXu: Starting 3D region growing.");
+}
+
+/*
+ * Custom dealloc to get rid of ITK objects.
  */
 -(void)dealloc {
     [segImageWrapper dealloc];

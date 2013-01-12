@@ -28,7 +28,7 @@
 - (id)initWithViewer:(ViewerController*)sourceViewer andSlice:(int)slice {
     self = [super init];
     if (self) {
-        NSLog(@"ITK image wrapper initialized.");
+        NSLog(@"dianeXu: ITK image wrapper initialized.");
         activeViewer = sourceViewer;
         sliceIndex = slice;
         volumeData = 0;

@@ -88,7 +88,7 @@
         //is the window even ours?
         if ([[[windowItem windowController] windowNibName] isEqualToString:@"dianeXuWindow"]) {
             if ([[windowItem windowController] mainViewer] == mViewer && [[windowItem windowController] scndViewer] == sViewer) {
-                NSLog(@"Using existing window...");
+                NSLog(@"dianeXu: Using existing window...");
                 return [windowItem windowController];
             }
         }

@@ -37,5 +37,8 @@
  */
 -(id) initWithViewer:(ViewerController*)viewer;
 
-
+/*
+ * Perform the 3d region growing and return a ROI to the viewer
+ */
+-(void) start3dRegionGrowingAt:(long)slice withSeedPoint:(int[3])seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithm andOptions:(NSArray*)options;
 @end

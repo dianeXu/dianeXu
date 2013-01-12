@@ -20,7 +20,7 @@
 
 #import "dianeXuWindowController.h"
 #import <OsiriXAPI/PreferencesWindowController.h>
-#import "dianeXuITKImageWrapper.h"
+#import "dianeXuITK3dRegionGrowing.h"
 
 @interface dianeXuWindowController ()
 
@@ -97,7 +97,7 @@
 }
 
 - (IBAction)pushInfo:(id)sender {
-    dianeXuITKImageWrapper* itkImage = [[dianeXuITKImageWrapper alloc] initWithViewer:mainViewer andSlice:-1];
+    dianeXuITK3dRegionGrowing* segmenter = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
 }
 
 - (IBAction)pushGetEAMData:(id)sender {
