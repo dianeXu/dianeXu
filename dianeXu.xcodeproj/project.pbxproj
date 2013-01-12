@@ -85,6 +85,8 @@
 		034006AD16A098B0006F97F4 /* libITKWatersheds-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F32162486AA003F510A /* libITKWatersheds-4.2.a */; };
 		034006AE16A098B0006F97F4 /* libitkzlib-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F33162486AA003F510A /* libitkzlib-4.2.a */; };
 		034006AF16A098B0006F97F4 /* libITKznz-4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EA9F34162486AA003F510A /* libITKznz-4.2.a */; };
+		034006B616A17973006F97F4 /* dianeXuITK3dRegionGrowing.h in Headers */ = {isa = PBXBuildFile; fileRef = 034006B416A17973006F97F4 /* dianeXuITK3dRegionGrowing.h */; };
+		034006B716A17973006F97F4 /* dianeXuITK3dRegionGrowing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 034006B516A17973006F97F4 /* dianeXuITK3dRegionGrowing.mm */; };
 		034813151664E6F700ABC18A /* dianeXuDataSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 034813131664E6F700ABC18A /* dianeXuDataSet.h */; };
 		034813161664E6F700ABC18A /* dianeXuDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 034813141664E6F700ABC18A /* dianeXuDataSet.m */; };
 		034813191664EC6C00ABC18A /* dianeXuNavxImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 034813171664EC6C00ABC18A /* dianeXuNavxImport.h */; };
@@ -124,6 +126,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		034006B416A17973006F97F4 /* dianeXuITK3dRegionGrowing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuITK3dRegionGrowing.h; sourceTree = "<group>"; };
+		034006B516A17973006F97F4 /* dianeXuITK3dRegionGrowing.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = dianeXuITK3dRegionGrowing.mm; sourceTree = "<group>"; };
 		0348130E165F542000ABC18A /* dianeXuPreferencesKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dianeXuPreferencesKeys.h; sourceTree = "<group>"; };
 		034813131664E6F700ABC18A /* dianeXuDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuDataSet.h; sourceTree = "<group>"; };
 		034813141664E6F700ABC18A /* dianeXuDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuDataSet.m; sourceTree = "<group>"; };
@@ -418,6 +422,8 @@
 			children = (
 				03E540DF16A04FC7002C4BDC /* dianeXuITKImageWrapper.h */,
 				03E540E016A04FC7002C4BDC /* dianeXuITKImageWrapper.mm */,
+				034006B416A17973006F97F4 /* dianeXuITK3dRegionGrowing.h */,
+				034006B516A17973006F97F4 /* dianeXuITK3dRegionGrowing.mm */,
 			);
 			name = ITK;
 			sourceTree = "<group>";
@@ -691,6 +697,7 @@
 				034813191664EC6C00ABC18A /* dianeXuNavxImport.h in Headers */,
 				037430C11668B0E0006029AF /* dianeXuCoord.h in Headers */,
 				03E540E116A04FC7002C4BDC /* dianeXuITKImageWrapper.h in Headers */,
+				034006B616A17973006F97F4 /* dianeXuITK3dRegionGrowing.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,6 +825,7 @@
 				0348131A1664EC6C00ABC18A /* dianeXuNavxImport.m in Sources */,
 				037430C21668B0E0006029AF /* dianeXuCoord.m in Sources */,
 				03E540E216A04FC7002C4BDC /* dianeXuITKImageWrapper.mm in Sources */,
+				034006B716A17973006F97F4 /* dianeXuITK3dRegionGrowing.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
