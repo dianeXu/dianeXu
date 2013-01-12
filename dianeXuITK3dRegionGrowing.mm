@@ -44,4 +44,12 @@
     return self;
 }
 
+/*
+ * Custom dealloc to get rid of itk objects.
+ */
+-(void)dealloc {
+    [segImageWrapper dealloc];
+    
+}
+
 @end
