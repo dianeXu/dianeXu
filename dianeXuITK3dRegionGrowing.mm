@@ -49,7 +49,7 @@
  */
 -(void)dealloc {
     [segImageWrapper dealloc];
-    
+    [super dealloc];
 }
 
 @end
