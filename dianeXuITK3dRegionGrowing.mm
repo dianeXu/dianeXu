@@ -20,6 +20,31 @@
 
 #import "dianeXuITK3dRegionGrowing.h"
 
+#import "OsiriXAPI/ViewerController.h"
+#import "OsiriXAPI/DCMView.h"
+#import "OsiriXAPI/DCMPix.h"
+
+#include "itkCastImageFilter.h"
+#include "itkConnectedThresholdImageFilter.h"
+
+#pragma mark typedefs
+/*
+ * begin typedef section
+ */
+
+// char output image
+typedef unsigned char OutputPixelType;
+typedef opITK::Image<OutputPixelType,3> OutputImageType;
+
+// type caster
+typedef opITK::CastImageFilter<ImageType, OutputImageType> CastingFilterType;
+
+// filters
+typedef opITK::ConnectedThresholdImageFilter<ImageType, ImageType> ConnectedThresholdFilterType;
+typedef opITK::ImageToImageFilter<ImageType, ImageType> SegmentationInterfaceType;
+
+
+#pragma mark class implementation
 @implementation dianeXuITK3dRegionGrowing
 
 /*
@@ -47,8 +72,49 @@
 /*
  * Perform the 3d region growing and return a ROI to the viewer
  */
--(void) start3dRegionGrowingAt:(long)slice withSeedPoint:(int[3])seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithm andOptions:(NSArray*)options {
+-(void) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold {
     NSLog(@"dianeXu: Starting 3D region growing.");
+    
+    //float volume;
+    
+    // define seed for the ITK filter
+    ImageType::IndexType index;
+    index[0] = (long)seed.x;
+    index[1] = (long)seed.y;
+    if (slice == -1) { // if 3d segmentation is happening, use the currently shown image's index
+        index[2] = [[segViewer imageView] curImage];
+    } else {
+        index[2] = 0;
+    }
+    
+    ConnectedThresholdFilterType::Pointer thresholdFilter = 0L;
+    SegmentationInterfaceType::Pointer segmentationFilter = 0L;
+    
+    // prepare segmentation algorithm
+    switch (algorithmIndex) {
+        case 0:
+            NSLog(@"dianeXu: Using connected threshold ITK filter.");
+            thresholdFilter = ConnectedThresholdFilterType::New();
+            thresholdFilter->SetLower(lowerThreshold);
+            thresholdFilter->SetUpper(upperThreshold);
+            thresholdFilter->SetReplaceValue(255);
+            thresholdFilter->SetSeed(index);
+            thresholdFilter->SetInput([segImageWrapper image]);
+            segmentationFilter = thresholdFilter;
+            break;
+            
+        default:
+            NSLog(@"dianeXu: Requested ITK filter unknown or not yet implemented. Aborting segmentation.");
+            return;
+            break;
+    }
+    
+    // TODO: If output to another viewer is required, setup resampler
+    
+    // TODO: Make ROI for drawing.
+    
+    
+    
 }
 
 /*
