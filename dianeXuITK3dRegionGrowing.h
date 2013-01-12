@@ -20,6 +20,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface dianeXuITK3dRegionGrowing : NSObject
+#import "OsiriXAPI/ViewerController.h"
+
+#import "dianeXuITKImageWrapper.h"
+
+@interface dianeXuITK3dRegionGrowing : NSObject {
+    
+}
 
 @end
