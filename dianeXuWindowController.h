@@ -63,7 +63,7 @@
 - (IBAction)pushPrev:(id)sender;
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
-- (IBAction)pushGetEAMData:(id)sender;
+- (IBAction)pushGetNavxData:(id)sender;
 - (IBAction)pushDifRoi:(id)sender;
 
 

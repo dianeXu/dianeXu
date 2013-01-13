@@ -103,7 +103,7 @@
     [segmenter start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint(130, 124) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:240 upperThreshold:340 outputResolution:8];
 }
 
-- (IBAction)pushGetEAMData:(id)sender {
+- (IBAction)pushGetNavxData:(id)sender {
     [statusWindow setStatusText:@"Importing NavX data..."];
     [statusWindow showStatusText];
     NavxImport *retrieve = [[NavxImport alloc] init];
