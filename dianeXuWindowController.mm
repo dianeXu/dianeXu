@@ -19,11 +19,11 @@
 //
 
 #import "dianeXuWindowController.h"
-#import <OsiriXAPI/PreferencesWindowController.h>
 #import "dianeXuITK3dRegionGrowing.h"
 
-@interface dianeXuWindowController ()
+#import <OsiriXAPI/PreferencesWindowController.h>
 
+@interface dianeXuWindowController ()
 
 @end
 
@@ -48,6 +48,11 @@
         workingSet = [[dianeXuDataSet alloc] init];
         currentStep = 0;
         defaultSettings = [NSUserDefaults standardUserDefaults];
+        
+        //register for important notifications
+        NSNotificationCenter *nc;
+        nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(mouseViewerDown:) name:@"mouseDown" object:nil];
     }
     
     return self;
@@ -124,8 +129,17 @@
             break;
             
         default:
-            
+            NSLog(@"Huh? I have no idea what that step is supposed to be. Sorry.");
             break;
+    }
+}
+
+/*
+ * Make the controller react to mousedowns in the viewer
+ */
+-(void) mouseViewerDown:(NSNotification*)note {
+    if ([note object] == mainViewer && currentStep == 0) {
+        NSLog(@"Caught click in main viewer while lingering in step 0");
     }
 }
 
