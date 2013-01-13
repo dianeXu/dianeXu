@@ -23,6 +23,7 @@
 #import "OsiriXAPI/ViewerController.h"
 #import "OsiriXAPI/DCMView.h"
 #import "OsiriXAPI/DCMPix.h"
+#import "OsiriXAPI/Roi.h"
 
 #include "itkCastImageFilter.h"
 #include "itkConnectedThresholdImageFilter.h"
@@ -87,6 +88,8 @@ typedef opITK::ImageToImageFilter<ImageType, ImageType> SegmentationInterfaceTyp
         index[2] = 0;
     }
     
+    CastingFilterType::Pointer castFilter = CastingFilterType::New();
+    
     ConnectedThresholdFilterType::Pointer thresholdFilter = 0L;
     SegmentationInterfaceType::Pointer segmentationFilter = 0L;
     
@@ -111,7 +114,53 @@ typedef opITK::ImageToImageFilter<ImageType, ImageType> SegmentationInterfaceTyp
     
     // TODO: If output to another viewer is required, setup resampler
     
-    // TODO: Make ROI for drawing.
+    castFilter->SetInput(segmentationFilter->GetOutput()); // convert float to char
+    
+    NSLog(@"dianeXu: Starting 3d region growing.");
+    try {
+        castFilter->Update();
+    } catch (opITK::ExceptionObject &excep){
+        NSLog(@"dianeXu: Region growing failed. Sorry.");
+        return;
+    }
+    
+    NSString* roiAnnotation = [[NSString alloc] initWithFormat:@"Segmentation ROI"];
+    
+    unsigned char* buffer = castFilter->GetOutput()->GetBufferPointer();
+    
+    NSLog(@"dianeXu: Creating ROI from segmentation Data");
+    
+    if (slice == -1) { // ROI for 3d segmentation
+        unsigned long i;
+        
+        RGBColor roiColor;
+        roiColor.red = [color redComponent] * 65535;
+        roiColor.blue = [color blueComponent] * 65535;
+        roiColor.green = [color greenComponent] * 65535;
+        
+        for (i = 0; i < [[segViewer pixList] count]; i++) {
+            int bufferHeight = [[[segViewer pixList] objectAtIndex:i] pheight];
+            int bufferWidth = [[[segViewer pixList] objectAtIndex:i] pwidth];
+            
+            ROI* newSegROI = [[ROI alloc] initWithTexture:buffer textWidth:bufferWidth textHeight:bufferHeight textName:roiAnnotation positionX:0 positionY:0 spacingX:[[[segViewer imageView] curDCM] pixelSpacingX] spacingY:[[[segViewer imageView] curDCM] pixelSpacingY] imageOrigin:NSMakePoint([[[segViewer imageView] curDCM] originX], [[[segViewer imageView] curDCM] originY])];
+            [newSegROI setComments:@"Comment"];
+            
+            if ([newSegROI reduceTextureIfPossible] == NO) { // roi isn't empty
+                [[[segViewer roiList] objectAtIndex:i] addObject:newSegROI];
+                // TODO: add notification center
+                
+                [newSegROI setColor:roiColor];
+                [newSegROI setROIMode:ROI_selected];
+                // TODO: add notification center
+            }
+            [newSegROI setSliceThickness:[[[segViewer imageView] curDCM] sliceThickness]];
+            [newSegROI release];
+            buffer += bufferHeight*bufferWidth;
+        }
+        
+    } else {
+        // single slices not yet supported
+    }
     
     
     
