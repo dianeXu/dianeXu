@@ -105,7 +105,7 @@
 		03E540E116A04FC7002C4BDC /* dianeXuITKImageWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 03E540DF16A04FC7002C4BDC /* dianeXuITKImageWrapper.h */; };
 		03E540E216A04FC7002C4BDC /* dianeXuITKImageWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03E540E016A04FC7002C4BDC /* dianeXuITKImageWrapper.mm */; };
 		03FED015165A676F0070F92A /* dianeXuWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 03FED012165A676F0070F92A /* dianeXuWindowController.h */; };
-		03FED016165A676F0070F92A /* dianeXuWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FED013165A676F0070F92A /* dianeXuWindowController.m */; };
+		03FED016165A676F0070F92A /* dianeXuWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03FED013165A676F0070F92A /* dianeXuWindowController.mm */; };
 		03FED017165A676F0070F92A /* dianeXuWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03FED014165A676F0070F92A /* dianeXuWindow.xib */; };
 		8420023212E829A200E1E9CE /* OsiriXAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8420023112E829A200E1E9CE /* OsiriXAPI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8D5B49AE048680CD000E48DA /* dianeXu_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCF630370AF2F00C91783 /* dianeXu_Prefix.pch */; };
@@ -265,7 +265,7 @@
 		03EA9F5F162498C5003F510A /* libvtkWidgets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkWidgets.a; sourceTree = "<group>"; };
 		03EA9F60162498C5003F510A /* libvtkzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvtkzlib.a; sourceTree = "<group>"; };
 		03FED012165A676F0070F92A /* dianeXuWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dianeXuWindowController.h; sourceTree = "<group>"; };
-		03FED013165A676F0070F92A /* dianeXuWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dianeXuWindowController.m; sourceTree = "<group>"; };
+		03FED013165A676F0070F92A /* dianeXuWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dianeXuWindowController.mm; sourceTree = "<group>"; };
 		03FED014165A676F0070F92A /* dianeXuWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = dianeXuWindow.xib; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -677,7 +677,7 @@
 				ABA48A640680BB600089EB4F /* dianeXuFilter.h */,
 				ABA48A660680BB690089EB4F /* dianeXuFilter.mm */,
 				03FED012165A676F0070F92A /* dianeXuWindowController.h */,
-				03FED013165A676F0070F92A /* dianeXuWindowController.m */,
+				03FED013165A676F0070F92A /* dianeXuWindowController.mm */,
 			);
 			name = dianeXuFilter;
 			sourceTree = "<group>";
@@ -819,7 +819,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABA48A670680BB690089EB4F /* dianeXuFilter.mm in Sources */,
-				03FED016165A676F0070F92A /* dianeXuWindowController.m in Sources */,
+				03FED016165A676F0070F92A /* dianeXuWindowController.mm in Sources */,
 				03729C63165B4FDA00096AAA /* dianeXuStatusWindowController.m in Sources */,
 				034813161664E6F700ABC18A /* dianeXuDataSet.m in Sources */,
 				0348131A1664EC6C00ABC18A /* dianeXuNavxImport.m in Sources */,
