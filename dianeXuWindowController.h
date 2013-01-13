@@ -40,6 +40,19 @@
     NSButton *buttonDifRoi;
     NSTextField *labelEAMNumCoords;
     NSTextField *labelLesionNumCoords;
+    NSBox *boxSegAlgorithm;
+    NSTextField *labelXmm;
+    NSTextField *labelYmm;
+    NSTextField *labelZmm;
+    NSTextField *labelXpx;
+    NSTextField *labelYpx;
+    NSTextField *labelZpx;
+    NSTextField *labelValue;
+    NSTextField *textLowerThreshold;
+    NSTextField *textUpperThreshold;
+    NSButton *checkPreview;
+    NSTextField *labelLowerThresholdProposal;
+    NSTextField *labelUpperThresholdProposal;
     NSButton *buttonInfo;
     NSButton *pushShowEAMRoi;
 }
@@ -58,6 +71,19 @@
 @property (assign) IBOutlet NSButton *buttonDifRoi;
 @property (assign) IBOutlet NSTextField *labelEAMNumCoords;
 @property (assign) IBOutlet NSTextField *labelLesionNumCoords;
+@property (assign) IBOutlet NSBox *boxSegAlgorithm;
+@property (assign) IBOutlet NSTextField *labelXmm;
+@property (assign) IBOutlet NSTextField *labelYmm;
+@property (assign) IBOutlet NSTextField *labelZmm;
+@property (assign) IBOutlet NSTextField *labelXpx;
+@property (assign) IBOutlet NSTextField *labelYpx;
+@property (assign) IBOutlet NSTextField *labelZpx;
+@property (assign) IBOutlet NSTextField *labelValue;
+@property (assign) IBOutlet NSTextField *textLowerThreshold;
+@property (assign) IBOutlet NSTextField *textUpperThreshold;
+@property (assign) IBOutlet NSButton *checkPreview;
+@property (assign) IBOutlet NSTextField *labelLowerThresholdProposal;
+@property (assign) IBOutlet NSTextField *labelUpperThresholdProposal;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
@@ -65,6 +91,7 @@
 - (IBAction)pushInfo:(id)sender;
 - (IBAction)pushGetNavxData:(id)sender;
 - (IBAction)pushDifRoi:(id)sender;
+- (IBAction)pushSegCompute:(id)sender;
 
 /*
 * Initializes the plugin window with two viewers

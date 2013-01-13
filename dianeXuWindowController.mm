@@ -31,6 +31,19 @@
 @synthesize buttonDifRoi;
 @synthesize labelEAMNumCoords;
 @synthesize labelLesionNumCoords;
+@synthesize boxSegAlgorithm;
+@synthesize labelXmm;
+@synthesize labelYmm;
+@synthesize labelZmm;
+@synthesize labelXpx;
+@synthesize labelYpx;
+@synthesize labelZpx;
+@synthesize labelValue;
+@synthesize textLowerThreshold;
+@synthesize textUpperThreshold;
+@synthesize checkPreview;
+@synthesize labelLowerThresholdProposal;
+@synthesize labelUpperThresholdProposal;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
@@ -38,7 +51,10 @@
 @synthesize pathEAM;
 @synthesize labelEAMSource,labelMRINumCoords;
 
-
+#pragma mark Init and delegate methods
+/*
+ * Custom window initialization
+ */
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
@@ -54,7 +70,6 @@
         nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self selector:@selector(mouseViewerDown:) name:@"mouseDown" object:nil];
     }
-    
     return self;
 }
 
@@ -76,6 +91,9 @@
     return self;
 }
 
+/*
+ * run when the window is finished loading to pdate some parts of the gui
+ */
 - (void)windowDidLoad
 {
     [super windowDidLoad];
@@ -91,6 +109,50 @@
     [self updateStepGUI:currentStep];
 }
 
+/*
+ * Make the controller react to mousedowns in the viewer
+ */
+-(void) mouseViewerDown:(NSNotification*)note {
+    if ([note object] == mainViewer && currentStep == 0) {
+        int pxX, pxY, pxZ;
+        float mmX, mmY, mmZ;
+        
+        pxX = [[[note userInfo] objectForKey:@"X"] intValue];
+        pxY = [[[note userInfo] objectForKey:@"Y"] intValue];
+        pxZ = [[mainViewer imageView] curImage];
+        
+        float loc[3];
+        [[[mainViewer imageView] curDCM] convertPixX:(float)pxX pixY:(float)pxY toDICOMCoords:(float*)loc pixelCenter:YES];
+        mmX = loc[0];
+        mmY = loc[1];
+        mmZ = loc[2];
+        
+        [labelXpx setStringValue:[NSString stringWithFormat:@"%d",pxX]];
+        [labelYpx setStringValue:[NSString stringWithFormat:@"%d",pxY]];
+        [labelZpx setStringValue:[NSString stringWithFormat:@"slice %d",pxZ]];
+        
+        [labelXmm setStringValue:[NSString stringWithFormat:@"%2.2f",mmX]];
+        [labelYmm setStringValue:[NSString stringWithFormat:@"%2.2f",mmY]]; //switch y and z to account for MRI coordinates
+        [labelZmm setStringValue:[NSString stringWithFormat:@"%2.2f",mmZ]];
+        
+        float value = [[[mainViewer imageView] curDCM] getPixelValueX:pxX Y:pxY];
+        [labelValue setStringValue:[NSString stringWithFormat:@"%2.0f",value]];
+        
+        [textLowerThreshold setStringValue:[NSString stringWithFormat:@"%2.0f",value-50]];
+        [textUpperThreshold setStringValue:[NSString stringWithFormat:@"%2.0f",value+50]];
+        [labelLowerThresholdProposal setStringValue:[NSString stringWithFormat:@"(%2.0f proposed)",value-50]];
+        [labelUpperThresholdProposal setStringValue:[NSString stringWithFormat:@"(%2.0f proposed)",value+50]];
+        
+        if ([checkPreview state] == NSOnState) {
+            NSLog(@"dianeXu: Previewing segmentation.");
+            //TODO: Perform single slice segmentation with the given parameters to show a preview
+        }
+        
+        [[note userInfo] setValue:[NSNumber numberWithBool:YES] forKey:@"stopMouseDown"];
+    }
+}
+
+#pragma mark Utility Methods
 /*
  * Method to update the gui according to selected step in TabView
  */
@@ -134,15 +196,10 @@
     }
 }
 
+#pragma mark IBAction implementations
 /*
- * Make the controller react to mousedowns in the viewer
+ * IBAction implementations start here
  */
--(void) mouseViewerDown:(NSNotification*)note {
-    if ([note object] == mainViewer && currentStep == 0) {
-        NSLog(@"Caught click in main viewer while lingering in step 0");
-    }
-}
-
 - (IBAction)pushNext:(id)sender {
     currentStep++; //increment the Step
     [self updateStepGUI:currentStep];
@@ -190,5 +247,9 @@
 
 - (IBAction)pushDifRoi:(id)sender {
     [workingSet difROItoController:mainViewer];
+}
+
+- (IBAction)pushSegCompute:(id)sender {
+    
 }
 @end
