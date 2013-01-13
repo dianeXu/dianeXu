@@ -27,6 +27,15 @@
 
 #include "itkCastImageFilter.h"
 #include "itkConnectedThresholdImageFilter.h"
+#include "itkVTKImageExport.h"
+#include "itkVtkImageExportBase.h"
+
+#include "vtkImageImport.h"
+#include "vtkContourFilter.h"
+#include "vtkImageData.h"
+#include "vtkPolyData.h"
+#include "vtkPolyDataConnectivityFilter.h"
+
 
 #pragma mark typedefs
 /*
@@ -43,6 +52,29 @@ typedef opITK::CastImageFilter<ImageType, OutputImageType> CastingFilterType;
 // filters
 typedef opITK::ConnectedThresholdImageFilter<ImageType, ImageType> ConnectedThresholdFilterType;
 typedef opITK::ImageToImageFilter<ImageType, ImageType> SegmentationInterfaceType;
+
+//vtk pipeline
+typedef opITK::VTKImageExport<OutputImageType> ImageExportType;
+
+/**
+ * This function will connect the given itk::VTKImageExport filter to the given vtkImageImport filter.
+ */
+template <typename ITK_Exporter, typename VTK_Importer>
+void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
+{
+    importer->SetUpdateInformationCallback(exporter->GetUpdateInformationCallback());
+    importer->SetPipelineModifiedCallback(exporter->GetPipelineModifiedCallback());
+    importer->SetWholeExtentCallback(exporter->GetWholeExtentCallback());
+    importer->SetSpacingCallback(exporter->GetSpacingCallback());
+    importer->SetOriginCallback(exporter->GetOriginCallback());
+    importer->SetScalarTypeCallback(exporter->GetScalarTypeCallback());
+    importer->SetNumberOfComponentsCallback(exporter->GetNumberOfComponentsCallback());
+    importer->SetPropagateUpdateExtentCallback(exporter->GetPropagateUpdateExtentCallback());
+    importer->SetUpdateDataCallback(exporter->GetUpdateDataCallback());
+    importer->SetDataExtentCallback(exporter->GetDataExtentCallback());
+    importer->SetBufferPointerCallback(exporter->GetBufferPointerCallback());
+    importer->SetCallbackUserData(exporter->GetCallbackUserData());
+}
 
 
 #pragma mark class implementation
@@ -73,7 +105,7 @@ typedef opITK::ImageToImageFilter<ImageType, ImageType> SegmentationInterfaceTyp
 /*
  * Perform the 3d region growing and return a ROI to the viewer
  */
--(void) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold {
+-(void) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution {
     NSLog(@"dianeXu: Starting 3D region growing.");
     
     //float volume;
@@ -124,46 +156,159 @@ typedef opITK::ImageToImageFilter<ImageType, ImageType> SegmentationInterfaceTyp
         return;
     }
     
-    NSString* roiAnnotation = [[NSString alloc] initWithFormat:@"Segmentation ROI"];
+    NSLog(@"dianeXu: Creating ROI from segmentation Data.");
     
-    unsigned char* buffer = castFilter->GetOutput()->GetBufferPointer();
+    long i,x;
+    long startSlice, endSlice;
+    OutputImageType::Pointer frameImage = castFilter->GetOutput();
+    frameImage->Update();
     
-    NSLog(@"dianeXu: Creating ROI from segmentation Data");
+    if (slice == -1) {
+        startSlice = 0;
+        endSlice = [[segViewer pixList] count];
+    } else {
+        startSlice = slice;
+        endSlice = startSlice+1;
+    }
+
+    // ITK to VTK pipeline setup
+    ImageExportType::Pointer itkExport = ImageExportType::New();
+    itkExport->SetInput(frameImage);
     
-    if (slice == -1) { // ROI for 3d segmentation
-        unsigned long i;
+    vtkImageImport* vtkImport = vtkImageImport::New();
+    ConnectPipelines(itkExport, vtkImport);
+    vtkImport->Update();
+    
+    int dataExtent[6];
+    vtkImport->GetDataExtent(dataExtent);
+    
+    for (i = startSlice; i < endSlice; i++) {
+        long imageSize = (dataExtent[1]+1) * (dataExtent[3]+1);
+        unsigned char* image2dData = (unsigned char*)malloc(imageSize),*tmpPtr;
+        vtkImageImport* image2d;
+        DCMPix* curPix = [[segViewer pixList] objectAtIndex:i];
         
-        RGBColor roiColor;
-        roiColor.red = [color redComponent] * 65535;
-        roiColor.blue = [color blueComponent] * 65535;
-        roiColor.green = [color greenComponent] * 65535;
-        
-        for (i = 0; i < [[segViewer pixList] count]; i++) {
-            int bufferHeight = [[[segViewer pixList] objectAtIndex:i] pheight];
-            int bufferWidth = [[[segViewer pixList] objectAtIndex:i] pwidth];
-            
-            ROI* newSegROI = [[ROI alloc] initWithTexture:buffer textWidth:bufferWidth textHeight:bufferHeight textName:roiAnnotation positionX:0 positionY:0 spacingX:[[[segViewer imageView] curDCM] pixelSpacingX] spacingY:[[[segViewer imageView] curDCM] pixelSpacingY] imageOrigin:NSMakePoint([[[segViewer imageView] curDCM] originX], [[[segViewer imageView] curDCM] originY])];
-            [newSegROI setComments:@"Comment"];
-            
-            if ([newSegROI reduceTextureIfPossible] == NO) { // roi isn't empty
-                [[[segViewer roiList] objectAtIndex:i] addObject:newSegROI];
-                // TODO: add notification center
-                
-                [newSegROI setColor:roiColor];
-                [newSegROI setROIMode:ROI_selected];
-                // TODO: add notification center
-            }
-            [newSegROI setSliceThickness:[[[segViewer imageView] curDCM] sliceThickness]];
-            [newSegROI release];
-            buffer += bufferHeight*bufferWidth;
+        if (slice == -1) {
+            memcpy(image2dData, ((unsigned char*)vtkImport->GetOutput()->GetScalarPointer())+(i*imageSize), imageSize);
+        } else {
+            memcpy(image2dData, ((unsigned char*)vtkImport->GetOutput()->GetScalarPointer()), imageSize);
         }
         
-    } else {
-        // single slices not yet supported
+        image2d = vtkImageImport::New();
+        image2d->SetWholeExtent(0, dataExtent[1], 0, dataExtent[3], 0, 0);
+        image2d->SetDataExtentToWholeExtent();
+        image2d->SetDataScalarTypeToUnsignedChar();
+        image2d->SetImportVoidPointer(image2dData);
+        
+        tmpPtr = image2dData;
+        for (x = 0; x < [curPix pwidth]; x++) {
+            tmpPtr[x] = 0;
+        }
+        tmpPtr = image2dData + ([curPix pwidth]) * ([curPix pheight]-1);
+        for (x = 0; x < [curPix pwidth]; x++) {
+            tmpPtr[x] = 0;
+        }
+        tmpPtr = image2dData;
+        for (x = 0; x < [curPix pheight]; x++) {
+            *tmpPtr = 0;
+            tmpPtr += [curPix pwidth];
+        }
+        tmpPtr = image2dData + [curPix pwidth]-1;
+        for (x = 0; x < [curPix pheight]; x++) {
+            *tmpPtr = 0;
+            tmpPtr += [curPix pwidth];
+        }
+        
+        //VTK Contour Filter
+    
+        vtkContourFilter* isoContour = vtkContourFilter::New();
+        isoContour->SetValue(0, 1);
+        isoContour->SetInput((vtkDataObject*)image2d->GetOutput());
+        isoContour->Update();
+        
+        image2d->GetDataExtent(dataExtent);
+        
+        vtkPolyDataConnectivityFilter *filter = vtkPolyDataConnectivityFilter::New();
+        filter->SetColorRegions(1);
+        filter->SetExtractionModeToLargestRegion();
+        filter->SetInput(isoContour->GetOutput());
+        
+        vtkPolyDataConnectivityFilter *filter2 = vtkPolyDataConnectivityFilter::New();
+        filter2->SetColorRegions(1);
+        filter2->SetExtractionModeToLargestRegion();
+        filter2->SetInput(filter->GetOutput());
+        
+        vtkPolyData* output = filter2->GetOutput();
+        output->Update();
+        
+        if (output->GetNumberOfLines() > 3) {
+            long ii;
+            ROI* newSegROI = [segViewer newROI: tCPolygon];
+            NSMutableArray* roiPoints = [newSegROI points];
+            
+            for (ii = 0; ii < output->GetNumberOfLines(); ii+=2) {
+                double p[3];
+                output->GetPoint(ii,p);
+                [roiPoints addObject:[segViewer newPoint:p[0] :p[1]]];
+            }
+            ii--;
+            if (ii >= output->GetNumberOfLines()) {
+                ii-=2;
+            }
+            for ( ; ii >= 0; ii-=2) {
+                double p[3];
+                output->GetPoint(ii,p);
+                [roiPoints addObject:[segViewer newPoint:p[0] :p[1]]];
+            }
+            
+            #define MAXPOINTS 100
+    
+            if ([roiPoints count] > MAXPOINTS) {
+                long newRoiResolution = [roiPoints count] / MAXPOINTS;
+                newRoiResolution++;
+                if (newRoiResolution > roiResolution) {
+                    roiResolution = newRoiResolution;
+                }
+            }
+            if (roiResolution != 1 && roiResolution > 0) {
+                long total = [roiPoints count];
+                long zz;
+                for (ii = total-1; ii >= 0; ii -= roiResolution) {
+                    for (zz = 0; zz < roiResolution-1 ; zz++) {
+                        if ([roiPoints count] > 3 && ii-zz >= 0) {
+                            [roiPoints removeObjectAtIndex:ii-zz];
+                        }
+                    }
+                }
+            }
+            
+            NSMutableArray* roiSeriesList;
+            NSMutableArray* roiImageList;
+                
+            roiSeriesList = [segViewer roiList];
+            
+            if (slice == -1) {
+                roiImageList = [roiSeriesList objectAtIndex: i];
+            } else {
+                roiImageList = [roiSeriesList objectAtIndex:[[segViewer imageView] curImage]];
+            }
+            [newSegROI setName:name];
+            [roiImageList addObject:newSegROI];
+            [[segViewer imageView] roiSet];
+            [segViewer needsDisplayUpdate];
+            
+            // clean up
+            isoContour->Delete();
+            filter->Delete();
+            filter2->Delete();
+        }
+        // more cleanup
+        image2d->Delete();
+        free(image2dData);
     }
-    
-    
-    
+    // even more cleanup
+    vtkImport->Delete();
+    NSLog(@"dianeXu: Region growing finished. Yay!");
 }
 
 /*

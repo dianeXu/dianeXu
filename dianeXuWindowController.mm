@@ -100,7 +100,7 @@
     dianeXuITK3dRegionGrowing* segmenter = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
     NSString* roiName = [NSString stringWithFormat:@"RoiName"];
     NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:.1f blue:0.1f alpha:1.0f];
-    [segmenter start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint(130, 124) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:240 upperThreshold:340];
+    [segmenter start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint(130, 124) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:240 upperThreshold:340 outputResolution:8];
 }
 
 - (IBAction)pushGetEAMData:(id)sender {
