@@ -66,11 +66,19 @@
 - (IBAction)pushGetNavxData:(id)sender;
 - (IBAction)pushDifRoi:(id)sender;
 
-
+/*
+* Initializes the plugin window with two viewers
+*/
 - (id) initWithViewer:(ViewerController*)mViewer andViewer:(ViewerController*)sViewer;
 
+/*
+ * TabView method to do stuff when an item in the TabView is selected
+ */
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 
+/*
+ * Method to update the gui according to selected step in TabView
+ */
 - (void) updateStepGUI:(int)toStep;
 
 @end

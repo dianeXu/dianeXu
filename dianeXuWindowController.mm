@@ -53,6 +53,9 @@
     return self;
 }
 
+/*
+ * Initializes the plugin window with two viewers
+ */
 - (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer {
     
     self = [super initWithWindowNibName:@"dianeXuWindow"];
@@ -75,9 +78,55 @@
     [self updateStepGUI:currentStep];
 }
 
+/*
+ * TabView method to do stuff when an item in the TabView is selected
+ */
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
     [self updateStepGUI:currentStep];
+}
+
+/*
+ * Method to update the gui according to selected step in TabView
+ */
+- (void)updateStepGUI: (int)toStep
+{
+    switch (toStep) {
+        case 0:
+            [buttonPrev setEnabled:FALSE];
+            [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        case 1:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            [labelEAMSource setStringValue:[[NSUserDefaults standardUserDefaults] valueForKey:dianeXuEAMSourceKey]];
+            break;
+            
+        case 2:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        case 3:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        case 4:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:FALSE];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        default:
+            
+            break;
+    }
 }
 
 - (IBAction)pushNext:(id)sender {
@@ -128,46 +177,4 @@
 - (IBAction)pushDifRoi:(id)sender {
     [workingSet difROItoController:mainViewer];
 }
-
-
-- (void)updateStepGUI: (int)toStep
-{
-    switch (toStep) {
-        case 0:
-            [buttonPrev setEnabled:FALSE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            break;
-            
-        case 1:
-            [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            [labelEAMSource setStringValue:[[NSUserDefaults standardUserDefaults] valueForKey:dianeXuEAMSourceKey]];
-            break;
-            
-        case 2:
-            [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            break;
-            
-        case 3:
-            [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            break;
-            
-        case 4:
-            [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:FALSE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            break;
-            
-        default:
-            
-            break;
-    }
-}
-
 @end
