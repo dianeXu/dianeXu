@@ -205,10 +205,10 @@
         //seperate the coords
         NSArray *justCoords = [trimmedSingleCoord componentsSeparatedByString:@"  "];
         
-        //set coordinate values and add to eamPoints array.
+        //set coordinate values and add to difGeometry array with corrected y-z orientation.
         [localCurrentCoord setXValue:[NSDecimalNumber  decimalNumberWithString:[justCoords objectAtIndex:0]]];
-        [localCurrentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
-        [localCurrentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
+        [localCurrentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
+        [localCurrentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
         //NSLog(@"%@ %@ %@", [localCurrentCoord xValue],[localCurrentCoord yValue],[localCurrentCoord zValue]);
         
         [difGeometry addObject:localCurrentCoord];
