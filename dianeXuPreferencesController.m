@@ -47,7 +47,7 @@
 #pragma mark Actions
 //URL reference opening via click
 - (IBAction)openBugtrackerURL:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://traq.dianeXu.com"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/dianeXu/dianeXu/issues"]];
 }
 - (IBAction)openProjectURL:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.dianeXu.com"]];

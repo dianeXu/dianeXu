@@ -25,14 +25,15 @@
 @end
 
 @implementation dianeXuStatusWindowController
-@synthesize _statusText;
-@synthesize _statusPercent;
+@synthesize labelStatusText;
+@synthesize _progressBar;
+@synthesize statusText;
 
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
     if (self) {
-        // Initialization code here.
+        statusText = [[NSString alloc] initWithString:@"Working..."];
     }
     
     return self;
@@ -45,14 +46,10 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
-- (void)setStatusText:(NSString *)myText
+- (void)showStatusText
 {
-    [_statusText setStringValue:myText];
-}
-
-- (void)setStatusPercent:(int)myPercent
-{
-    [self set_statusPercent:myPercent];
+    [[self window] makeKeyAndOrderFront:nil];
+    [_progressBar startAnimation:nil];
 }
 
 @end
