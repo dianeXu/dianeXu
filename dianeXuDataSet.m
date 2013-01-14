@@ -22,7 +22,7 @@
 
 @implementation dianeXuDataSet
 
-@synthesize difGeometry,eamGeometry,lesionGeometry;
+@synthesize difGeometry,eamGeometry,lesionGeometry, angioGeometry;
 
 - (id)init {
     self = [super init];
@@ -30,10 +30,14 @@
         difGeometry = [[NSMutableArray alloc] init];
         eamGeometry = [[NSMutableArray alloc] init];
         lesionGeometry = [[NSMutableArray alloc] init];
+        angioGeometry = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
+/*
+ * output the importet NavX dif data as roi to a viewer controller
+ */
 - (void)difROItoController: (ViewerController*)targetController {
     // prepare needed data du adjust pixelspacings in dif data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
@@ -101,6 +105,9 @@
     [targetController needsDisplayUpdate];
 }
 
+/*
+ * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
+ */
 + (void)sortClockwise:(NSMutableArray *)sortArray {
     /*
      * Block to compute new centroid of our sorted polygon!

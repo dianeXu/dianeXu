@@ -30,14 +30,22 @@
     NSMutableArray* eamGeometry;
     NSMutableArray* difGeometry;
     NSMutableArray* lesionGeometry;
+    NSMutableArray* angioGeometry;
 }
 
 @property (retain) NSMutableArray* difGeometry;
 @property (retain) NSMutableArray* eamGeometry;
 @property (retain) NSMutableArray* lesionGeometry;
+@property (retain) NSMutableArray* angioGeometry;
 
+/*
+ * output the importet NavX dif data as roi to a viewer controller
+ */
 - (void)difROItoController:(ViewerController*)targetController;
 
+/*
+ * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
+ */
 + (void)sortClockwise:(NSMutableArray*)sortArray;
 
 @end
