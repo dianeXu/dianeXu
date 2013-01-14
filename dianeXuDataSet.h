@@ -39,9 +39,9 @@
 @property (retain) NSMutableArray* angioGeometry;
 
 /*
- * output the importet NavX dif data as roi to a viewer controller
+ * output model data as roi to a viewer controller
  */
-- (void)difROItoController:(ViewerController*)targetController;
+- (void)modelROItoController:(ViewerController*)targetController forGeometry:(NSString*)geometry;
 
 /*
  * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.

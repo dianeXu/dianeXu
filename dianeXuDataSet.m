@@ -36,10 +36,12 @@
 }
 
 /*
- * output the importet NavX dif data as roi to a viewer controller
+ * output modeldata data as roi to a viewer controller
  */
-- (void)difROItoController: (ViewerController*)targetController {
-    // prepare needed data du adjust pixelspacings in dif data
+- (void)modelROItoController: (ViewerController*)targetController forGeometry:(NSString*)geometry {
+    NSMutableArray* modelData = [NSMutableArray new];
+    modelData = [self valueForKey:geometry];
+    // prepare needed data du adjust pixelspacings in model data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
     DCMPix* slice = [[targetController pixList] objectAtIndex:0];
     NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
@@ -50,12 +52,12 @@
     [pixelGeometry setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingX]] decimalValue]]];
     [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
     [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
-    //NSLog(@"Preparing EAM ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
+    //NSLog(@"Preparing model ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
     
     //NSLog(@"%f %f %f",[slice originX],[slice originY],[slice originZ]);
     
     // make new points with values in pixels!
-    for (dianeXuCoord* currentCoord in difGeometry) {
+    for (dianeXuCoord* currentCoord in modelData) {
         dianeXuCoord* newItem = [[dianeXuCoord alloc] init];
         
         // get coordinates corrected by originoffset, correct offset orientation, swap y- and z-values to match Osirix image orientation
@@ -103,6 +105,7 @@
     }
     //update the targetcontroller in case something happened on the current image
     [targetController needsDisplayUpdate];
+    [modelData release];
 }
 
 /*

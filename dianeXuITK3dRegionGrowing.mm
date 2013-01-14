@@ -20,6 +20,8 @@
 
 #import "dianeXuITK3dRegionGrowing.h"
 
+#import "dianeXuCoord.h"
+
 #import "OsiriXAPI/ViewerController.h"
 #import "OsiriXAPI/DCMView.h"
 #import "OsiriXAPI/DCMPix.h"
@@ -105,10 +107,11 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 /*
  * Perform the 3d region growing and return a ROI to the viewer
  */
--(void) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution {
+-(NSMutableArray*) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution {
     NSLog(@"dianeXu: Starting 3D region growing.");
     
-    //float volume;
+    //init resulting model array
+    NSMutableArray* modelArray = [NSMutableArray new];
     
     // define seed for the ITK filter
     ImageType::IndexType index;
@@ -136,7 +139,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
             
         default:
             NSLog(@"dianeXu: Requested ITK filter unknown or not yet implemented. Aborting segmentation.");
-            return;
+            return nil;
             break;
     }
     
@@ -149,7 +152,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
         castFilter->Update();
     } catch (opITK::ExceptionObject &excep){
         NSLog(@"dianeXu: Region growing failed. Sorry.");
-        return;
+        return nil;
     }
     
     NSLog(@"dianeXu: Creating ROI from segmentation Data.");
@@ -286,6 +289,18 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
             [[segViewer imageView] roiSet];
             [segViewer needsDisplayUpdate];
             
+            //add points to output model
+            double pixelSpacings[3];
+            pixelSpacings[0] = [[[segViewer pixList] objectAtIndex:0] pixelSpacingX];
+            pixelSpacings[1] = [[[segViewer pixList] objectAtIndex:0] pixelSpacingY];
+            pixelSpacings[2] = [[[segViewer pixList] objectAtIndex:0] sliceThickness];
+            for (MyPoint* currentPoint in roiPoints) {
+                dianeXuCoord* newCoord = [dianeXuCoord new];
+                [newCoord setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:currentPoint.x*pixelSpacings[0]] decimalValue]]];
+                [newCoord setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:currentPoint.y*pixelSpacings[1]] decimalValue]]];
+                [newCoord setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:i*pixelSpacings[2]] decimalValue]]];
+                [modelArray addObject:newCoord];
+            }
             // clean up
             isoContour->Delete();
             filter->Delete();
@@ -298,6 +313,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
     // even more cleanup
     vtkImport->Delete();
     NSLog(@"dianeXu: Region growing finished. Yay!");
+    return modelArray;
 }
 
 /*

@@ -173,6 +173,8 @@
         case 1:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             [labelEAMSource setStringValue:[[NSUserDefaults standardUserDefaults] valueForKey:dianeXuEAMSourceKey]];
             break;
@@ -180,18 +182,24 @@
         case 2:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
         case 3:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
         case 4:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:FALSE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
@@ -222,10 +230,8 @@
 }
 
 - (IBAction)pushInfo:(id)sender {
-    dianeXuITK3dRegionGrowing* segmenter = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
-    NSString* roiName = [NSString stringWithFormat:@"RoiName"];
-    NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:0.1f blue:0.1f alpha:1.0f];
-    [segmenter start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint(130, 124) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:240 upperThreshold:340 outputResolution:8];
+    //TODO: Insert info popup about the working set.
+    [workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
 }
 
 - (IBAction)pushGetNavxData:(id)sender {
@@ -251,7 +257,7 @@
 }
 
 - (IBAction)pushDifRoi:(id)sender {
-    [workingSet difROItoController:mainViewer];
+    [workingSet modelROItoController:mainViewer forGeometry:@"difGeometry"];
 }
 
 - (IBAction)pushSegCompute:(id)sender {
@@ -265,8 +271,10 @@
     [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
     [mainViewer roiIntDeleteAllROIsWithSameName:roiName];
     // perform segmentation
+    NSMutableArray* segmentedModel = [NSMutableArray new];
     dianeXuITK3dRegionGrowing* computeSegmentation = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
-    [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
+    segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
     [computeSegmentation release];
+    [workingSet setAngioGeometry:segmentedModel];
 }
 @end
