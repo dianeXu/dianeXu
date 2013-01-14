@@ -19,3 +19,6 @@ DerivedData
 #Binaries
 #VTKHeaders
 #osirix
+#pcllib
+bin
+include
