@@ -20,13 +20,15 @@
 
 #import <Cocoa/Cocoa.h>
 #import "dianeXuPreferencesKeys.h"
-#import "XmlRetrieve.h"
+#import "dianeXuNavxImport.h"
 #import "dianeXuDataSet.h"
+#import "dianeXuITKImageWrapper.h"
 
 @interface dianeXuWindowController : NSWindowController {
     ViewerController* mainViewer;
     ViewerController* scndViewer;
     dianeXuDataSet* workingSet;
+    dianeXuStatusWindowController* statusWindow;
     NSUserDefaults *defaultSettings;
     int currentStep;
     NSButton *buttonNext;
@@ -34,8 +36,23 @@
     NSTabView *tabStep;
     NSPathControl *pathEAM;
     NSTextField *labelEAMSource;
+    NSTextField *labelMRINumCoords;
+    NSButton *buttonDifRoi;
     NSTextField *labelEAMNumCoords;
-    NSButton *buttonEAMRoi;
+    NSTextField *labelLesionNumCoords;
+    NSBox *boxSegAlgorithm;
+    NSTextField *labelXmm;
+    NSTextField *labelYmm;
+    NSTextField *labelZmm;
+    NSTextField *labelXpx;
+    NSTextField *labelYpx;
+    NSTextField *labelZpx;
+    NSTextField *labelValue;
+    NSTextField *textLowerThreshold;
+    NSTextField *textUpperThreshold;
+    NSButton *checkPreview;
+    NSTextField *labelLowerThresholdProposal;
+    NSTextField *labelUpperThresholdProposal;
     NSButton *buttonInfo;
     NSButton *pushShowEAMRoi;
 }
@@ -50,21 +67,45 @@
 @property (assign) IBOutlet NSTabView *tabStep;
 @property (assign) IBOutlet NSPathControl *pathEAM;
 @property (assign) IBOutlet NSTextField *labelEAMSource;
+@property (assign) IBOutlet NSTextField *labelMRINumCoords;
+@property (assign) IBOutlet NSButton *buttonDifRoi;
 @property (assign) IBOutlet NSTextField *labelEAMNumCoords;
-@property (assign) IBOutlet NSButton *buttonEAMRoi;
+@property (assign) IBOutlet NSTextField *labelLesionNumCoords;
+@property (assign) IBOutlet NSBox *boxSegAlgorithm;
+@property (assign) IBOutlet NSTextField *labelXmm;
+@property (assign) IBOutlet NSTextField *labelYmm;
+@property (assign) IBOutlet NSTextField *labelZmm;
+@property (assign) IBOutlet NSTextField *labelXpx;
+@property (assign) IBOutlet NSTextField *labelYpx;
+@property (assign) IBOutlet NSTextField *labelZpx;
+@property (assign) IBOutlet NSTextField *labelValue;
+@property (assign) IBOutlet NSTextField *textLowerThreshold;
+@property (assign) IBOutlet NSTextField *textUpperThreshold;
+@property (assign) IBOutlet NSButton *checkPreview;
+@property (assign) IBOutlet NSTextField *labelLowerThresholdProposal;
+@property (assign) IBOutlet NSTextField *labelUpperThresholdProposal;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
 - (IBAction)pushQuit:(id)sender;
 - (IBAction)pushInfo:(id)sender;
-- (IBAction)pushGetEAMData:(id)sender;
-- (IBAction)pushEAMRoi:(id)sender;
+- (IBAction)pushGetNavxData:(id)sender;
+- (IBAction)pushDifRoi:(id)sender;
+- (IBAction)pushSegCompute:(id)sender;
 
+/*
+* Initializes the plugin window with two viewers
+*/
+- (id) initWithViewer:(ViewerController*)mViewer andViewer:(ViewerController*)sViewer;
 
-- (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer;
-
+/*
+ * TabView method to do stuff when an item in the TabView is selected
+ */
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 
-- (void) updateStepGUI: (int)toStep;
+/*
+ * Method to update the gui according to selected step in TabView
+ */
+- (void) updateStepGUI:(int)toStep;
 
 @end

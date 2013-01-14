@@ -1,5 +1,5 @@
 //
-//  XmlRetrieve.h
+//  dianeXuNavxImport.h
 //  This file is part of dianeXu <http://www.dianeXu.com>.
 //
 //  dianeXu is free software: you can redistribute it and/or modify
@@ -19,14 +19,44 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "dianeXuCoord.h"
 
-@interface XmlRetrieve : NSObject <NSXMLParserDelegate> {
+@interface NavxImport : NSObject <NSXMLParserDelegate> {
+    enum axis {
+        noaxis,
+        x,
+        y,
+        z
+    };
+    enum dataType {
+        notype,
+        dif,
+        eam,
+        lesion
+    };
+    
+    NSMutableArray *difGeometry;
+    NSMutableArray *eamGeometry;
+    NSMutableArray *lesionGeometry;
     NSMutableString *currentContent;
+    dianeXuCoord *currentCoord;
+    enum axis currentAxis;
+    enum dataType currentDataType;
     NSString *rawNavxData;
-    int countNavx;
 }
 
-- (NSString*) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput;
-- (int) retrieveNavxVertixCount:(NSURL*)sourcePath:(NSError**)errorOutput;
+@property (assign) NSMutableArray* difGeometry;
+@property (assign) NSMutableArray* eamGeometry;
+@property (assign) NSMutableArray* lesionGeometry;
+
+/*
+ * Method to import NavX data from given export's base directory
+ */
+- (void)retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput;
+
+/*
+ *  Method to extract coordinate Data from a parsed dif model String.
+ */
+- (void)makePointsFromNavxDIFString:(NSString *)inputString;
 
 @end

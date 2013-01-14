@@ -19,36 +19,63 @@
 //
 
 #import "dianeXuWindowController.h"
+#import "dianeXuITK3dRegionGrowing.h"
+
 #import <OsiriXAPI/PreferencesWindowController.h>
 
 @interface dianeXuWindowController ()
 
-
 @end
 
 @implementation dianeXuWindowController
-@synthesize buttonEAMRoi;
+@synthesize buttonDifRoi;
+@synthesize labelEAMNumCoords;
+@synthesize labelLesionNumCoords;
+@synthesize boxSegAlgorithm;
+@synthesize labelXmm;
+@synthesize labelYmm;
+@synthesize labelZmm;
+@synthesize labelXpx;
+@synthesize labelYpx;
+@synthesize labelZpx;
+@synthesize labelValue;
+@synthesize textLowerThreshold;
+@synthesize textUpperThreshold;
+@synthesize checkPreview;
+@synthesize labelLowerThresholdProposal;
+@synthesize labelUpperThresholdProposal;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
 @synthesize tabStep;
 @synthesize pathEAM;
-@synthesize labelEAMSource,labelEAMNumCoords;
+@synthesize labelEAMSource,labelMRINumCoords;
 
-
+#pragma mark Init and delegate methods
+/*
+ * Custom window initialization
+ */
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
     if (self) {
-        //set properties
+        //set member variables
+        statusWindow = [[dianeXuStatusWindowController alloc]initWithWindowNibName:@"dianeXuStatusWindow"];
         workingSet = [[dianeXuDataSet alloc] init];
         currentStep = 0;
         defaultSettings = [NSUserDefaults standardUserDefaults];
+        
+        //register for important notifications
+        NSNotificationCenter *nc;
+        nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(mouseViewerDown:) name:@"mouseDown" object:nil];
     }
-    
     return self;
 }
 
+/*
+ * Initializes the plugin window with two viewers
+ */
 - (id) initWithViewer: (ViewerController*)mViewer andViewer: (ViewerController*)sViewer {
     
     self = [super initWithWindowNibName:@"dianeXuWindow"];
@@ -60,11 +87,13 @@
     if (self != nil) {
         mainViewer = mViewer;
         scndViewer = sViewer;
-        [workingSet updateGeometryInfoFrom:mainViewer andFrom:scndViewer];
     }
     return self;
 }
 
+/*
+ * run when the window is finished loading to pdate some parts of the gui
+ */
 - (void)windowDidLoad
 {
     [super windowDidLoad];
@@ -72,11 +101,118 @@
     [self updateStepGUI:currentStep];
 }
 
+/*
+ * TabView method to do stuff when an item in the TabView is selected
+ */
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
     [self updateStepGUI:currentStep];
 }
 
+/*
+ * Make the controller react to mousedowns in the viewer
+ */
+-(void) mouseViewerDown:(NSNotification*)note {
+    if ([note object] == mainViewer && currentStep == 0) {
+        int pxX, pxY, pxZ;
+        float mmX, mmY, mmZ;
+        
+        pxX = [[[note userInfo] objectForKey:@"X"] intValue];
+        pxY = [[[note userInfo] objectForKey:@"Y"] intValue];
+        pxZ = [[mainViewer imageView] curImage];
+        
+        float loc[3];
+        [[[mainViewer imageView] curDCM] convertPixX:(float)pxX pixY:(float)pxY toDICOMCoords:(float*)loc pixelCenter:YES];
+        mmX = loc[0];
+        mmY = loc[1];
+        mmZ = loc[2];
+        
+        [labelXpx setStringValue:[NSString stringWithFormat:@"%d",pxX]];
+        [labelYpx setStringValue:[NSString stringWithFormat:@"%d",pxY]];
+        [labelZpx setStringValue:[NSString stringWithFormat:@"slice %d",pxZ]];
+        
+        [labelXmm setStringValue:[NSString stringWithFormat:@"%2.2f",mmX]];
+        [labelYmm setStringValue:[NSString stringWithFormat:@"%2.2f",mmY]]; //switch y and z to account for MRI coordinates
+        [labelZmm setStringValue:[NSString stringWithFormat:@"%2.2f",mmZ]];
+        
+        float value = [[[mainViewer imageView] curDCM] getPixelValueX:pxX Y:pxY];
+        [labelValue setStringValue:[NSString stringWithFormat:@"%2.0f",value]];
+        
+        [textLowerThreshold setStringValue:[NSString stringWithFormat:@"%2.0f",value-50]];
+        [textUpperThreshold setStringValue:[NSString stringWithFormat:@"%2.0f",value+50]];
+        [labelLowerThresholdProposal setStringValue:[NSString stringWithFormat:@"(%2.0f proposed)",value-50]];
+        [labelUpperThresholdProposal setStringValue:[NSString stringWithFormat:@"(%2.0f proposed)",value+50]];
+        
+        if ([checkPreview state] == NSOnState) {
+            NSLog(@"dianeXu: Previewing segmentation.");
+            NSString* roiName = [NSString stringWithFormat:@"dianeXu segmentation preview"];
+            NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:.1f blue:0.1f alpha:1.0f];
+            [mainViewer roiIntDeleteAllROIsWithSameName:roiName];
+            dianeXuITK3dRegionGrowing* previewSegmentation = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
+            [previewSegmentation start3dRegionGrowingAt:pxZ withSeedPoint:NSMakePoint(pxX, pxY) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
+            [previewSegmentation release];
+        }
+        
+        [[note userInfo] setValue:[NSNumber numberWithBool:YES] forKey:@"stopMouseDown"];
+    }
+}
+
+#pragma mark Utility Methods
+/*
+ * Method to update the gui according to selected step in TabView
+ */
+- (void)updateStepGUI: (int)toStep
+{
+    switch (toStep) {
+        case 0:
+            [buttonPrev setEnabled:FALSE];
+            [buttonNext setEnabled:TRUE];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        case 1:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            [labelEAMSource setStringValue:[[NSUserDefaults standardUserDefaults] valueForKey:dianeXuEAMSourceKey]];
+            break;
+            
+        case 2:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        case 3:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:TRUE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        case 4:
+            [buttonPrev setEnabled:TRUE];
+            [buttonNext setEnabled:FALSE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+            [tabStep selectTabViewItemAtIndex:toStep];
+            break;
+            
+        default:
+            NSLog(@"Huh? I have no idea what that step is supposed to be. Sorry.");
+            break;
+    }
+}
+
+#pragma mark IBAction implementations
+/*
+ * IBAction implementations start here
+ */
 - (IBAction)pushNext:(id)sender {
     currentStep++; //increment the Step
     [self updateStepGUI:currentStep];
@@ -94,71 +230,51 @@
 }
 
 - (IBAction)pushInfo:(id)sender {
-    NSRunInformationalAlertPanel(@"DEBUG:", @"Infopopup", @"OK", nil, nil,nil);
+    //TODO: Insert info popup about the working set.
+    [workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
 }
 
-- (IBAction)pushGetEAMData:(id)sender {
-    XmlRetrieve *retrieve = [[XmlRetrieve alloc] init];
+- (IBAction)pushGetNavxData:(id)sender {
+    [statusWindow setStatusText:@"Importing NavX data..."];
+    [statusWindow showStatusText];
+    NavxImport *retrieve = [[NavxImport alloc] init];
     NSError *error = nil;
-    NSString * rawData;
-    int vertexCount;
+
+    [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
+    [workingSet setDifGeometry:[[retrieve difGeometry] copy]];
+    [workingSet setEamGeometry:[[retrieve eamGeometry] copy]];
+    [workingSet setLesionGeometry:[[retrieve lesionGeometry] copy]];
     
-    vertexCount = [retrieve retrieveNavxVertixCount:[pathEAM URL] :&error];
-    rawData = [[NSString alloc] initWithString:[retrieve retrieveNavxDataFrom:[pathEAM URL] :&error]];
+    [retrieve dealloc];
     
-    //update interface
-    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",vertexCount]];
-    
-    //feed rawData to the workingSet
-    [workingSet makePointsFromNavxString:rawData];
-    
-    //Enable show ROI button now that we have the data
-    [buttonEAMRoi setEnabled:YES];
+    // update interface
+    [labelMRINumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
+    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
+    [labelLesionNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
+    // Enable show ROI button now that we have the data
+    [buttonDifRoi setEnabled:YES];
+    [[statusWindow window] orderOut:nil];
 }
 
-- (IBAction)pushEAMRoi:(id)sender {
-    [workingSet eamROItoController:mainViewer];
+- (IBAction)pushDifRoi:(id)sender {
+    [workingSet modelROItoController:mainViewer forGeometry:@"difGeometry"];
 }
 
-
-- (void)updateStepGUI: (int)toStep
-{
-    switch (toStep) {
-        case 0:
-            [buttonPrev setEnabled:FALSE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            break;
-            
-        case 1:
-            [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            [labelEAMSource setStringValue:[[NSUserDefaults standardUserDefaults] valueForKey:dianeXuEAMSourceKey]];
-            break;
-            
-        case 2:
-            [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            break;
-            
-        case 3:
-            [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:TRUE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            break;
-            
-        case 4:
-            [buttonPrev setEnabled:TRUE];
-            [buttonNext setEnabled:FALSE];
-            [tabStep selectTabViewItemAtIndex:toStep];
-            break;
-            
-        default:
-            
-            break;
+- (IBAction)pushSegCompute:(id)sender {
+    if ([[labelXpx stringValue] floatValue] == 0 && [[labelYpx stringValue] floatValue] == 0) {
+        NSRunInformationalAlertPanel(@"WARNING", @"First select a seedpoint by clicking into the image!", @"OK", nil, nil,nil);
+        return;
     }
+    NSString* roiName = [NSString stringWithFormat:@"dianeXu angio model"];
+    NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:0.1f blue:0.1f alpha:1.0f];
+    // clear old ROIs
+    [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+    [mainViewer roiIntDeleteAllROIsWithSameName:roiName];
+    // perform segmentation
+    NSMutableArray* segmentedModel = [NSMutableArray new];
+    dianeXuITK3dRegionGrowing* computeSegmentation = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
+    segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
+    [computeSegmentation release];
+    [workingSet setAngioGeometry:segmentedModel];
 }
-
 @end

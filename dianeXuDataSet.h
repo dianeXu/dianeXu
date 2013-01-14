@@ -27,19 +27,25 @@
 #import <OsiriXAPI/DCMPix.h>
 
 @interface dianeXuDataSet : NSObject {
-    NSMutableArray* eamPoints;
-    dianeXuCoord* primarySpacing;
-    dianeXuCoord* primaryOrigin;
-    dianeXuCoord* secondarySpacing;
-    dianeXuCoord* secondaryOrigin;
+    NSMutableArray* eamGeometry;
+    NSMutableArray* difGeometry;
+    NSMutableArray* lesionGeometry;
+    NSMutableArray* angioGeometry;
 }
 
-- (void)eamROItoController: (ViewerController*)targetController;
+@property (retain) NSMutableArray* difGeometry;
+@property (retain) NSMutableArray* eamGeometry;
+@property (retain) NSMutableArray* lesionGeometry;
+@property (retain) NSMutableArray* angioGeometry;
 
-- (void)makePointsFromNavxString:(NSString*) inputString;
+/*
+ * output model data as roi to a viewer controller
+ */
+- (void)modelROItoController:(ViewerController*)targetController forGeometry:(NSString*)geometry;
 
-- (void)updateGeometryInfoFrom: (ViewerController*) primeViewer andFrom: (ViewerController*) secondViewer;
-
-+ (void)sortClockwise: (NSMutableArray*)sortArray;
+/*
+ * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
+ */
++ (void)sortClockwise:(NSMutableArray*)sortArray;
 
 @end

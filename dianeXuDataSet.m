@@ -22,20 +22,26 @@
 
 @implementation dianeXuDataSet
 
+@synthesize difGeometry,eamGeometry,lesionGeometry, angioGeometry;
+
 - (id)init {
     self = [super init];
     if (self != nil) {
-        primarySpacing = [[dianeXuCoord alloc] init];
-        primaryOrigin = [[dianeXuCoord alloc] init];
-        secondarySpacing = [[dianeXuCoord alloc] init];
-        secondaryOrigin = [[dianeXuCoord alloc] init];
-        eamPoints = [[NSMutableArray alloc] init];
+        difGeometry = [[NSMutableArray alloc] init];
+        eamGeometry = [[NSMutableArray alloc] init];
+        lesionGeometry = [[NSMutableArray alloc] init];
+        angioGeometry = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (void)eamROItoController: (ViewerController*)targetController {
-    // prepare needed data du adjust pixelspacings in eam data
+/*
+ * output modeldata data as roi to a viewer controller
+ */
+- (void)modelROItoController: (ViewerController*)targetController forGeometry:(NSString*)geometry {
+    NSMutableArray* modelData = [NSMutableArray new];
+    modelData = [self valueForKey:geometry];
+    // prepare needed data du adjust pixelspacings in model data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
     DCMPix* slice = [[targetController pixList] objectAtIndex:0];
     NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
@@ -46,31 +52,32 @@
     [pixelGeometry setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingX]] decimalValue]]];
     [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
     [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
-    //NSLog(@"Preparing EAM ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
+    //NSLog(@"Preparing model ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
     
     //NSLog(@"%f %f %f",[slice originX],[slice originY],[slice originZ]);
     
     // make new points with values in pixels!
-    for (dianeXuCoord* currentCoord in eamPoints) {
+    for (dianeXuCoord* currentCoord in modelData) {
         dianeXuCoord* newItem = [[dianeXuCoord alloc] init];
         
         // get coordinates corrected by originoffset, correct offset orientation, swap y- and z-values to match Osirix image orientation
         [newItem setXValue:[[currentCoord xValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originX]] decimalValue]]]];
-        [newItem setYValue:[[currentCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
-        [newItem setZValue:[[currentCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
-        
+        [newItem setYValue:[[currentCoord yValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
+        [newItem setZValue:[[currentCoord zValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
+    
         //adjust pixelspacings and adjust z to be matched with slices
         [newItem setXValue:[[newItem xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
-        [newItem setYValue:[[newItem yValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
-        [newItem setZValue:[[newItem zValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
+        [newItem setYValue:[[newItem yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
+        [newItem setZValue:[[newItem zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
         [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
+ 
         [pointsROI addObject:newItem];
         newItem = nil;
     }
     
+    // sort points to approximate the polygon border 
     [pointsROI sortUsingDescriptors:sortDescriptors];
-    
-    NSLog(@"%@",pointsROI);
+    //NSLog(@"%@",pointsROI);
     
     // prepare data for ROI handling
     //DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];
@@ -90,7 +97,8 @@
         // sort points to be a polygon in order and set some additional properties
         [dianeXuDataSet sortClockwise:points];
         //[newRoi setROIMode: ROI_selected];
-        [newRoi setName:@"Imported EAM Data"];
+        NSString* roiName = [NSString stringWithFormat:@"dianeXu %@",geometry];
+        [newRoi setName:roiName];
         // go to image matching the current slice
         roiImageList = [roiSeriesList objectAtIndex:currentIndex];
         // add ROI if there are any points in it
@@ -100,54 +108,12 @@
     }
     //update the targetcontroller in case something happened on the current image
     [targetController needsDisplayUpdate];
+    [modelData release];
 }
 
-- (void)makePointsFromNavxString:(NSString *)inputString {
-    
-    NSMutableArray *lineCoords = [[inputString componentsSeparatedByString:@"\n"] mutableCopy];
-    //trim lines
-    [lineCoords removeObjectAtIndex:0];
-    [lineCoords removeLastObject];
-    
-    for (NSString *singleCoord in lineCoords) {
-        dianeXuCoord *currentCoord = [dianeXuCoord alloc];
-        
-        //trim junk from the single lines
-        NSString *trimmedSingleCoord = [singleCoord stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        
-        //seperate the coords
-        NSArray *justCoords = [trimmedSingleCoord componentsSeparatedByString:@"  "];
-        
-        //set coordinate values and add to eamPoints array.
-        [currentCoord setXValue:[NSDecimalNumber  decimalNumberWithString:[justCoords objectAtIndex:0]]];
-        [currentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
-        [currentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
-        //NSLog(@"%@ %@ %@", [currentCoord xValue],[currentCoord yValue],[currentCoord zValue]);
-        
-        [eamPoints addObject:currentCoord];
-        //NSLog(@"%@", [eamPoints objectAtIndex:[eamPoints count]-1]);
-        
-        currentCoord = nil;
-    }
-}
-
-- (void)updateGeometryInfoFrom:(ViewerController *)primeViewer andFrom:(ViewerController *)secondViewer {
-    // get the first images of each viewer
-    DCMPix* primeSlice = [[primeViewer pixList] objectAtIndex:0];
-    DCMPix* secondSlice = [[secondViewer pixList] objectAtIndex:0];
-    
-    [primarySpacing setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[primeSlice pixelSpacingX]] decimalValue]]];
-    [primarySpacing setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[primeSlice pixelSpacingY]] decimalValue]]];
-    [primarySpacing setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[primeSlice sliceThickness]] decimalValue]]];
-    
-    [secondarySpacing setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[secondSlice pixelSpacingX]] decimalValue]]];
-    [secondarySpacing setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[secondSlice pixelSpacingY]] decimalValue]]];
-    [secondarySpacing setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[secondSlice sliceThickness]] decimalValue]]];
-    
-    NSLog(@"Updated prime geometry info to %@",primarySpacing);
-    NSLog(@"Updated scnd geometry info to %@",secondarySpacing);
-}
-
+/*
+ * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
+ */
 + (void)sortClockwise:(NSMutableArray *)sortArray {
     /*
      * Block to compute new centroid of our sorted polygon!
