@@ -60,16 +60,25 @@
     for (dianeXuCoord* currentCoord in modelData) {
         dianeXuCoord* newItem = [[dianeXuCoord alloc] init];
         
-        // get coordinates corrected by originoffset, correct offset orientation, swap y- and z-values to match Osirix image orientation
-        [newItem setXValue:[[currentCoord xValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originX]] decimalValue]]]];
-        [newItem setYValue:[[currentCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
-        [newItem setZValue:[[currentCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
+        if ([geometry isEqualToString:@"difGeometry"]) {
+            // get coordinates corrected by originoffset, correct offset orientation, swap y- and z-values to match Osirix image orientation
+            [newItem setXValue:[[currentCoord xValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originX]] decimalValue]]]];
+            [newItem setYValue:[[currentCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
+            [newItem setZValue:[[currentCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
         
-        //adjust pixelspacings and adjust z to be matched with slices
-        [newItem setXValue:[[newItem xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
-        [newItem setYValue:[[newItem yValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
-        [newItem setZValue:[[newItem zValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
-        [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
+            //adjust pixelspacings and adjust z to be matched with slices
+            [newItem setXValue:[[newItem xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
+            [newItem setYValue:[[newItem yValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
+            [newItem setZValue:[[newItem zValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
+            [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
+        } else {
+            //adjust pixelspacings and adjust z to be matched with slices
+            [newItem setXValue:[[currentCoord xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
+            [newItem setYValue:[[currentCoord yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
+            [newItem setZValue:[[currentCoord zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
+            [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
+        }
+
         [pointsROI addObject:newItem];
         newItem = nil;
     }
@@ -95,7 +104,8 @@
         // sort points to be a polygon in order and set some additional properties
         [dianeXuDataSet sortClockwise:points];
         //[newRoi setROIMode: ROI_selected];
-        [newRoi setName:@"Imported EAM Data"];
+        NSString* roiName = [NSString stringWithFormat:@"dianeXu %@",geometry];
+        [newRoi setName:roiName];
         // go to image matching the current slice
         roiImageList = [roiSeriesList objectAtIndex:currentIndex];
         // add ROI if there are any points in it
