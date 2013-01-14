@@ -145,7 +145,12 @@
         
         if ([checkPreview state] == NSOnState) {
             NSLog(@"dianeXu: Previewing segmentation.");
-            //TODO: Perform single slice segmentation with the given parameters to show a preview
+            NSString* roiName = [NSString stringWithFormat:@"dianeXu segmentation preview"];
+            NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:.1f blue:0.1f alpha:1.0f];
+            [mainViewer roiIntDeleteAllROIsWithSameName:roiName];
+            dianeXuITK3dRegionGrowing* previewSegmentation = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
+            [previewSegmentation start3dRegionGrowingAt:pxZ withSeedPoint:NSMakePoint(pxX, pxY) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
+            [previewSegmentation release];
         }
         
         [[note userInfo] setValue:[NSNumber numberWithBool:YES] forKey:@"stopMouseDown"];
@@ -219,7 +224,7 @@
 - (IBAction)pushInfo:(id)sender {
     dianeXuITK3dRegionGrowing* segmenter = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
     NSString* roiName = [NSString stringWithFormat:@"RoiName"];
-    NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:.1f blue:0.1f alpha:1.0f];
+    NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:0.1f blue:0.1f alpha:1.0f];
     [segmenter start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint(130, 124) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:240 upperThreshold:340 outputResolution:8];
 }
 
@@ -250,6 +255,18 @@
 }
 
 - (IBAction)pushSegCompute:(id)sender {
-    
+    if ([[labelXpx stringValue] floatValue] == 0 && [[labelYpx stringValue] floatValue] == 0) {
+        NSRunInformationalAlertPanel(@"WARNING", @"First select a seedpoint by clicking into the image!", @"OK", nil, nil,nil);
+        return;
+    }
+    NSString* roiName = [NSString stringWithFormat:@"dianeXu angio model"];
+    NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:0.1f blue:0.1f alpha:1.0f];
+    // clear old ROIs
+    [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+    [mainViewer roiIntDeleteAllROIsWithSameName:roiName];
+    // perform segmentation
+    dianeXuITK3dRegionGrowing* computeSegmentation = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
+    [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
+    [computeSegmentation release];
 }
 @end

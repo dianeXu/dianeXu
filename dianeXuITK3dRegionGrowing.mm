@@ -114,11 +114,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
     ImageType::IndexType index;
     index[0] = (long)seed.x;
     index[1] = (long)seed.y;
-    if (slice == -1) { // if 3d segmentation is happening, use the currently shown image's index
-        index[2] = [[segViewer imageView] curImage];
-    } else {
-        index[2] = 0;
-    }
+    index[2] = [[segViewer imageView] curImage];
     
     CastingFilterType::Pointer castFilter = CastingFilterType::New();
     
@@ -188,11 +184,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
         vtkImageImport* image2d;
         DCMPix* curPix = [[segViewer pixList] objectAtIndex:i];
         
-        if (slice == -1) {
-            memcpy(image2dData, ((unsigned char*)vtkImport->GetOutput()->GetScalarPointer())+(i*imageSize), imageSize);
-        } else {
-            memcpy(image2dData, ((unsigned char*)vtkImport->GetOutput()->GetScalarPointer()), imageSize);
-        }
+        memcpy(image2dData, ((unsigned char*)vtkImport->GetOutput()->GetScalarPointer())+(i*imageSize), imageSize);
         
         image2d = vtkImageImport::New();
         image2d->SetWholeExtent(0, dataExtent[1], 0, dataExtent[3], 0, 0);
@@ -287,11 +279,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 
             roiSeriesList = [segViewer roiList];
             
-            if (slice == -1) {
-                roiImageList = [roiSeriesList objectAtIndex: i];
-            } else {
-                roiImageList = [roiSeriesList objectAtIndex:[[segViewer imageView] curImage]];
-            }
+            roiImageList = [roiSeriesList objectAtIndex: i];
+
             [newSegROI setName:name];
             [roiImageList addObject:newSegROI];
             [[segViewer imageView] roiSet];
