@@ -30,7 +30,6 @@ typedef PointSetType::PointType PointType;
 typedef PointSetType::PointsContainer PointsContainer;
 
 @interface dianeXuITKPointSetRegistration : NSObject {
-    
     PointSetType::Pointer fixedPointSet;
     PointSetType::Pointer movingPointSet;
    // NSMutableArray* fixedSetArray;
