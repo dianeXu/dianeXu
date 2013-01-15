@@ -20,8 +20,16 @@
 
 #import <Foundation/Foundation.h>
 
+#import "dianeXuCoord.h"
+
 @interface dianeXuITKPointSetRegistration : NSObject {
-    
+    NSMutableArray* fixedSet;
+    NSMutableArray* movingSet;
 }
+
+/*
+ * Init the class with two sets of dianeXuCoords
+ */
+-(id)initWithFixedSet:(NSMutableArray*)fixed andMovingSet:(NSMutableArray*)moving;
 
 @end

@@ -22,4 +22,23 @@
 
 @implementation dianeXuITKPointSetRegistration
 
+/*
+ * Init the class with two sets of dianeXuCoords
+ */
+-(id)initWithFixedSet:(NSMutableArray*)fixed andMovingSet:(NSMutableArray*)moving {
+    self = [super init];
+    if (self) {
+        if ([moving count] == 0 || [fixed count] == 0) {
+            NSRunInformationalAlertPanel(@"OOPS... I am missing some data", @"Seems you forgot to complete a prior step, since one of the models is empty. If you are sure this is a bug, please refer to teh bugtracker via the preferences.", @"OK", nil, nil,nil);
+            NSLog(@"dianeXu: Point set registration failed because fixed (%d) or moving (%d) points are empty.",[fixedSet count],[movingSet count]);
+            return nil;
+        } else {
+           fixedSet = fixed;
+            movingSet = moving;
+            NSLog(@"dianeXu: Point set registration initialized with %d fixed and %d moving points.",[fixedSet count],[movingSet count]);
+        }
+    }
+    return self;
+}
+
 @end

@@ -20,6 +20,7 @@
 
 #import "dianeXuWindowController.h"
 #import "dianeXuITK3dRegionGrowing.h"
+#import "dianeXuITKPointSetRegistration.h"
 
 #import <OsiriXAPI/PreferencesWindowController.h>
 
@@ -231,7 +232,8 @@
 
 - (IBAction)pushInfo:(id)sender {
     //TODO: Insert info popup about the working set.
-    [workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
+    //[workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
+    dianeXuITKPointSetRegistration* reg = [[dianeXuITKPointSetRegistration alloc] initWithFixedSet:[workingSet angioGeometry] andMovingSet:[workingSet eamGeometry]];
 }
 
 - (IBAction)pushGetNavxData:(id)sender {
