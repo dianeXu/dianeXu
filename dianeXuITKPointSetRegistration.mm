@@ -20,6 +20,8 @@
 
 #import "dianeXuITKPointSetRegistration.h"
 
+
+
 @implementation dianeXuITKPointSetRegistration
 
 /*
@@ -30,12 +32,16 @@
     if (self) {
         if ([moving count] == 0 || [fixed count] == 0) {
             NSRunInformationalAlertPanel(@"OOPS... I am missing some data", @"Seems you forgot to complete a prior step, since one of the models is empty. If you are sure this is a bug, please refer to teh bugtracker via the preferences.", @"OK", nil, nil,nil);
-            NSLog(@"dianeXu: Point set registration failed because fixed (%d) or moving (%d) points are empty.",[fixedSet count],[movingSet count]);
+            NSLog(@"dianeXu: Point set registration failed because fixed (%d) or moving (%d) points are empty.",[fixed count],[moving count]);
             return nil;
         } else {
-           fixedSet = fixed;
-            movingSet = moving;
-            NSLog(@"dianeXu: Point set registration initialized with %d fixed and %d moving points.",[fixedSet count],[movingSet count]);
+            fixedPointSet = PointSetType::New();
+            movingPointSet = PointSetType::New();
+            
+            PointsContainer::Pointer fixedPointContainer = PointsContainer::New();
+            PointsContainer::Pointer movingPointContainer = PointsContainer::New();
+            
+            NSLog(@"dianeXu: Point set registration initialized with %ld fixed and %ld moving points.",fixedPointSet->GetNumberOfPoints(),movingPointSet->GetNumberOfPoints());
         }
     }
     return self;
