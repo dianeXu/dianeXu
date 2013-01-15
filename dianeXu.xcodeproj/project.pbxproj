@@ -986,7 +986,7 @@
 				PRODUCT_NAME = dianeXu;
 				SDKROOT = macosx10.7;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "ITK4/Modules/Segmentation/** ITK4/Modules/Filtering/** ITK4/Modules/Bridge/VTK/include ITK4/build/Modules/ThirdParty/VNL/src/vxl/core ITK4/build/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/ThirdParty/VNL/src/vxl ITK4/build/Modules/Core/Common ITK4/Modules/ThirdParty/VNL/src/vxl/core ITK4/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/Modules/Core/Common/include ITK4/Modules/Core/ImageFunction/include VTKHeaders";
+				USER_HEADER_SEARCH_PATHS = "ITK4/Modules/Segmentation/** ITK4/Modules/Filtering/** ITK4/Modules/Registration/** ITK4/Modules/Core/** ITK4/Modules/Bridge/VTK/include ITK4/Modules/Numerics/Optimizers/include ITK4/build/Modules/ThirdParty/VNL/src/vxl/core ITK4/build/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/ThirdParty/VNL/src/vxl ITK4/Modules/ThirdParty/VNL/src/vxl/core ITK4/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/Core/Common ITK4/Modules/Core/Transform/include ITK4/Modules/Core/Common/include ITK4/Modules/Core/ImageFunction/include VTKHeaders";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -1031,7 +1031,7 @@
 				PRODUCT_NAME = dianeXu;
 				SDKROOT = macosx10.7;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "ITK4/Modules/Segmentation/** ITK4/Modules/Filtering/** ITK4/Modules/Bridge/VTK/include ITK4/build/Modules/ThirdParty/VNL/src/vxl/core ITK4/build/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/ThirdParty/VNL/src/vxl ITK4/build/Modules/Core/Common ITK4/Modules/ThirdParty/VNL/src/vxl/core ITK4/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/Modules/Core/Common/include ITK4/Modules/Core/ImageFunction/include VTKHeaders";
+				USER_HEADER_SEARCH_PATHS = "ITK4/Modules/Segmentation/** ITK4/Modules/Filtering/** ITK4/Modules/Registration/** ITK4/Modules/Core/** ITK4/Modules/Bridge/VTK/include ITK4/Modules/Numerics/Optimizers/include ITK4/build/Modules/ThirdParty/VNL/src/vxl/core ITK4/build/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/ThirdParty/VNL/src/vxl ITK4/Modules/ThirdParty/VNL/src/vxl/core ITK4/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/Core/Common ITK4/Modules/Core/Transform/include ITK4/Modules/Core/Common/include ITK4/Modules/Core/ImageFunction/include VTKHeaders";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

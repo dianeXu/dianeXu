@@ -20,6 +20,24 @@
 
 #import "dianeXuITKPointSetRegistration.h"
 
+#include "itkTranslationTransform.h"
+#include "itkEuclideanDistancePointMetric.h"
+#include "itkLevenbergMarquardtOptimizer.h"
+#include "itkPointSetToPointSetRegistrationMethod.h"
+
+/*
+ * typedefs to setup the registration pipeline
+ */
+typedef opITK::EuclideanDistancePointMetric<PointSetType,PointSetType> MetricType;
+typedef MetricType::TransformType TransformBaseType;
+typedef TransformBaseType::ParametersType ParametersType;
+typedef TransformBaseType::JacobianType JacobianType;
+
+typedef opITK::TranslationTransform<double,dimension> TransformType;
+typedef opITK::LevenbergMarquardtOptimizer OptimizerType;
+typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> RegistrationType;
+
+
 @implementation dianeXuITKPointSetRegistration
 
 /*
@@ -70,6 +88,24 @@
         }
     }
     return self;
+}
+
+/*
+ * perform the registration based on the PointSets and needed TransformType
+ */
+-(void)performRegistration:(int)transformType {
+    // set up the metric
+    MetricType::Pointer metric = MetricType::New();
+    // set up a transform
+    TransformType::Pointer transform = TransformType::New();
+    // set up optimizer
+    OptimizerType::Pointer optimizer = OptimizerType::New();
+    optimizer->SetUseCostFunctionGradient(false);
+    // set up registration
+    RegistrationType::Pointer registration = RegistrationType::New();
+    // scale the translation components of the transform in the optimizer
+    
+    
 }
 
 @end

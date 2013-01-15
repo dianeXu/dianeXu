@@ -232,8 +232,7 @@
 
 - (IBAction)pushInfo:(id)sender {
     //TODO: Insert info popup about the working set.
-    //[workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
-    dianeXuITKPointSetRegistration* reg = [[dianeXuITKPointSetRegistration alloc] initWithFixedSet:[workingSet angioGeometry] andMovingSet:[workingSet eamGeometry]];
+    [workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
 }
 
 - (IBAction)pushGetNavxData:(id)sender {
@@ -278,5 +277,10 @@
     segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
     [computeSegmentation release];
     [workingSet setAngioGeometry:segmentedModel];
+}
+
+- (IBAction)pushRegisterModels:(id)sender {
+    dianeXuITKPointSetRegistration* reg = [[dianeXuITKPointSetRegistration alloc] initWithFixedSet:[workingSet angioGeometry] andMovingSet:[workingSet eamGeometry]];
+    [reg performRegistration:0];
 }
 @end

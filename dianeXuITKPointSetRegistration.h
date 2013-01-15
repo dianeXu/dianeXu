@@ -24,6 +24,9 @@
 
 #include "itkPointSet.h"
 
+/*
+ * general purpose typedefs needed for member va
+ */
 const unsigned int dimension = 3;
 typedef opITK::PointSet<float,dimension> PointSetType;
 typedef PointSetType::PointType PointType;
@@ -32,13 +35,16 @@ typedef PointSetType::PointsContainer PointsContainer;
 @interface dianeXuITKPointSetRegistration : NSObject {
     PointSetType::Pointer fixedPointSet;
     PointSetType::Pointer movingPointSet;
-   // NSMutableArray* fixedSetArray;
-   // NSMutableArray* movingSetArray;
 }
 
 /*
  * Init the class with two sets of dianeXuCoords
  */
 -(id)initWithFixedSet:(NSMutableArray*)fixed andMovingSet:(NSMutableArray*)moving;
+
+/*
+ * perform the registration based on the PointSets and needed TransformType
+ */
+-(void)performRegistration:(int)transformType;
 
 @end

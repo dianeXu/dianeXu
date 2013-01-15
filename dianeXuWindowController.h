@@ -55,6 +55,7 @@
     NSTextField *labelUpperThresholdProposal;
     NSButton *buttonInfo;
     NSButton *pushShowEAMRoi;
+    NSButton *pushRegisterClouds;
 }
 
 @property (readonly) ViewerController* mainViewer;
@@ -92,6 +93,7 @@
 - (IBAction)pushGetNavxData:(id)sender;
 - (IBAction)pushDifRoi:(id)sender;
 - (IBAction)pushSegCompute:(id)sender;
+- (IBAction)pushRegisterModels:(id)sender;
 
 /*
 * Initializes the plugin window with two viewers
