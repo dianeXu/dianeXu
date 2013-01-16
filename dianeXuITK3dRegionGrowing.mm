@@ -85,7 +85,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 /*
  * Initializes the class with a viewer for segmentation
  */
--(id) initWithViewer:(ViewerController*)viewer {
+- (id)initWithViewer:(ViewerController*)viewer {
     self = [super init];
     if (self) {
         segViewer = viewer;
@@ -107,7 +107,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 /*
  * Perform the 3d region growing and return a ROI to the viewer
  */
--(NSMutableArray*) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution {
+- (NSMutableArray*) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution {
     NSLog(@"dianeXu: Starting 3D region growing.");
     
     //init resulting model array
@@ -330,7 +330,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 /*
  * Custom dealloc to get rid of ITK objects.
  */
--(void)dealloc {
+- (void)dealloc {
     [segImageWrapper dealloc];
     [super dealloc];
 }

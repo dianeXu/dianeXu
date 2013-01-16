@@ -35,10 +35,10 @@
 /*
  * Initializes the class with a viewer for segmentation
  */
--(id) initWithViewer:(ViewerController*)viewer;
+- (id)initWithViewer:(ViewerController*)viewer;
 
 /*
  * Perform the 3d region growing and return a ROI to the viewer
  */
--(NSMutableArray*) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution;
+- (NSMutableArray*)start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution;
 @end
