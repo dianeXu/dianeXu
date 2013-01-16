@@ -21,6 +21,7 @@
 #import <Foundation/Foundation.h>
 
 #import "dianeXuCoord.h"
+#include "itkEuler3DTransform.h"
 
 #include "itkPointSet.h"
 
@@ -29,12 +30,14 @@
  */
 const unsigned int dimension = 3;
 typedef opITK::PointSet<float,dimension> PointSetType;
+typedef opITK::Euler3DTransform<double> TransformType;
 typedef PointSetType::PointType PointType;
 typedef PointSetType::PointsContainer PointsContainer;
 
 @interface dianeXuITKPointSetRegistration : NSObject {
     PointSetType::Pointer fixedPointSet;
     PointSetType::Pointer movingPointSet;
+    TransformType::Pointer transformData;
 }
 
 /*

@@ -20,7 +20,7 @@
 
 #import "dianeXuITKPointSetRegistration.h"
 
-#include "itkTranslationTransform.h"
+
 #include "itkEuclideanDistancePointMetric.h"
 #include "itkLevenbergMarquardtOptimizer.h"
 #include "itkPointSetToPointSetRegistrationMethod.h"
@@ -33,7 +33,6 @@ typedef MetricType::TransformType TransformBaseType;
 typedef TransformBaseType::ParametersType ParametersType;
 typedef TransformBaseType::JacobianType JacobianType;
 
-typedef opITK::TranslationTransform<double,dimension> TransformType;
 typedef opITK::LevenbergMarquardtOptimizer OptimizerType;
 typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> RegistrationType;
 
@@ -50,6 +49,7 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
             //prepare the types
             fixedPointSet = PointSetType::New();
             movingPointSet = PointSetType::New();
+            transformData = TransformType::New();
             
             PointsContainer::Pointer fixedPointContainer = PointsContainer::New();
             PointsContainer::Pointer movingPointContainer = PointsContainer::New();
@@ -104,13 +104,21 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
     RegistrationType::Pointer registration = RegistrationType::New();
     // scale the translation components of the transform in the optimizer
     OptimizerType::ScalesType scales(transform->GetNumberOfParameters());
-    scales.Fill(0.01);
+    const double translationScale = 1000.0; // dynamic translation range
+    const double rotationScale = 1.0; // dynamic rotation range
     
-    unsigned long numberOfIterations = 100;
+    scales[0] = 1.0/rotationScale;
+    scales[1] = 1.0/rotationScale;
+    scales[2] = 1.0/rotationScale;
+    scales[3] = 1.0/translationScale;
+    scales[4] = 1.0/translationScale;
+    scales[5] = 1.0/translationScale;
+    
+    unsigned long numberOfIterations = 2000;
     // convergende criteria
-    double gradientTolerance = 1e-5;
-    double valueTolerance = 1e-5;
-    double epsilonFunction = 1e-6;
+    double gradientTolerance = 1e-4;
+    double valueTolerance = 1e-4;
+    double epsilonFunction = 1e-5;
     
     optimizer->SetScales(scales);
     optimizer->SetNumberOfIterations(numberOfIterations);
@@ -136,8 +144,9 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
         NSLog(@"dianeXu: Error in registration.");
         
     }
-    
-    std::cout << "Solution =" << transform->GetParameters() << std::endl;
+    // set the member variable to the transform.
+    transformData = transform;
+    std::cout << "Solution =" << transformData->GetParameters() << std::endl;
 }
 
 @end
