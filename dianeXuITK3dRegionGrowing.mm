@@ -256,7 +256,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 [roiPoints addObject:[segViewer newPoint:p[0] :p[1]]];
             }
             
-            #define MAXPOINTS 100
+            #define MAXPOINTS 200
     
             if ([roiPoints count] > MAXPOINTS) {
                 long newRoiResolution = [roiPoints count] / MAXPOINTS;
