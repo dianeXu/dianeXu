@@ -107,9 +107,27 @@
             [roiImageList addObject:newRoi];
         }
     }
-    //update the targetcontroller in case something happened on the current image
+    // update the targetcontroller in case something happened on the current image
     [targetController needsDisplayUpdate];
     [modelData release];
+}
+
+/*
+ * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
+ */
+- (NSMutableArray*)reduceModelPointsOf:(NSMutableArray*)inArray to:(int)maxPoints {
+    NSMutableArray* result = [NSMutableArray new];
+    int stepSize = (int)([inArray count]/maxPoints);
+    int step = 0;
+    for (dianeXuCoord* item in inArray) {
+        if (step == stepSize) {
+            [result addObject:item];
+            step = 0;
+        } else {
+            step++;
+        }
+    }
+    return result;
 }
 
 /*

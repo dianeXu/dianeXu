@@ -46,6 +46,11 @@
 /*
  * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
  */
+- (NSMutableArray*)reduceModelPointsOf:(NSMutableArray*)inArray to:(int)maxPoints;
+
+/*
+ * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
+ */
 + (void)sortClockwise:(NSMutableArray*)sortArray;
 
 @end
