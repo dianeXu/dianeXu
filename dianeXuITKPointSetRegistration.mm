@@ -37,6 +37,9 @@ typedef TransformBaseType::JacobianType JacobianType;
 typedef opITK::LevenbergMarquardtOptimizer OptimizerType;
 typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> RegistrationType;
 
+// transform only typedefs
+typedef opITK::TransformMeshFilter<PointSetType, PointSetType, TransformType> TransformMeshType;
+
 
 @implementation dianeXuITKPointSetRegistration
 
@@ -52,33 +55,11 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
             movingPointSet = PointSetType::New();
             transformData = TransformType::New();
             
-            PointsContainer::Pointer fixedPointContainer = PointsContainer::New();
-            PointsContainer::Pointer movingPointContainer = PointsContainer::New();
-            
-            PointType fixedPoint;
-            PointType movingPoint;
-            
             //fill the fixedPointSet
-            unsigned int pointId = 0;
-            for (dianeXuCoord* inCoord in fixed) {
-                    fixedPoint[0] = [[inCoord xValue] floatValue];
-                    fixedPoint[1] = [[inCoord yValue] floatValue];
-                    fixedPoint[2] = [[inCoord zValue] floatValue];
-                    fixedPointContainer->InsertElement(pointId,fixedPoint);
-                    pointId++;
-            }
-            fixedPointSet->SetPoints(fixedPointContainer);
+            fixedPointSet->SetPoints([self pointSetFromArray:fixed]);
             
             //fill the movingPointSet
-            pointId = 0;
-            for (dianeXuCoord* inCoord in moving) {
-                movingPoint[0] = [[inCoord xValue] floatValue];
-                movingPoint[1] = [[inCoord yValue] floatValue];
-                movingPoint[2] = [[inCoord zValue] floatValue];
-                movingPointContainer->InsertElement(pointId,movingPoint);
-                pointId++;
-            }
-            movingPointSet->SetPoints(movingPointContainer);
+            movingPointSet->SetPoints([self pointSetFromArray:moving]);
             
             NSLog(@"dianeXu: Point set registration initialized with %ld fixed and %ld moving points.",fixedPointSet->GetNumberOfPoints(),movingPointSet->GetNumberOfPoints());
         } else {
@@ -88,6 +69,24 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
         }
     }
     return self;
+}
+
+/*
+ * fills the NSMutableArray coordinates into PointSetType:: pointsets
+ */
+- (PointsContainer::Pointer)pointSetFromArray:(NSMutableArray*)inArray {
+    PointsContainer::Pointer resultContainer = PointsContainer::New();
+    PointType pointForSet;
+    unsigned int pointId = 0;
+    for (dianeXuCoord* inCoord in inArray) {
+        
+        pointForSet[0] = [[inCoord xValue] floatValue];
+        pointForSet[1] = [[inCoord yValue] floatValue];
+        pointForSet[2] = [[inCoord zValue] floatValue];
+        resultContainer->InsertElement(pointId,pointForSet);
+        pointId++;
+    }
+    return resultContainer;
 }
 
 /*

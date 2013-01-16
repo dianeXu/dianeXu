@@ -51,6 +51,11 @@ typedef PointSetType::PointsContainer PointsContainer;
 - (void)performRegistration:(int)transformType;
 
 /*
+ * fills the NSMutableArray coordinates into PointSetType:: pointsets
+ */
+- (PointsContainer::Pointer)pointSetFromArray:(NSMutableArray*)inArray;
+
+/*
  * transform a pointset based on a given transform
  */
 - (NSMutableArray*)transformPoints:(NSMutableArray*)pointSet;
