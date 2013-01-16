@@ -76,7 +76,6 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
                 movingPoint[2] = [[inCoord zValue] floatValue];
                 movingPointContainer->InsertElement(pointId,movingPoint);
                 pointId++;
-                step = 0;
             }
             movingPointSet->SetPoints(movingPointContainer);
             
