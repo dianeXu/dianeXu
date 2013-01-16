@@ -60,23 +60,23 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
             //fill the fixedPointSet
             unsigned int pointId = 0;
             for (dianeXuCoord* inCoord in fixed) {
-                fixedPoint[0] = [[inCoord xValue] floatValue];
-                fixedPoint[1] = [[inCoord yValue] floatValue];
-                fixedPoint[2] = [[inCoord zValue] floatValue];
-                fixedPointContainer->InsertElement(pointId,fixedPoint);
-                pointId++;
+                    fixedPoint[0] = [[inCoord xValue] floatValue];
+                    fixedPoint[1] = [[inCoord yValue] floatValue];
+                    fixedPoint[2] = [[inCoord zValue] floatValue];
+                    fixedPointContainer->InsertElement(pointId,fixedPoint);
+                    pointId++;
             }
             fixedPointSet->SetPoints(fixedPointContainer);
             
             //fill the movingPointSet
             pointId = 0;
-            
             for (dianeXuCoord* inCoord in moving) {
                 movingPoint[0] = [[inCoord xValue] floatValue];
                 movingPoint[1] = [[inCoord yValue] floatValue];
                 movingPoint[2] = [[inCoord zValue] floatValue];
                 movingPointContainer->InsertElement(pointId,movingPoint);
                 pointId++;
+                step = 0;
             }
             movingPointSet->SetPoints(movingPointContainer);
             
@@ -104,8 +104,41 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
     // set up registration
     RegistrationType::Pointer registration = RegistrationType::New();
     // scale the translation components of the transform in the optimizer
+    OptimizerType::ScalesType scales(transform->GetNumberOfParameters());
+    scales.Fill(0.01);
     
+    unsigned long numberOfIterations = 100;
+    // convergende criteria
+    double gradientTolerance = 1e-5;
+    double valueTolerance = 1e-5;
+    double epsilonFunction = 1e-6;
     
+    optimizer->SetScales(scales);
+    optimizer->SetNumberOfIterations(numberOfIterations);
+    optimizer->SetGradientTolerance(gradientTolerance);
+    optimizer->SetValueTolerance(valueTolerance);
+    optimizer->SetEpsilonFunction(epsilonFunction);
+    
+    // identity transform as automated start
+    transform->SetIdentity();
+    
+    registration->SetInitialTransformParameters(transform->GetParameters());
+    
+    // connect the pipeline
+    registration->SetMetric(metric);
+    registration->SetOptimizer(optimizer);
+    registration->SetTransform(transform);
+    registration->SetFixedPointSet(fixedPointSet);
+    registration->SetMovingPointSet(movingPointSet);
+    
+    try {
+        registration->StartRegistration();
+    } catch (opITK::ExceptionObject &e) {
+        NSLog(@"dianeXu: Error in registration.");
+        
+    }
+    
+    std::cout << "Solution =" << transform->GetParameters() << std::endl;
 }
 
 @end

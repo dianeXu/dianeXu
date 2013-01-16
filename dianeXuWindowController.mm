@@ -280,7 +280,10 @@
 }
 
 - (IBAction)pushRegisterModels:(id)sender {
+    [statusWindow setStatusText:@"Performing registration... this may take a while"];
+    [statusWindow showStatusText];
     dianeXuITKPointSetRegistration* reg = [[dianeXuITKPointSetRegistration alloc] initWithFixedSet:[workingSet angioGeometry] andMovingSet:[workingSet eamGeometry]];
     [reg performRegistration:0];
+    [[statusWindow window] orderOut:nil];
 }
 @end

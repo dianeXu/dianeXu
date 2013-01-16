@@ -33,10 +33,10 @@
     NSMutableArray* angioGeometry;
 }
 
-@property (retain) NSMutableArray* difGeometry;
-@property (retain) NSMutableArray* eamGeometry;
-@property (retain) NSMutableArray* lesionGeometry;
-@property (retain) NSMutableArray* angioGeometry;
+@property (retain,nonatomic) NSMutableArray* difGeometry;
+@property (retain,nonatomic) NSMutableArray* eamGeometry;
+@property (retain,nonatomic) NSMutableArray* lesionGeometry;
+@property (retain,nonatomic) NSMutableArray* angioGeometry;
 
 /*
  * output model data as roi to a viewer controller
@@ -44,9 +44,17 @@
 - (void)modelROItoController:(ViewerController*)targetController forGeometry:(NSString*)geometry;
 
 /*
- * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
+ * reduce the number of points in a model to be lower than maxPoints.
  */
 - (NSMutableArray*)reduceModelPointsOf:(NSMutableArray*)inArray to:(int)maxPoints;
+
+/*
+ * custom setters for all models using the number reduce
+ */
+- (void)setAngioGeometry:(NSMutableArray *)inGeometry;
+- (void)setDifGeometry:(NSMutableArray *)inGeometry;
+- (void)setEamGeometry:(NSMutableArray *)inGeometry;
+- (void)setLesionGeometry:(NSMutableArray *)inGeometry;
 
 /*
  * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.

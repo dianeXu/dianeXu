@@ -113,21 +113,42 @@
 }
 
 /*
- * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.
+ * reduce the number of points in a model to be lower than maxPoints.
  */
 - (NSMutableArray*)reduceModelPointsOf:(NSMutableArray*)inArray to:(int)maxPoints {
     NSMutableArray* result = [NSMutableArray new];
-    int stepSize = (int)([inArray count]/maxPoints);
-    int step = 0;
-    for (dianeXuCoord* item in inArray) {
-        if (step == stepSize) {
-            [result addObject:item];
-            step = 0;
-        } else {
-            step++;
+    if ([inArray count] < maxPoints) {
+        result = inArray;
+        return result;
+    } else {
+       int stepSize = (int)([inArray count]/maxPoints);
+        int step = 0;
+        for (dianeXuCoord* item in inArray) {
+            if (step == stepSize) {
+                [result addObject:item];
+                step = 0;
+            } else {
+                step++;
+            }
         }
+        return result;
     }
-    return result;
+}
+
+/*
+ * custom setters for all models using the number reduce
+ */
+- (void)setAngioGeometry:(NSMutableArray *)inGeometry {
+    angioGeometry = [self reduceModelPointsOf:inGeometry to:5000];
+}
+- (void)setDifGeometry:(NSMutableArray *)inGeometry {
+    difGeometry = [self reduceModelPointsOf:inGeometry to:5000];
+}
+- (void)setEamGeometry:(NSMutableArray *)inGeometry {
+    eamGeometry = [self reduceModelPointsOf:inGeometry to:5000];
+}
+- (void)setLesionGeometry:(NSMutableArray *)inGeometry {
+    lesionGeometry = [self reduceModelPointsOf:inGeometry to:5000];
 }
 
 /*
