@@ -55,7 +55,7 @@
     [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
     //NSLog(@"Preparing model ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
     
-    //NSLog(@"%f %f %f",[slice originX],[slice originY],[slice originZ]);
+    NSLog(@"dianeXu: series origin is X:%f Y:%f Z:%f",[slice originX],[slice originY],[slice originZ]);
     
     // make new points with values in pixels!
     for (dianeXuCoord* currentCoord in modelData) {
@@ -63,14 +63,14 @@
         
         // get coordinates corrected by originoffset, correct offset orientation, swap y- and z-values to match Osirix image orientation
         [newItem setXValue:[[currentCoord xValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originX]] decimalValue]]]];
-        [newItem setYValue:[[currentCoord yValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
-        [newItem setZValue:[[currentCoord zValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
+        [newItem setYValue:[[currentCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
+        [newItem setZValue:[[currentCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
     
         //adjust pixelspacings and adjust z to be matched with slices
         [newItem setXValue:[[newItem xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
         [newItem setYValue:[[newItem yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
         [newItem setZValue:[[newItem zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
-        [newItem setZValue:[[newItem zValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
+        [newItem setYValue:[[newItem yValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
  
         [pointsROI addObject:newItem];
         newItem = nil;
@@ -78,7 +78,7 @@
     
     // sort points to approximate the polygon border 
     [pointsROI sortUsingDescriptors:sortDescriptors];
-    //NSLog(@"%@",pointsROI);
+    NSLog(@"%@",pointsROI);
     
     // prepare data for ROI handling
     //DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];
@@ -91,8 +91,8 @@
         
         NSInteger currentIndex = [[targetController pixList] indexOfObject:currentSlice];
         for (dianeXuCoord* currentCoord in pointsROI) {
-            if ([[[currentCoord zValue] stringValue] isEqualToString:[NSString stringWithFormat:@"%u",currentIndex]]) {
-                [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]:[[currentCoord yValue] floatValue]]];
+            if ([[[currentCoord yValue] stringValue] isEqualToString:[NSString stringWithFormat:@"%u",currentIndex]]) {
+                [points addObject:[targetController newPoint:[[currentCoord xValue] floatValue]:[[currentCoord zValue] floatValue]]];
             }
         }
         // sort points to be a polygon in order and set some additional properties

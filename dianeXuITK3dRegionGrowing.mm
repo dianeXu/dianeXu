@@ -302,13 +302,13 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
             for (MyPoint* currentPoint in roiPoints) {
                 dianeXuCoord* newCoord = [dianeXuCoord new];
                 [newCoord setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:currentPoint.x*pixelSpacings[0]] decimalValue]]];
-                [newCoord setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:currentPoint.y*pixelSpacings[1]] decimalValue]]];
-                [newCoord setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:i*pixelSpacings[2]] decimalValue]]];
+                [newCoord setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:i*pixelSpacings[1]] decimalValue]]];
+                [newCoord setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:currentPoint.y*pixelSpacings[2]] decimalValue]]];
                 
                 // get coordinates corrected by originoffset, correct offset orientation
                 [newCoord setXValue:[[newCoord xValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[0]] decimalValue]]]];
-                [newCoord setYValue:[[newCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[1]] decimalValue]]]];
-                [newCoord setZValue:[[newCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[2]] decimalValue]]]];
+                [newCoord setYValue:[[newCoord yValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[1]] decimalValue]]]];
+                [newCoord setZValue:[[newCoord zValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[2]] decimalValue]]]];
                 
                 [modelArray addObject:newCoord];
             }

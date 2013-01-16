@@ -207,8 +207,8 @@
         
         //set coordinate values and add to difGeometry array with corrected y-z orientation.
         [localCurrentCoord setXValue:[NSDecimalNumber  decimalNumberWithString:[justCoords objectAtIndex:0]]];
-        [localCurrentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
-        [localCurrentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
+        [localCurrentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
+        [localCurrentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
         //NSLog(@"%@ %@ %@", [localCurrentCoord xValue],[localCurrentCoord yValue],[localCurrentCoord zValue]);
         
         [difGeometry addObject:localCurrentCoord];

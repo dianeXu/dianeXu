@@ -258,6 +258,7 @@
 }
 
 - (IBAction)pushDifRoi:(id)sender {
+    NSLog(@"%@",[workingSet difGeometry]);
     [workingSet modelROItoController:mainViewer forGeometry:@"difGeometry"];
 }
 
@@ -266,7 +267,7 @@
         NSRunInformationalAlertPanel(@"WARNING", @"First select a seedpoint by clicking into the image!", @"OK", nil, nil,nil);
         return;
     }
-    NSString* roiName = [NSString stringWithFormat:@"dianeXu angio model"];
+    NSString* roiName = [NSString stringWithFormat:@"dianeXu angioGeometry"];
     NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:0.1f blue:0.1f alpha:1.0f];
     // clear old ROIs
     [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
@@ -280,7 +281,7 @@
 }
 
 - (IBAction)pushRegisterModels:(id)sender {
-    [statusWindow setStatusText:@"Performing registration... this may take a while"];
+    [statusWindow setStatusText:@"Performing registration... grab a coffee, this may take a while"];
     [statusWindow showStatusText];
     dianeXuITKPointSetRegistration* reg = [[dianeXuITKPointSetRegistration alloc] initWithFixedSet:[workingSet angioGeometry] andMovingSet:[workingSet eamGeometry]];
     [reg performRegistration:0];
