@@ -43,11 +43,16 @@ typedef PointSetType::PointsContainer PointsContainer;
 /*
  * Init the class with two sets of dianeXuCoords
  */
--(id)initWithFixedSet:(NSMutableArray*)fixed andMovingSet:(NSMutableArray*)moving;
+- (id)initWithFixedSet:(NSMutableArray*)fixed andMovingSet:(NSMutableArray*)moving;
 
 /*
  * perform the registration based on the PointSets and needed TransformType
  */
--(void)performRegistration:(int)transformType;
+- (void)performRegistration:(int)transformType;
+
+/*
+ * transform a pointset based on a given transform
+ */
+- (NSMutableArray*)transformPoints:(NSMutableArray*)pointSet;
 
 @end

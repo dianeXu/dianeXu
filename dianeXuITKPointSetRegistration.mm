@@ -24,6 +24,7 @@
 #include "itkEuclideanDistancePointMetric.h"
 #include "itkLevenbergMarquardtOptimizer.h"
 #include "itkPointSetToPointSetRegistrationMethod.h"
+#include "itkTransformMeshFilter.h"
 
 /*
  * typedefs to setup the registration pipeline
@@ -147,6 +148,13 @@ typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> R
     // set the member variable to the transform.
     transformData = transform;
     std::cout << "Solution =" << transformData->GetParameters() << std::endl;
+}
+
+/*
+ * transform a pointset based on a given transform
+ */
+- (NSMutableArray*)transformPoints:(NSMutableArray*)pointSet {
+    
 }
 
 @end
