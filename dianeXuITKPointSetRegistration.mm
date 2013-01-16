@@ -24,7 +24,6 @@
 #include "itkEuclideanDistancePointMetric.h"
 #include "itkLevenbergMarquardtOptimizer.h"
 #include "itkPointSetToPointSetRegistrationMethod.h"
-#include "itkTransformMeshFilter.h"
 
 /*
  * typedefs to setup the registration pipeline
@@ -38,7 +37,7 @@ typedef opITK::LevenbergMarquardtOptimizer OptimizerType;
 typedef opITK::PointSetToPointSetRegistrationMethod<PointSetType,PointSetType> RegistrationType;
 
 // transform only typedefs
-typedef opITK::TransformMeshFilter<PointSetType, PointSetType, TransformType> TransformMeshType;
+typedef PointsContainer::Iterator PointsIterator;
 
 
 @implementation dianeXuITKPointSetRegistration
@@ -105,14 +104,17 @@ typedef opITK::TransformMeshFilter<PointSetType, PointSetType, TransformType> Tr
     // scale the translation components of the transform in the optimizer
     OptimizerType::ScalesType scales(transform->GetNumberOfParameters());
     const double translationScale = 1000.0; // dynamic translation range
-    const double rotationScale = 1.0; // dynamic rotation range
+    const double rotationScale = 100.0; // dynamic rotation range
+    const double scalarScale = 1000.0;
     
-    scales[0] = 1.0/rotationScale;
+    scales[0] = 1.0/scalarScale;
     scales[1] = 1.0/rotationScale;
     scales[2] = 1.0/rotationScale;
-    scales[3] = 1.0/translationScale;
+    scales[3] = 1.0/rotationScale;
     scales[4] = 1.0/translationScale;
     scales[5] = 1.0/translationScale;
+    scales[6] = 1.0/translationScale;
+    
     
     unsigned long numberOfIterations = 2000;
     // convergende criteria
@@ -153,7 +155,40 @@ typedef opITK::TransformMeshFilter<PointSetType, PointSetType, TransformType> Tr
  * transform a pointset based on a given transform
  */
 - (NSMutableArray*)transformPoints:(NSMutableArray*)pointSet {
+    // set up stuff to transform 
+    NSMutableArray* transformResult = [NSMutableArray new];
+    TransformType::Pointer applyTransform = TransformType::New();
+    PointSetType::Pointer pointSetIn = PointSetType::New();
+    pointSetIn->SetPoints([self pointSetFromArray:pointSet]);
+    PointsContainer::Pointer tmpContainer = PointsContainer::New();
+    tmpContainer = pointSetIn->GetPoints();
     
+    PointsContainer::Pointer outContainer = PointsContainer::New();
+    
+    PointsIterator pointIterator = tmpContainer->Begin();
+    PointsIterator endIterator = tmpContainer->End();
+
+    while (pointIterator != endIterator) {
+        PointType tmpPoint = pointIterator.Value();
+        PointType inPoint = transformData->TransformPoint(tmpPoint);
+        outContainer->InsertElement(pointIterator->Index(), inPoint);
+        ++pointIterator;
+    }
+    
+    PointsIterator pointIterator2 = outContainer->Begin();
+    PointsIterator endIterator2 = outContainer->End();
+    
+    while (pointIterator2 != endIterator2) {
+        dianeXuCoord* tmpCoord = [[dianeXuCoord alloc] init];
+        PointType outPoint = pointIterator2.Value();
+        [tmpCoord setXValue:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",outPoint[0]]]];
+        [tmpCoord setYValue:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",outPoint[1]]]];
+        [tmpCoord setZValue:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",outPoint[2]]]];
+        [transformResult addObject:tmpCoord];
+        tmpCoord = nil;
+        ++pointIterator2;
+    }
+    return [transformResult retain];
 }
 
 @end

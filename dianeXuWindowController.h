@@ -94,6 +94,7 @@
 - (IBAction)pushDifRoi:(id)sender;
 - (IBAction)pushSegCompute:(id)sender;
 - (IBAction)pushRegisterModels:(id)sender;
+- (IBAction)pushRegistratedROI:(id)sender;
 
 /*
 * Initializes the plugin window with two viewers

@@ -174,7 +174,7 @@
         case 1:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             [labelEAMSource setStringValue:[[NSUserDefaults standardUserDefaults] valueForKey:dianeXuEAMSourceKey]];
@@ -183,7 +183,7 @@
         case 2:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
@@ -191,7 +191,7 @@
         case 3:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
@@ -199,7 +199,7 @@
         case 4:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:FALSE];
-            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
@@ -285,6 +285,12 @@
     [statusWindow showStatusText];
     dianeXuITKPointSetRegistration* reg = [[dianeXuITKPointSetRegistration alloc] initWithFixedSet:[workingSet angioGeometry] andMovingSet:[workingSet eamGeometry]];
     [reg performRegistration:0];
+    [workingSet setEamGeometry:[reg transformPoints:[workingSet eamGeometry]]];
+    NSLog(@"%@ %@",[workingSet angioGeometry],[workingSet eamGeometry]);
     [[statusWindow window] orderOut:nil];
+}
+
+- (IBAction)pushRegistratedROI:(id)sender {
+    [workingSet modelROItoController:mainViewer forGeometry:@"eamGeometry"];
 }
 @end
