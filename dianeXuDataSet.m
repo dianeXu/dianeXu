@@ -139,16 +139,16 @@
  * custom setters for all models using the number reduce
  */
 - (void)setAngioGeometry:(NSMutableArray *)inGeometry {
-    angioGeometry = [self reduceModelPointsOf:inGeometry to:5000];
+    angioGeometry = [[self reduceModelPointsOf:inGeometry to:5000] retain];
 }
 - (void)setDifGeometry:(NSMutableArray *)inGeometry {
-    difGeometry = [self reduceModelPointsOf:inGeometry to:5000];
+    difGeometry = [[self reduceModelPointsOf:inGeometry to:5000] retain];
 }
 - (void)setEamGeometry:(NSMutableArray *)inGeometry {
-    eamGeometry = [self reduceModelPointsOf:inGeometry to:5000];
+    eamGeometry = [[self reduceModelPointsOf:inGeometry to:5000] retain];
 }
 - (void)setLesionGeometry:(NSMutableArray *)inGeometry {
-    lesionGeometry = [self reduceModelPointsOf:inGeometry to:5000];
+    lesionGeometry = [[self reduceModelPointsOf:inGeometry to:5000] retain];
 }
 
 /*
