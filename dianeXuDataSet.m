@@ -51,11 +51,10 @@
     NSArray* sortDescriptors = [NSArray arrayWithObject:zSort];
     
     [pixelGeometry setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingX]] decimalValue]]];
-    [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
-    [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
+    [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
+    [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
     //NSLog(@"Preparing model ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
-    
-    NSLog(@"dianeXu: series origin is X:%f Y:%f Z:%f",[slice originX],[slice originY],[slice originZ]);
+    //NSLog(@"dianeXu: series origin is X:%f Y:%f Z:%f",[slice originX],[slice originY],[slice originZ]);
     
     // make new points with values in pixels!
     for (dianeXuCoord* currentCoord in modelData) {
@@ -78,7 +77,7 @@
     
     // sort points to approximate the polygon border 
     [pointsROI sortUsingDescriptors:sortDescriptors];
-    NSLog(@"%@",pointsROI);
+    //NSLog(@"%@",pointsROI);
     
     // prepare data for ROI handling
     //DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];

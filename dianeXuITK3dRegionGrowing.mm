@@ -292,8 +292,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
             //add points to output model
             double pixelSpacings[3];
             pixelSpacings[0] = [[[segViewer pixList] objectAtIndex:0] pixelSpacingX];
-            pixelSpacings[1] = [[[segViewer pixList] objectAtIndex:0] pixelSpacingY];
-            pixelSpacings[2] = [[[segViewer pixList] objectAtIndex:0] sliceThickness];
+            pixelSpacings[1] = [[[segViewer pixList] objectAtIndex:0] sliceThickness];
+            pixelSpacings[2] = [[[segViewer pixList] objectAtIndex:0] pixelSpacingY];
             double offsetOrigin[3];
             offsetOrigin[0] = [[[segViewer pixList] objectAtIndex:0] originX];
             offsetOrigin[1] = [[[segViewer pixList] objectAtIndex:0] originY];

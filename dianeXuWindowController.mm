@@ -258,7 +258,7 @@
 }
 
 - (IBAction)pushDifRoi:(id)sender {
-    NSLog(@"%@",[workingSet difGeometry]);
+    //NSLog(@"%@",[workingSet difGeometry]);
     [workingSet modelROItoController:mainViewer forGeometry:@"difGeometry"];
 }
 
