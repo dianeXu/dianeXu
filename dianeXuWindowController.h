@@ -53,9 +53,17 @@
     NSButton *checkPreview;
     NSTextField *labelLowerThresholdProposal;
     NSTextField *labelUpperThresholdProposal;
+    NSSegmentedControl *segDifRoi;
+    NSSegmentedControl *segSteponeRoi;
+    NSSegmentedControl *segDifToggle;
+    NSSegmentedControl *segSteponeToggle;
+    NSSegmentedControl *segEamToggle;
+    NSSegmentedControl *segLesionToggle;
+    NSSegmentedControl *segAllToggle;
     NSButton *buttonInfo;
     NSButton *pushShowEAMRoi;
     NSButton *pushRegisterClouds;
+    NSButton *pushShowVisRois;
 }
 
 @property (readonly) ViewerController* mainViewer;
@@ -69,7 +77,6 @@
 @property (assign) IBOutlet NSPathControl *pathEAM;
 @property (assign) IBOutlet NSTextField *labelEAMSource;
 @property (assign) IBOutlet NSTextField *labelMRINumCoords;
-@property (assign) IBOutlet NSButton *buttonDifRoi;
 @property (assign) IBOutlet NSTextField *labelEAMNumCoords;
 @property (assign) IBOutlet NSTextField *labelLesionNumCoords;
 @property (assign) IBOutlet NSBox *boxSegAlgorithm;
@@ -85,6 +92,13 @@
 @property (assign) IBOutlet NSButton *checkPreview;
 @property (assign) IBOutlet NSTextField *labelLowerThresholdProposal;
 @property (assign) IBOutlet NSTextField *labelUpperThresholdProposal;
+@property (assign) IBOutlet NSSegmentedControl *segDifRoi;
+@property (assign) IBOutlet NSSegmentedControl *segSteponeRoi;
+@property (assign) IBOutlet NSSegmentedControl *segDifToggle;
+@property (assign) IBOutlet NSSegmentedControl *segSteponeToggle;
+@property (assign) IBOutlet NSSegmentedControl *segEamToggle;
+@property (assign) IBOutlet NSSegmentedControl *segLesionToggle;
+@property (assign) IBOutlet NSSegmentedControl *segAllToggle;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
@@ -95,6 +109,10 @@
 - (IBAction)pushSegCompute:(id)sender;
 - (IBAction)pushRegisterModels:(id)sender;
 - (IBAction)pushRegistratedROI:(id)sender;
+- (IBAction)pushSteponeRoi:(id)sender;
+- (IBAction)pushShowToggledRois:(id)sender;
+- (IBAction)pushToggleAllRois:(id)sender;
+
 
 /*
 * Initializes the plugin window with two viewers

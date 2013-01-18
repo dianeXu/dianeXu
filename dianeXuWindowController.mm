@@ -45,6 +45,13 @@
 @synthesize checkPreview;
 @synthesize labelLowerThresholdProposal;
 @synthesize labelUpperThresholdProposal;
+@synthesize segDifRoi;
+@synthesize segSteponeRoi;
+@synthesize segDifToggle;
+@synthesize segSteponeToggle;
+@synthesize segEamToggle;
+@synthesize segLesionToggle;
+@synthesize segAllToggle;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
@@ -294,5 +301,14 @@
 - (IBAction)pushRegistratedROI:(id)sender {
     [workingSet modelROItoController:mainViewer forGeometry:@"eamGeometry"];
     [workingSet modelPointsToController:mainViewer forGeometry:@"lesionGeometry"];
+}
+
+- (IBAction)pushSteponeRoi:(id)sender {
+}
+
+- (IBAction)pushShowToggledRois:(id)sender {
+}
+
+- (IBAction)pushToggleAllRois:(id)sender {
 }
 @end
