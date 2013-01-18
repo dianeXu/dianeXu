@@ -142,7 +142,7 @@
         [newItem setYValue:[[currentCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
         [newItem setZValue:[[currentCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
         
-        //adjust pixelspacings and adjust z to be matched with slices
+        // adjust pixelspacings and adjust z to be matched with slices
         [newItem setXValue:[[newItem xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
         [newItem setYValue:[[newItem yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
         [newItem setZValue:[[newItem zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
@@ -154,7 +154,7 @@
     
     // sort points to approximate the polygon border
     [pointsROI sortUsingDescriptors:sortDescriptors];
-    //NSLog(@"%@",pointsROI);
+//    NSLog(@"%@",pointsROI);
     
     // prepare data for ROI handling
     long roiIndex = 0;
@@ -163,7 +163,8 @@
         for (dianeXuCoord* currentCoord in pointsROI) {
             if ([[[currentCoord yValue] stringValue] isEqualToString:[NSString stringWithFormat:@"%u",currentIndex]]) {
                 ROI* newRoi = [targetController newROI: t2DPoint];
-                NSString* roiName = [NSString stringWithFormat:@"dianeXu %@ point #%ld",geometry, roiIndex];
+//                NSString* roiName = [NSString stringWithFormat:@"dianeXu %@ point #%ld",geometry, roiIndex]; //bad for removal
+                NSString* roiName = [NSString stringWithFormat:@"dianeXu %@ point",geometry];
                 NSRect newRect;
                 newRect = NSMakeRect([[currentCoord xValue] floatValue], [[currentCoord zValue] floatValue], 0, 0);
                 [newRoi setROIRect:newRect];

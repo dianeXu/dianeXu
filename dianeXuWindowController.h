@@ -61,6 +61,8 @@
     NSSegmentedControl *segLesionToggle;
     NSSegmentedControl *segAllToggle;
     NSSegmentedControl *segRegistratedRoi;
+    NSButton *buttonShowToggledRois;
+    NSButton *buttonRegisterModels;
     NSButton *buttonInfo;
     NSButton *pushShowEAMRoi;
     NSButton *pushRegisterClouds;
@@ -101,6 +103,8 @@
 @property (assign) IBOutlet NSSegmentedControl *segLesionToggle;
 @property (assign) IBOutlet NSSegmentedControl *segAllToggle;
 @property (assign) IBOutlet NSSegmentedControl *segRegistratedRoi;
+@property (assign) IBOutlet NSButton *buttonShowToggledRois;
+@property (assign) IBOutlet NSButton *buttonRegisterModels;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
