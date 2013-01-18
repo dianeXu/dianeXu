@@ -232,7 +232,7 @@
 
 - (IBAction)pushInfo:(id)sender {
     //TODO: Insert info popup about the working set.
-    [workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
+    [workingSet modelPointsToController:mainViewer forGeometry:@"angioGeometry"];
 }
 
 - (IBAction)pushGetNavxData:(id)sender {
@@ -286,11 +286,13 @@
     dianeXuITKPointSetRegistration* reg = [[dianeXuITKPointSetRegistration alloc] initWithFixedSet:[workingSet angioGeometry] andMovingSet:[workingSet eamGeometry]];
     [reg performRegistration:0];
     [workingSet setEamGeometry:[reg transformPoints:[workingSet eamGeometry]]];
-    NSLog(@"%@ %@",[workingSet angioGeometry],[workingSet eamGeometry]);
+    [workingSet setLesionGeometry:[reg transformPoints:[workingSet lesionGeometry]]];
+    //NSLog(@"%@ %@",[workingSet angioGeometry],[workingSet eamGeometry]);
     [[statusWindow window] orderOut:nil];
 }
 
 - (IBAction)pushRegistratedROI:(id)sender {
     [workingSet modelROItoController:mainViewer forGeometry:@"eamGeometry"];
+    [workingSet modelPointsToController:mainViewer forGeometry:@"lesionGeometry"];
 }
 @end

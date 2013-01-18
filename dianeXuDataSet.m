@@ -112,6 +112,74 @@
 }
 
 /*
+ * output model data as point rois to a viewer controller
+ */
+- (void)modelPointsToController:(ViewerController*)targetController forGeometry:(NSString*)geometry {
+    // TODO: update to display a bunch of single points!
+    NSMutableArray* modelData = [NSMutableArray new];
+    modelData = [self valueForKey:geometry];
+    //NSLog(@"%@",modelData);
+    // prepare needed data du adjust pixelspacings in model data
+    dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
+    DCMPix* slice = [[targetController pixList] objectAtIndex:0];
+    NSMutableArray* pointsROI = [[NSMutableArray alloc] init];
+    NSDecimalNumberHandler* roundingControl = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundPlain scale:0 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
+    NSSortDescriptor* zSort =[[[NSSortDescriptor alloc] initWithKey:@"zValue" ascending:YES] autorelease];
+    NSArray* sortDescriptors = [NSArray arrayWithObject:zSort];
+    
+    [pixelGeometry setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingX]] decimalValue]]];
+    [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
+    [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
+    //NSLog(@"Preparing model ROI for %u points with pixelspacings %@",[eamPoints count],pixelGeometry);
+    //NSLog(@"dianeXu: series origin is X:%f Y:%f Z:%f",[slice originX],[slice originY],[slice originZ]);
+    
+    // make new points with values in pixels!
+    for (dianeXuCoord* currentCoord in modelData) {
+        dianeXuCoord* newItem = [[dianeXuCoord alloc] init];
+        
+        // get coordinates corrected by originoffset, correct offset orientation, swap y- and z-values to match Osirix image orientation
+        [newItem setXValue:[[currentCoord xValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originX]] decimalValue]]]];
+        [newItem setYValue:[[currentCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originY]] decimalValue]]]];
+        [newItem setZValue:[[currentCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice originZ]] decimalValue]]]];
+        
+        //adjust pixelspacings and adjust z to be matched with slices
+        [newItem setXValue:[[newItem xValue] decimalNumberByDividingBy:[pixelGeometry xValue]]];
+        [newItem setYValue:[[newItem yValue] decimalNumberByDividingBy:[pixelGeometry yValue]]];
+        [newItem setZValue:[[newItem zValue] decimalNumberByDividingBy:[pixelGeometry zValue]]];
+        [newItem setYValue:[[newItem yValue] decimalNumberByRoundingAccordingToBehavior:roundingControl]];
+        
+        [pointsROI addObject:newItem];
+        newItem = nil;
+    }
+    
+    // sort points to approximate the polygon border
+    [pointsROI sortUsingDescriptors:sortDescriptors];
+    //NSLog(@"%@",pointsROI);
+    
+    // prepare data for ROI handling
+    long roiIndex = 0;
+    for (DCMPix* currentSlice in [targetController pixList]) {
+        NSInteger currentIndex = [[targetController pixList] indexOfObject:currentSlice];
+        for (dianeXuCoord* currentCoord in pointsROI) {
+            if ([[[currentCoord yValue] stringValue] isEqualToString:[NSString stringWithFormat:@"%u",currentIndex]]) {
+                ROI* newRoi = [targetController newROI: t2DPoint];
+                NSString* roiName = [NSString stringWithFormat:@"dianeXu %@ point #%ld",geometry, roiIndex];
+                NSRect newRect;
+                newRect = NSMakeRect([[currentCoord xValue] floatValue], [[currentCoord zValue] floatValue], 0, 0);
+                [newRoi setROIRect:newRect];
+                [newRoi setName:roiName];
+                [[[targetController roiList] objectAtIndex:currentIndex] addObject:newRoi];
+                newRoi = nil;
+                roiIndex++;
+            }
+        }
+    }
+    // update the targetcontroller in case something happened on the current image
+    [targetController needsDisplayUpdate];
+    [modelData release];
+}
+
+/*
  * reduce the number of points in a model to be lower than maxPoints.
  */
 - (NSMutableArray*)reduceModelPointsOf:(NSMutableArray*)inArray to:(int)maxPoints {

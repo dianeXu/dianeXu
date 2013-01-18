@@ -44,6 +44,11 @@
 - (void)modelROItoController:(ViewerController*)targetController forGeometry:(NSString*)geometry;
 
 /*
+ * output model data as point rois to a viewer controller
+ */
+- (void)modelPointsToController:(ViewerController*)targetController forGeometry:(NSString*)geometry;
+
+/*
  * reduce the number of points in a model to be lower than maxPoints.
  */
 - (NSMutableArray*)reduceModelPointsOf:(NSMutableArray*)inArray to:(int)maxPoints;
