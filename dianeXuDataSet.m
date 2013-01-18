@@ -79,8 +79,8 @@
         [pixelGeometry setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingX]] decimalValue]]];
         [pixelGeometry setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice pixelSpacingY]] decimalValue]]];
         [pixelGeometry setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:[slice sliceThickness]] decimalValue]]];
-        NSLog(@"Preparing model ROI for %u points with pixelspacings %@",[modelData count],pixelGeometry);
-        NSLog(@"dianeXu: series origin is X:%f Y:%f Z:%f",[slice originX],[slice originY],[slice originZ]);
+//        NSLog(@"Preparing model ROI for %u points with pixelspacings %@",[modelData count],pixelGeometry);
+//        NSLog(@"dianeXu: series origin is X:%f Y:%f Z:%f",[slice originX],[slice originY],[slice originZ]);
         
         // make new points with values in pixels!
         for (dianeXuCoord* currentCoord in modelData) {
