@@ -317,9 +317,8 @@
     [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
     [mainViewer roiIntDeleteAllROIsWithSameName:roiName];
     // perform segmentation
-    NSMutableArray* segmentedModel = [NSMutableArray new];
     dianeXuITK3dRegionGrowing* computeSegmentation = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
-    segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:4];
+    NSMutableArray* segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:4];
     [computeSegmentation release];
     [workingSet setAngioGeometry:segmentedModel];
     // enable related gui components
@@ -337,6 +336,7 @@
     [[statusWindow window] orderOut:nil];
     // enable related gui components
     [segRegistratedRoi setEnabled:YES];
+    [reg release];
 }
 
 - (IBAction)pushRegistratedROI:(id)sender {

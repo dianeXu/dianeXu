@@ -39,8 +39,7 @@
  * output modeldata data as roi to a viewer controller
  */
 - (void)modelROItoController: (ViewerController*)targetController forGeometry:(NSString*)geometry {
-    NSMutableArray* modelData = [NSMutableArray new];
-    modelData = [self valueForKey:geometry];
+    NSMutableArray* modelData = [self valueForKey:geometry];
     //NSLog(@"%@",modelData);
     // prepare needed data du adjust pixelspacings in model data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
@@ -130,7 +129,6 @@
                     [points addObject:[targetController newPoint:correctedX:correctedY]];
                 }
             }
-
         }
         // sort points to be a polygon in order and set some additional properties
         [dianeXuDataSet sortClockwise:points];
@@ -146,15 +144,13 @@
     }
     // update the targetcontroller in case something happened on the current image
     [targetController needsDisplayUpdate];
-    [modelData release];
 }
 
 /*
  * output model data as point rois to a viewer controller
  */
 - (void)modelPointsToController:(ViewerController*)targetController forGeometry:(NSString*)geometry {
-    NSMutableArray* modelData = [NSMutableArray new];
-    modelData = [self valueForKey:geometry];
+    NSMutableArray* modelData = [self valueForKey:geometry];
     //NSLog(@"%@",modelData);
     // prepare needed data du adjust pixelspacings in model data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
@@ -240,7 +236,6 @@
     }
     // update the targetcontroller in case something happened on the current image
     [targetController needsDisplayUpdate];
-    [modelData release];
 }
 
 /*
