@@ -302,7 +302,7 @@
     // perform segmentation
     NSMutableArray* segmentedModel = [NSMutableArray new];
     dianeXuITK3dRegionGrowing* computeSegmentation = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
-    segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
+    segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:4];
     [computeSegmentation release];
     [workingSet setAngioGeometry:segmentedModel];
     // enable related gui components
@@ -344,25 +344,24 @@
 }
 
 - (IBAction)pushShowToggledRois:(id)sender {
+    // remove old rois
+    [scndViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
+    [scndViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
+    [scndViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry"];
+    [scndViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
+    
+    // show new rois if selected
     if ([segDifToggle selectedSegment] == 0) {
         [workingSet modelROItoController:scndViewer forGeometry:@"difGeometry"];
-    } else {
-        [scndViewer roiIntDeleteAllROIsWithSameName:@"difGeometry"];
     }
     if ([segEamToggle selectedSegment] == 0) {
         [workingSet modelROItoController:scndViewer forGeometry:@"eamGeometry"];
-    } else {
-        [scndViewer roiIntDeleteAllROIsWithSameName:@"eamGeometry"];
     }
     if ([segLesionToggle selectedSegment] == 0) {
         [workingSet modelPointsToController:scndViewer forGeometry:@"lesionGeometry"];
-    } else {
-        [scndViewer roiIntDeleteAllROIsWithSameName:@"lesionGeometry"];
     }
     if ([segSteponeToggle selectedSegment] == 0) {
         [workingSet modelROItoController:scndViewer forGeometry:@"angioGeometry"];
-    } else {
-        [scndViewer roiIntDeleteAllROIsWithSameName:@"angioGeometry"];
     }
 }
 

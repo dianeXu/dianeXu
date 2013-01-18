@@ -140,7 +140,7 @@
         // go to image matching the current slice
         roiImageList = [roiSeriesList objectAtIndex:currentIndex];
         // add ROI if there are any points in it
-        if ([points count] != 0) {
+        if ([points count] > 2) {
             [roiImageList addObject:newRoi];
         }
     }
