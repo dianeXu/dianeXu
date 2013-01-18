@@ -52,6 +52,7 @@
 @synthesize segEamToggle;
 @synthesize segLesionToggle;
 @synthesize segAllToggle;
+@synthesize segRegistratedRoi;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
