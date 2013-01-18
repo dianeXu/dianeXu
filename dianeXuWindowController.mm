@@ -162,7 +162,6 @@
             [previewSegmentation start3dRegionGrowingAt:pxZ withSeedPoint:NSMakePoint(pxX, pxY) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
             [previewSegmentation release];
         }
-        
         [[note userInfo] setValue:[NSNumber numberWithBool:YES] forKey:@"stopMouseDown"];
     }
 }
