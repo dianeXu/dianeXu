@@ -54,6 +54,10 @@
 @synthesize segRegistratedRoi;
 @synthesize buttonShowToggledRois;
 @synthesize buttonRegisterModels;
+@synthesize labelVisDifCount;
+@synthesize labelVisAngioCount;
+@synthesize labelVisEamCount;
+@synthesize labelVisLesionCount;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
@@ -210,6 +214,7 @@
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry point"];
+            [self updateLabelsGUI]; // make sure the labels are up to date
             [tabStep selectTabViewItemAtIndex:toStep];
             [buttonShowToggledRois setEnabled:YES];
             break;
@@ -229,6 +234,19 @@
             NSLog(@"Huh? I have no idea what that step is supposed to be. Sorry.");
             break;
     }
+}
+
+/*
+ * Method to update all general labels to their respective Values
+ */
+- (void) updateLabelsGUI {
+    [labelMRINumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
+    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
+    [labelLesionNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
+    [labelVisAngioCount setStringValue:[NSString stringWithFormat:@"%d",[[workingSet angioGeometry] count]]];
+    [labelVisDifCount setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
+    [labelVisEamCount setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
+    [labelVisLesionCount setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
 }
 
 #pragma mark IBAction implementations
@@ -269,9 +287,8 @@
     [retrieve dealloc];
     
     // update interface
-    [labelMRINumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
-    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
-    [labelLesionNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
+    [self updateLabelsGUI];
+    
     // Enable show ROI button now that we have the data
     [segDifRoi setEnabled:YES];
     [buttonRegisterModels setEnabled:YES];
@@ -279,7 +296,7 @@
 }
 
 - (IBAction)pushDifRoi:(id)sender {
-    //NSLog(@"%@",[workingSet difGeometry]);
+//  NSLog(@"%@",[workingSet difGeometry]);
     if ([segDifRoi selectedSegment] == 0) {
         [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
         [workingSet modelROItoController:mainViewer forGeometry:@"difGeometry"];
@@ -316,7 +333,7 @@
     [reg performRegistration:0];
     [workingSet setEamGeometry:[reg transformPoints:[workingSet eamGeometry]]];
     [workingSet setLesionGeometry:[reg transformPoints:[workingSet lesionGeometry]]];
-    //NSLog(@"%@ %@",[workingSet angioGeometry],[workingSet eamGeometry]);
+//  NSLog(@"%@ %@",[workingSet angioGeometry],[workingSet eamGeometry]);
     [[statusWindow window] orderOut:nil];
     // enable related gui components
     [segRegistratedRoi setEnabled:YES];

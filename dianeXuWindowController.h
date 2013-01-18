@@ -63,6 +63,10 @@
     NSSegmentedControl *segRegistratedRoi;
     NSButton *buttonShowToggledRois;
     NSButton *buttonRegisterModels;
+    NSTextField *labelVisDifCount;
+    NSTextField *labelVisAngioCount;
+    NSTextField *labelVisEamCount;
+    NSTextField *labelVisLesionCount;
     NSButton *buttonInfo;
     NSButton *pushShowEAMRoi;
     NSButton *pushRegisterClouds;
@@ -105,6 +109,10 @@
 @property (assign) IBOutlet NSSegmentedControl *segRegistratedRoi;
 @property (assign) IBOutlet NSButton *buttonShowToggledRois;
 @property (assign) IBOutlet NSButton *buttonRegisterModels;
+@property (assign) IBOutlet NSTextField *labelVisDifCount;
+@property (assign) IBOutlet NSTextField *labelVisAngioCount;
+@property (assign) IBOutlet NSTextField *labelVisEamCount;
+@property (assign) IBOutlet NSTextField *labelVisLesionCount;
 
 - (IBAction)pushNext:(id)sender;
 - (IBAction)pushPrev:(id)sender;
@@ -134,5 +142,10 @@
  * Method to update the gui according to selected step in TabView
  */
 - (void) updateStepGUI:(int)toStep;
+
+/*
+ * Method to update all general labels to their respective Values
+ */
+- (void) updateLabelsGUI;
 
 @end

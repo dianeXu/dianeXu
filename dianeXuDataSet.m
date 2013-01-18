@@ -106,7 +106,7 @@
     
     // sort points to approximate the polygon border 
     [pointsROI sortUsingDescriptors:sortDescriptors];
-    NSLog(@"dianeXu: %@",pointsROI);
+//    NSLog(@"dianeXu: %@",pointsROI);
     
     // prepare data for ROI handling
     //DCMPix* curPix = [[targetController pixList] objectAtIndex:[[targetController imageView] curImage]];
