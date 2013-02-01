@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012-2013 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -35,10 +35,10 @@
 /*
  * Initializes the class with a viewer for segmentation
  */
--(id) initWithViewer:(ViewerController*)viewer;
+- (id)initWithViewer:(ViewerController*)viewer;
 
 /*
  * Perform the 3d region growing and return a ROI to the viewer
  */
--(NSMutableArray*) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution;
+- (NSMutableArray*)start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution;
 @end

@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012-2013 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -33,15 +33,33 @@
     NSMutableArray* angioGeometry;
 }
 
-@property (retain) NSMutableArray* difGeometry;
-@property (retain) NSMutableArray* eamGeometry;
-@property (retain) NSMutableArray* lesionGeometry;
-@property (retain) NSMutableArray* angioGeometry;
+@property (retain,nonatomic) NSMutableArray* difGeometry;
+@property (retain,nonatomic) NSMutableArray* eamGeometry;
+@property (retain,nonatomic) NSMutableArray* lesionGeometry;
+@property (retain,nonatomic) NSMutableArray* angioGeometry;
 
 /*
  * output model data as roi to a viewer controller
  */
 - (void)modelROItoController:(ViewerController*)targetController forGeometry:(NSString*)geometry;
+
+/*
+ * output model data as point rois to a viewer controller
+ */
+- (void)modelPointsToController:(ViewerController*)targetController forGeometry:(NSString*)geometry;
+
+/*
+ * reduce the number of points in a model to be lower than maxPoints.
+ */
+- (NSMutableArray*)reduceModelPointsOf:(NSMutableArray*)inArray to:(int)maxPoints;
+
+/*
+ * custom setters for all models using the number reduce
+ */
+- (void)setAngioGeometry:(NSMutableArray *)inGeometry;
+- (void)setDifGeometry:(NSMutableArray *)inGeometry;
+- (void)setEamGeometry:(NSMutableArray *)inGeometry;
+- (void)setLesionGeometry:(NSMutableArray *)inGeometry;
 
 /*
  * sort the points of a roi slice in circular fashion to approcimate the closed polygon order.

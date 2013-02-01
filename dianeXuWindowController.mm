@@ -15,11 +15,12 @@
 //  You should have received a copy of the GNU General Public License
 //  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012-2013 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import "dianeXuWindowController.h"
 #import "dianeXuITK3dRegionGrowing.h"
+#import "dianeXuITKPointSetRegistration.h"
 
 #import <OsiriXAPI/PreferencesWindowController.h>
 
@@ -28,7 +29,6 @@
 @end
 
 @implementation dianeXuWindowController
-@synthesize buttonDifRoi;
 @synthesize labelEAMNumCoords;
 @synthesize labelLesionNumCoords;
 @synthesize boxSegAlgorithm;
@@ -44,6 +44,20 @@
 @synthesize checkPreview;
 @synthesize labelLowerThresholdProposal;
 @synthesize labelUpperThresholdProposal;
+@synthesize segDifRoi;
+@synthesize segSteponeRoi;
+@synthesize segDifToggle;
+@synthesize segSteponeToggle;
+@synthesize segEamToggle;
+@synthesize segLesionToggle;
+@synthesize segAllToggle;
+@synthesize segRegistratedRoi;
+@synthesize buttonShowToggledRois;
+@synthesize buttonRegisterModels;
+@synthesize labelVisDifCount;
+@synthesize labelVisAngioCount;
+@synthesize labelVisEamCount;
+@synthesize labelVisLesionCount;
 @synthesize mainViewer,scndViewer;
 @synthesize currentStep;
 @synthesize buttonNext,buttonPrev,buttonInfo;
@@ -152,7 +166,6 @@
             [previewSegmentation start3dRegionGrowingAt:pxZ withSeedPoint:NSMakePoint(pxX, pxY) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
             [previewSegmentation release];
         }
-        
         [[note userInfo] setValue:[NSNumber numberWithBool:YES] forKey:@"stopMouseDown"];
     }
 }
@@ -167,13 +180,16 @@
         case 0:
             [buttonPrev setEnabled:FALSE];
             [buttonNext setEnabled:TRUE];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry point"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
         case 1:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
             [tabStep selectTabViewItemAtIndex:toStep];
             [labelEAMSource setStringValue:[[NSUserDefaults standardUserDefaults] valueForKey:dianeXuEAMSourceKey]];
@@ -182,24 +198,35 @@
         case 2:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry point"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
         case 3:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:TRUE];
-            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry point"];
+            [self updateLabelsGUI]; // make sure the labels are up to date
             [tabStep selectTabViewItemAtIndex:toStep];
+            [buttonShowToggledRois setEnabled:YES];
             break;
             
         case 4:
             [buttonPrev setEnabled:TRUE];
             [buttonNext setEnabled:FALSE];
-            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angio model"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
             [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
+            [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry point"];
             [tabStep selectTabViewItemAtIndex:toStep];
             break;
             
@@ -207,6 +234,19 @@
             NSLog(@"Huh? I have no idea what that step is supposed to be. Sorry.");
             break;
     }
+}
+
+/*
+ * Method to update all general labels to their respective Values
+ */
+- (void) updateLabelsGUI {
+    [labelMRINumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
+    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
+    [labelLesionNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
+    [labelVisAngioCount setStringValue:[NSString stringWithFormat:@"%d",[[workingSet angioGeometry] count]]];
+    [labelVisDifCount setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
+    [labelVisEamCount setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
+    [labelVisLesionCount setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
 }
 
 #pragma mark IBAction implementations
@@ -230,8 +270,7 @@
 }
 
 - (IBAction)pushInfo:(id)sender {
-    //TODO: Insert info popup about the working set.
-    [workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
+    //TODO: Insert info popup about the working set and used viewers
 }
 
 - (IBAction)pushGetNavxData:(id)sender {
@@ -248,16 +287,23 @@
     [retrieve dealloc];
     
     // update interface
-    [labelMRINumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet difGeometry] count]]];
-    [labelEAMNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet eamGeometry] count]]];
-    [labelLesionNumCoords setStringValue:[NSString stringWithFormat:@"%d",[[workingSet lesionGeometry] count]]];
+    [self updateLabelsGUI];
+    
     // Enable show ROI button now that we have the data
-    [buttonDifRoi setEnabled:YES];
+    [segDifRoi setEnabled:YES];
+    [buttonRegisterModels setEnabled:YES];
     [[statusWindow window] orderOut:nil];
 }
 
 - (IBAction)pushDifRoi:(id)sender {
-    [workingSet modelROItoController:mainViewer forGeometry:@"difGeometry"];
+//  NSLog(@"%@",[workingSet difGeometry]);
+    if ([segDifRoi selectedSegment] == 0) {
+        [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
+        [workingSet modelROItoController:mainViewer forGeometry:@"difGeometry"];
+    } else {
+        [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
+    }
+
 }
 
 - (IBAction)pushSegCompute:(id)sender {
@@ -265,16 +311,88 @@
         NSRunInformationalAlertPanel(@"WARNING", @"First select a seedpoint by clicking into the image!", @"OK", nil, nil,nil);
         return;
     }
-    NSString* roiName = [NSString stringWithFormat:@"dianeXu angio model"];
+    NSString* roiName = [NSString stringWithFormat:@"dianeXu angioGeometry"];
     NSColor* roiColor = [NSColor colorWithCalibratedRed:1.0f green:0.1f blue:0.1f alpha:1.0f];
     // clear old ROIs
     [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu segmentation preview"];
     [mainViewer roiIntDeleteAllROIsWithSameName:roiName];
     // perform segmentation
-    NSMutableArray* segmentedModel = [NSMutableArray new];
     dianeXuITK3dRegionGrowing* computeSegmentation = [[dianeXuITK3dRegionGrowing alloc] initWithViewer:mainViewer];
-    segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:8];
+    NSMutableArray* segmentedModel = [computeSegmentation start3dRegionGrowingAt:-1 withSeedPoint:NSMakePoint((float)[[labelXpx stringValue] floatValue], (float)[[labelYpx stringValue] floatValue]) usingRoiName:roiName andRoiColor:roiColor withAlgorithm:0 lowerThreshold:[[textLowerThreshold stringValue] floatValue]  upperThreshold:[[textUpperThreshold stringValue] floatValue] outputResolution:4];
     [computeSegmentation release];
     [workingSet setAngioGeometry:segmentedModel];
+    // enable related gui components
+    [segSteponeRoi setEnabled:YES];
+}
+
+- (IBAction)pushRegisterModels:(id)sender {
+    [statusWindow setStatusText:@"Performing registration... grab a coffee, this may take a while"];
+    [statusWindow showStatusText];
+    dianeXuITKPointSetRegistration* reg = [[dianeXuITKPointSetRegistration alloc] initWithFixedSet:[workingSet angioGeometry] andMovingSet:[workingSet eamGeometry]];
+    [reg performRegistration:0];
+    [workingSet setEamGeometry:[reg transformPoints:[workingSet eamGeometry]]];
+    [workingSet setLesionGeometry:[reg transformPoints:[workingSet lesionGeometry]]];
+//  NSLog(@"%@ %@",[workingSet angioGeometry],[workingSet eamGeometry]);
+    [[statusWindow window] orderOut:nil];
+    // enable related gui components
+    [segRegistratedRoi setEnabled:YES];
+    [reg release];
+}
+
+- (IBAction)pushRegistratedROI:(id)sender {
+    if ([segRegistratedRoi selectedSegment] == 0) {
+        [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
+        [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry point"];
+        [workingSet modelROItoController:mainViewer forGeometry:@"eamGeometry"];
+        [workingSet modelPointsToController:mainViewer forGeometry:@"lesionGeometry"];
+    } else {
+        [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
+        [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry point"];
+    }
+}
+
+- (IBAction)pushSteponeRoi:(id)sender {
+    if ([segSteponeRoi selectedSegment] == 0) {
+        [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
+        [workingSet modelROItoController:mainViewer forGeometry:@"angioGeometry"];
+    } else {
+        [mainViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
+    }
+}
+
+- (IBAction)pushShowToggledRois:(id)sender {
+    // remove old rois
+    [scndViewer roiIntDeleteAllROIsWithSameName:@"dianeXu difGeometry"];
+    [scndViewer roiIntDeleteAllROIsWithSameName:@"dianeXu eamGeometry"];
+    [scndViewer roiIntDeleteAllROIsWithSameName:@"dianeXu lesionGeometry"];
+    [scndViewer roiIntDeleteAllROIsWithSameName:@"dianeXu angioGeometry"];
+    
+    // show new rois if selected
+    if ([segDifToggle selectedSegment] == 0) {
+        [workingSet modelROItoController:scndViewer forGeometry:@"difGeometry"];
+    }
+    if ([segEamToggle selectedSegment] == 0) {
+        [workingSet modelROItoController:scndViewer forGeometry:@"eamGeometry"];
+    }
+    if ([segLesionToggle selectedSegment] == 0) {
+        [workingSet modelPointsToController:scndViewer forGeometry:@"lesionGeometry"];
+    }
+    if ([segSteponeToggle selectedSegment] == 0) {
+        [workingSet modelROItoController:scndViewer forGeometry:@"angioGeometry"];
+    }
+}
+
+- (IBAction)pushToggleAllRois:(id)sender {
+    if ([segAllToggle selectedSegment] == 0) {
+        [segDifToggle setSelectedSegment:0];
+        [segEamToggle setSelectedSegment:0];
+        [segLesionToggle setSelectedSegment:0];
+        [segSteponeToggle setSelectedSegment:0];
+    } else {
+        [segDifToggle setSelectedSegment:1];
+        [segEamToggle setSelectedSegment:1];
+        [segLesionToggle setSelectedSegment:1];
+        [segSteponeToggle setSelectedSegment:1];
+    }
 }
 @end
