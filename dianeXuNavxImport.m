@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012-2013 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import "dianeXuNavxImport.h"
@@ -205,10 +205,12 @@
         //seperate the coords
         NSArray *justCoords = [trimmedSingleCoord componentsSeparatedByString:@"  "];
         
-        //set coordinate values and add to difGeometry array with corrected y-z orientation.
+        //set coordinate values and add to difGeometry array
         [localCurrentCoord setXValue:[NSDecimalNumber  decimalNumberWithString:[justCoords objectAtIndex:0]]];
-        [localCurrentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
-        [localCurrentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
+        [localCurrentCoord setYValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:1]]];
+        [localCurrentCoord setZValue:[NSDecimalNumber decimalNumberWithString:[justCoords objectAtIndex:2]]];
+        //correct z-axis orientation invert
+        [localCurrentCoord setZValue:[[NSDecimalNumber decimalNumberWithString:@"0"] decimalNumberBySubtracting:[localCurrentCoord zValue]]];
         //NSLog(@"%@ %@ %@", [localCurrentCoord xValue],[localCurrentCoord yValue],[localCurrentCoord zValue]);
         
         [difGeometry addObject:localCurrentCoord];

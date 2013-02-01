@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012-2013 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import "dianeXuITK3dRegionGrowing.h"
@@ -85,7 +85,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 /*
  * Initializes the class with a viewer for segmentation
  */
--(id) initWithViewer:(ViewerController*)viewer {
+- (id)initWithViewer:(ViewerController*)viewer {
     self = [super init];
     if (self) {
         segViewer = viewer;
@@ -107,7 +107,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 /*
  * Perform the 3d region growing and return a ROI to the viewer
  */
--(NSMutableArray*) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution {
+- (NSMutableArray*) start3dRegionGrowingAt:(long)slice withSeedPoint:(NSPoint)seed usingRoiName:(NSString*)name andRoiColor:(NSColor*)color withAlgorithm:(int)algorithmIndex lowerThreshold:(float)lowerThreshold upperThreshold:(float)upperThreshold outputResolution:(long)roiResolution {
     NSLog(@"dianeXu: Starting 3D region growing.");
     
     //init resulting model array
@@ -256,7 +256,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
                 [roiPoints addObject:[segViewer newPoint:p[0] :p[1]]];
             }
             
-            #define MAXPOINTS 100
+            #define MAXPOINTS 500
     
             if ([roiPoints count] > MAXPOINTS) {
                 long newRoiResolution = [roiPoints count] / MAXPOINTS;
@@ -292,8 +292,8 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
             //add points to output model
             double pixelSpacings[3];
             pixelSpacings[0] = [[[segViewer pixList] objectAtIndex:0] pixelSpacingX];
-            pixelSpacings[1] = [[[segViewer pixList] objectAtIndex:0] pixelSpacingY];
-            pixelSpacings[2] = [[[segViewer pixList] objectAtIndex:0] sliceThickness];
+            pixelSpacings[1] = [[[segViewer pixList] objectAtIndex:0] sliceThickness];
+            pixelSpacings[2] = [[[segViewer pixList] objectAtIndex:0] pixelSpacingY];
             double offsetOrigin[3];
             offsetOrigin[0] = [[[segViewer pixList] objectAtIndex:0] originX];
             offsetOrigin[1] = [[[segViewer pixList] objectAtIndex:0] originY];
@@ -302,13 +302,13 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
             for (MyPoint* currentPoint in roiPoints) {
                 dianeXuCoord* newCoord = [dianeXuCoord new];
                 [newCoord setXValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:currentPoint.x*pixelSpacings[0]] decimalValue]]];
-                [newCoord setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:currentPoint.y*pixelSpacings[1]] decimalValue]]];
-                [newCoord setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:i*pixelSpacings[2]] decimalValue]]];
+                [newCoord setYValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:i*pixelSpacings[1]] decimalValue]]];
+                [newCoord setZValue:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:currentPoint.y*pixelSpacings[2]] decimalValue]]];
                 
                 // get coordinates corrected by originoffset, correct offset orientation
                 [newCoord setXValue:[[newCoord xValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[0]] decimalValue]]]];
-                [newCoord setYValue:[[newCoord yValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[1]] decimalValue]]]];
-                [newCoord setZValue:[[newCoord zValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[2]] decimalValue]]]];
+                [newCoord setYValue:[[newCoord yValue] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[1]] decimalValue]]]];
+                [newCoord setZValue:[[newCoord zValue] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithDouble:offsetOrigin[2]] decimalValue]]]];
                 
                 [modelArray addObject:newCoord];
             }
@@ -330,7 +330,7 @@ void ConnectPipelines(ITK_Exporter exporter, VTK_Importer* importer)
 /*
  * Custom dealloc to get rid of ITK objects.
  */
--(void)dealloc {
+- (void)dealloc {
     [segImageWrapper dealloc];
     [super dealloc];
 }

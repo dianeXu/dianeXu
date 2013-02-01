@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with dianeXu.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  Copyright (c) 2012 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
+//  Copyright (c) 2012-2013 Dipl.Ing.(FH) Björn Schwarz <beegz@dianeXu.com>. All rights reserved.
 //
 
 #import "dianeXuFilter.h"
