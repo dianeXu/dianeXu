@@ -52,7 +52,7 @@
 /*
  * Method to import NavX data from given export's base directory
  */
-- (void)retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput;
+- (void)retrieveNavxDataFrom:(NSURL*)sourcePath withError:(NSError**)errorOutput;
 
 /*
  *  Method to extract coordinate Data from a parsed dif model String.

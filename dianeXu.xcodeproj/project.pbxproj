@@ -755,7 +755,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = CE6A9A9408AC841300D0C1EE /* Build configuration list for PBXProject "dianeXu" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -865,6 +865,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -899,9 +900,8 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = prefPane;
 				ZERO_LINK = "";
 			};
@@ -913,6 +913,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -940,9 +941,8 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = NO;
 			};
@@ -952,6 +952,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUGGING_SYMBOLS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -959,7 +960,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -984,7 +984,7 @@
 				);
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = dianeXu;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				USER_HEADER_SEARCH_PATHS = "ITK4/Modules/Segmentation/** ITK4/Modules/Filtering/** ITK4/Modules/Registration/** ITK4/Modules/Core/** ITK4/Modules/Bridge/VTK/include ITK4/Modules/Numerics/Optimizers/include ITK4/build/Modules/ThirdParty/VNL/src/vxl/core ITK4/build/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/ThirdParty/VNL/src/vxl ITK4/Modules/ThirdParty/VNL/src/vxl/core ITK4/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/Core/Common ITK4/Modules/Core/Transform/include ITK4/Modules/Core/Common/include ITK4/Modules/Core/ImageFunction/include VTKHeaders";
 				WARNING_CFLAGS = (
@@ -1001,12 +1001,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dianeXu_Prefix.pch;
@@ -1029,7 +1029,7 @@
 				);
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = dianeXu;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				USER_HEADER_SEARCH_PATHS = "ITK4/Modules/Segmentation/** ITK4/Modules/Filtering/** ITK4/Modules/Registration/** ITK4/Modules/Core/** ITK4/Modules/Bridge/VTK/include ITK4/Modules/Numerics/Optimizers/include ITK4/build/Modules/ThirdParty/VNL/src/vxl/core ITK4/build/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/ThirdParty/VNL/src/vxl ITK4/Modules/ThirdParty/VNL/src/vxl/core ITK4/Modules/ThirdParty/VNL/src/vxl/vcl ITK4/build/Modules/Core/Common ITK4/Modules/Core/Transform/include ITK4/Modules/Core/Common/include ITK4/Modules/Core/ImageFunction/include VTKHeaders";
 				WARNING_CFLAGS = (
@@ -1050,7 +1050,7 @@
 					x86_64,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = Development;
 		};
@@ -1062,7 +1062,7 @@
 					i386,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = Deployment;
 		};

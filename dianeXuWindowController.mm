@@ -279,7 +279,7 @@
     NavxImport *retrieve = [[NavxImport alloc] init];
     NSError *error = nil;
 
-    [retrieve retrieveNavxDataFrom:[pathEAM URL] :&error];
+    [retrieve retrieveNavxDataFrom:[pathEAM URL] withError:&error];
     [workingSet setDifGeometry:[[retrieve difGeometry] copy]];
     [workingSet setEamGeometry:[[retrieve eamGeometry] copy]];
     [workingSet setLesionGeometry:[[retrieve lesionGeometry] copy]];

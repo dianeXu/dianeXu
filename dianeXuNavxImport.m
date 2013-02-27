@@ -39,7 +39,7 @@
 }
 
 #pragma mark XML Parser
-- (void) retrieveNavxDataFrom:(NSURL*)sourcePath:(NSError**)errorOutput {
+- (void) retrieveNavxDataFrom:(NSURL*)sourcePath withError:(NSError**)errorOutput {
     
     BOOL success = NO;
 
