@@ -43,6 +43,8 @@
     enum axis currentAxis;
     enum dataType currentDataType;
     NSString *rawNavxData;
+    NSString *sName;
+    bool isName;
 }
 
 @property (assign) NSMutableArray* difGeometry;

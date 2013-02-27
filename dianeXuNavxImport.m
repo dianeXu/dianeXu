@@ -27,6 +27,8 @@
 - (id)init {
     self = [super init];
     if(self) {
+        isName = false;
+        sName = [NSString new];
         currentContent = nil;
         currentCoord = nil;
         currentAxis = noaxis;
@@ -128,6 +130,7 @@
 
 #pragma mark NSXMLParserDelegate
 - (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
+    
     if ([elementName isEqualToString:@"Vertices"] && !currentContent) {
         currentContent = [NSMutableString string];
         currentDataType = dif;
@@ -152,13 +155,20 @@
             currentDataType = lesion;
         }
         
+    } else if ([elementName isEqualToString:@"Name"]) {
+        isName = true;
     }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+    // check if we're in a name tag
+    if (isName == true) {
+        sName = string;
+    }
+    
     if (currentDataType == dif && currentContent) {
         [currentContent appendString: string];
-    } else if ((currentDataType == eam || currentDataType == lesion) && currentCoord) {
+    } else if (((currentDataType == eam && [sName isEqualToString:@"LA"]) || currentDataType == lesion) && currentCoord) {
         if (currentAxis == x) {
             [currentCoord setXValue:[NSDecimalNumber decimalNumberWithString:string]];
         } else if (currentAxis == y) {
