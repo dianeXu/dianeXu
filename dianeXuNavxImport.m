@@ -121,7 +121,7 @@
     
     // verbose result logging
     //NSLog(@"%@",difGeometry);
-    //NSLog(@"%@",eamGeometry);
+    NSLog(@"%@",eamGeometry);
     //NSLog(@"%@",lesionGeometry);
 
 
@@ -163,12 +163,12 @@
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     // check if we're in a name tag
     if (isName == true) {
-        sName = string;
+        sName = [string copy];
     }
     
     if (currentDataType == dif && currentContent) {
         [currentContent appendString: string];
-    } else if (((currentDataType == eam && [sName isEqualToString:@"LA"]) || currentDataType == lesion) && currentCoord) {
+    } else if ((currentDataType == eam || currentDataType == lesion) && currentCoord) {
         if (currentAxis == x) {
             [currentCoord setXValue:[NSDecimalNumber decimalNumberWithString:string]];
         } else if (currentAxis == y) {
@@ -191,9 +191,13 @@
         currentDataType = notype;
         
     } else if ([elementName isEqualToString:@"Pt"] && currentCoord) {
-        [eamGeometry addObject:currentCoord];
+        if ([sName isEqualToString:@"LA"]) {
+            [eamGeometry addObject:currentCoord];
+        }
         currentCoord = nil;
         currentDataType = notype;
+    } else if ([elementName isEqualToString:@"Name"]) {
+        isName = false;
     }
     currentAxis = noaxis;
 }

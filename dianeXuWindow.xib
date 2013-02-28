@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
 		<string key="IBDocument.SystemVersion">11G63</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1138.51</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2844</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBNSLayoutConstraint</string>
@@ -67,6 +67,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{296, 12}, {72, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="727087369">
@@ -163,13 +164,13 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{13, 44}, {356, 297}}</string>
 							<reference key="NSSuperview" ref="1006"/>
-							<reference key="NSNextKeyView" ref="139076071"/>
+							<reference key="NSNextKeyView" ref="132300572"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="115737852">
 									<string key="NSIdentifier">1</string>
 									<object class="NSView" key="NSView" id="132300572">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="142595958"/>
 										<int key="NSvFlags">274</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSBox" id="1043028666">
@@ -782,6 +783,7 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {336, 251}}</string>
+										<reference key="NSSuperview" ref="142595958"/>
 										<reference key="NSNextKeyView" ref="1043028666"/>
 										<string key="NSReuseIdentifierKey">_NS:11</string>
 									</object>
@@ -820,9 +822,7 @@
 																	<int key="NSCellFlags2">131072</int>
 																	<object class="NSURL" key="NSContents">
 																		<nil key="NS.base"/>
-																		<object class="NSMutableString" key="NS.relative">
-																			<characters key="NS.bytes">file://localhost/Users/</characters>
-																		</object>
+																		<string key="NS.relative">file://localhost/Users/</string>
 																	</object>
 																	<reference key="NSSupport" ref="26"/>
 																	<string key="NSCellIdentifier">_NS:9</string>
@@ -1371,7 +1371,7 @@
 								</object>
 								<object class="NSTabViewItem" id="241675127">
 									<object class="NSView" key="NSView" id="139076071">
-										<reference key="NSNextResponder" ref="142595958"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">274</int>
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSBox" id="18679684">
@@ -1393,10 +1393,10 @@
 																<object class="NSSegmentedCell" key="NSCell" id="880882170">
 																	<int key="NSCellFlags">67108864</int>
 																	<int key="NSCellFlags2">0</int>
-																	<object class="NSFont" key="NSSupport">
+																	<object class="NSFont" key="NSSupport" id="24980204">
 																		<string key="NSName">LucidaGrande</string>
 																		<double key="NSSize">12</double>
-																		<int key="NSfFlags">4883</int>
+																		<int key="NSfFlags">16</int>
 																	</object>
 																	<string key="NSCellIdentifier">_NS:9</string>
 																	<reference key="NSControlView" ref="971637294"/>
@@ -1486,11 +1486,7 @@
 																<object class="NSSegmentedCell" key="NSCell" id="361365740">
 																	<int key="NSCellFlags">67108864</int>
 																	<int key="NSCellFlags2">0</int>
-																	<object class="NSFont" key="NSSupport" id="958279202">
-																		<string key="NSName">LucidaGrande</string>
-																		<double key="NSSize">12</double>
-																		<int key="NSfFlags">16</int>
-																	</object>
+																	<reference key="NSSupport" ref="24980204"/>
 																	<string key="NSCellIdentifier">_NS:9</string>
 																	<reference key="NSControlView" ref="1012513639"/>
 																	<array class="NSMutableArray" key="NSSegmentImages">
@@ -1560,7 +1556,7 @@
 																<object class="NSSegmentedCell" key="NSCell" id="963417388">
 																	<int key="NSCellFlags">67108864</int>
 																	<int key="NSCellFlags2">0</int>
-																	<reference key="NSSupport" ref="958279202"/>
+																	<reference key="NSSupport" ref="24980204"/>
 																	<string key="NSCellIdentifier">_NS:9</string>
 																	<reference key="NSControlView" ref="788186891"/>
 																	<array class="NSMutableArray" key="NSSegmentImages">
@@ -1630,7 +1626,7 @@
 																<object class="NSSegmentedCell" key="NSCell" id="119321000">
 																	<int key="NSCellFlags">67108864</int>
 																	<int key="NSCellFlags2">0</int>
-																	<reference key="NSSupport" ref="958279202"/>
+																	<reference key="NSSupport" ref="24980204"/>
 																	<string key="NSCellIdentifier">_NS:9</string>
 																	<reference key="NSControlView" ref="418526310"/>
 																	<array class="NSMutableArray" key="NSSegmentImages">
@@ -1700,7 +1696,7 @@
 																<object class="NSSegmentedCell" key="NSCell" id="313431270">
 																	<int key="NSCellFlags">67108864</int>
 																	<int key="NSCellFlags2">0</int>
-																	<reference key="NSSupport" ref="958279202"/>
+																	<reference key="NSSupport" ref="24980204"/>
 																	<string key="NSCellIdentifier">_NS:9</string>
 																	<reference key="NSControlView" ref="669110675"/>
 																	<array class="NSMutableArray" key="NSSegmentImages">
@@ -1841,7 +1837,6 @@
 											</object>
 										</array>
 										<string key="NSFrame">{{10, 33}, {336, 251}}</string>
-										<reference key="NSSuperview" ref="142595958"/>
 										<reference key="NSNextKeyView" ref="18679684"/>
 									</object>
 									<string key="NSLabel">Step 4</string>
@@ -1897,13 +1892,13 @@
 									<reference key="NSTabView" ref="142595958"/>
 								</object>
 							</array>
-							<reference key="NSSelectedTabViewItem" ref="241675127"/>
+							<reference key="NSSelectedTabViewItem" ref="115737852"/>
 							<reference key="NSFont" ref="733176531"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<array class="NSMutableArray" key="NSSubviews">
-								<reference ref="139076071"/>
+								<reference ref="132300572"/>
 							</array>
 						</object>
 					</array>

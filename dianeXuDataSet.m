@@ -40,7 +40,7 @@
  */
 - (void)modelROItoController: (ViewerController*)targetController forGeometry:(NSString*)geometry {
     NSMutableArray* modelData = [self valueForKey:geometry];
-    //NSLog(@"%@",modelData);
+    NSLog(@"dianeXu: Model for ROI %@",modelData);
     // prepare needed data du adjust pixelspacings in model data
     dianeXuCoord* pixelGeometry = [[dianeXuCoord alloc] init];
     DCMPix* slice = [[targetController pixList] objectAtIndex:0];

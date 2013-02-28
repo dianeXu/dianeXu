@@ -170,7 +170,9 @@ typedef PointsContainer::Iterator PointsIterator;
 
     while (pointIterator != endIterator) {
         PointType tmpPoint = pointIterator.Value();
+        NSLog(@"TMP %f %f %f",tmpPoint[0],tmpPoint[1],tmpPoint[2]);
         PointType inPoint = transformData->TransformPoint(tmpPoint);
+        NSLog(@"%f %f %f",inPoint[0],inPoint[1],inPoint[2]);
         outContainer->InsertElement(pointIterator->Index(), inPoint);
         ++pointIterator;
     }
@@ -179,8 +181,9 @@ typedef PointsContainer::Iterator PointsIterator;
     PointsIterator endIterator2 = outContainer->End();
     
     while (pointIterator2 != endIterator2) {
-        dianeXuCoord* tmpCoord = [[dianeXuCoord alloc] init];
+        dianeXuCoord* tmpCoord = [dianeXuCoord new];
         PointType outPoint = pointIterator2.Value();
+        NSLog(@"OUT %f %f %f",outPoint[0],outPoint[1],outPoint[2]);
         [tmpCoord setXValue:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",outPoint[0]]]];
         [tmpCoord setYValue:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",outPoint[1]]]];
         [tmpCoord setZValue:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f",outPoint[2]]]];
@@ -188,6 +191,7 @@ typedef PointsContainer::Iterator PointsIterator;
         tmpCoord = nil;
         ++pointIterator2;
     }
+    NSLog(@"dianeXu: %@",transformResult);
     return [transformResult retain];
 }
 
