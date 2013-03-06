@@ -81,7 +81,7 @@
     return 0;
 }
 
-+(id)getWindowForController:(ViewerController*)mViewer andController:(ViewerController*)sViewer {
++ (id)getWindowForController:(ViewerController*)mViewer andController:(ViewerController*)sViewer {
     NSArray* windowList = [NSApp windows];
     
     for (id windowItem in windowList) {
