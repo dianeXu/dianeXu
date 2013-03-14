@@ -62,7 +62,7 @@ typedef PointsContainer::Iterator PointsIterator;
             
             NSLog(@"dianeXu: Point set registration initialized with %ld fixed and %ld moving points.",fixedPointSet->GetNumberOfPoints(),movingPointSet->GetNumberOfPoints());
         } else {
-            NSRunInformationalAlertPanel(@"OOPS... I am missing some data", @"Seems you forgot to complete a prior step, since one of the models is empty. If you are sure this is a bug, please refer to teh bugtracker via the preferences.", @"OK", nil, nil,nil);
+            NSRunInformationalAlertPanel(@"OOPS... I am missing some data", @"Seems you forgot to complete a prior step, since one of the models is empty. If you are sure this is a bug, please refer to the bugtracker via the preferences.", @"OK", nil, nil,nil);
             NSLog(@"dianeXu: Point set registration failed because fixed (%d) or moving (%d) points are empty.",[fixed count],[moving count]);
             self = nil;
         }

@@ -212,7 +212,7 @@
         }
     }
     // sort points to approximate the polygon border
-    [pointsROI sortUsingDescriptors:sortDescriptors];
+    //[pointsROI sortUsingDescriptors:sortDescriptors];
 //    NSLog(@"%@",pointsROI);
     
     // prepare data for ROI handling
